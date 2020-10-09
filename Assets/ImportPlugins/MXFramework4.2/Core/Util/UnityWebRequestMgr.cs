@@ -6,15 +6,13 @@
  *           功能：1.UnityWebRequest常用的API进行封装
  * 
  *    Date: 2020
- *    Version: v4.0版本
+ *    Version: v4.2版本
  *    Modify Recoder: 
  *      
  */
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
