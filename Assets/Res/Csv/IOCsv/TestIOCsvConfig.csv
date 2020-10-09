@@ -1,0 +1,6 @@
+﻿int/Id,string/Name,int/Age,float/Score,string[]/Designation
+1,测试IOCsv数据01,10,85.5,天下无敌;测试;小李
+2,测试IOCsv数据02,14,98.5,无敌;小明
+3,测试IOCsv数据03,28,0,武威
+4,测试IOCsv数据04,15,15,无敌;小宏
+5,测试IOCsv数据05,37,88,小芳
