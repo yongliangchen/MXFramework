@@ -11,6 +11,7 @@ namespace Mx.Example
     public class TestIOCsvConfig : MonoBehaviour
     {
         private ContentSizeFitter m_ContentSizeFitter;
+
         private TestIOCsvConfigDatabase m_Database;
         private GameObject m_Prefab;
         private Transform m_Parent;

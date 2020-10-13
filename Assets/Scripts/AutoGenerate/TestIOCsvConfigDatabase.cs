@@ -15,7 +15,7 @@ namespace Mx.Config
 		public float Score;
 		public string[] Designation;
 	}
-
+    
 	public class TestIOCsvConfigDatabase:IDatabase
 	{
 		public const uint TYPE_ID = 1;
