@@ -16,29 +16,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
-
 namespace Mx.Util
 {
-    public class UnityWebRequestMgr : MonoBehaviour
+    public class UnityWebRequestMgr :MonoSingleton<UnityWebRequestMgr>
     {
-        #region 数据申明
-
-        private static UnityWebRequestMgr instance;
-        public static UnityWebRequestMgr Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    GameObject mounter = new GameObject("UnityWebRequestMgr");
-                    instance = mounter.AddComponent<UnityWebRequestMgr>();
-                }
-                return instance;
-            }
-        }
-
-        #endregion
-
         #region 公开函数
 
         public void Get(string url, Action<UnityWebRequest> actionResult)
