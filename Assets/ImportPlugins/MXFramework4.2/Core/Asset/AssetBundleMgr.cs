@@ -15,7 +15,6 @@ namespace Mx.Res
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
-
             LoadManifest();
         }
 
@@ -30,6 +29,11 @@ namespace Mx.Res
             }
         }
 
+        /// <summary>
+        /// 同步加载AssetBundle包
+        /// </summary>
+        /// <param name="sceneName">场景名称</param>
+        /// <param name="abName">资源包名称</param>
         public void LoadAssetBunlde(string sceneName, string abName)
         {
             if (m_Manifest == null) return;
@@ -37,27 +41,21 @@ namespace Mx.Res
             tmpMultiABMgr.LoadAssetBunlde(abName);
         }
 
+        /// <summary>
+        /// 异步加载AssetBundel包
+        /// </summary>
+        /// <param name="sceneName">场景名称</param>
+        /// <param name="abName">资源包名称</param>
+        /// <param name="finish">加载完成回调</param>
+        /// <returns></returns>
         public IEnumerator LoadAssetBunldeAsyn(string sceneName, string abName, Action finish)
         {
             if (m_Manifest == null) yield break;
 
-            MultiABMgr tmpMultiABMgr = GetMultiABMgr(sceneName,abName);
+            MultiABMgr tmpMultiABMgr = GetMultiABMgr(sceneName, abName);
             yield return tmpMultiABMgr.LoadAssetBunldeAsyn(abName);
 
             if (finish != null) finish();
-        }
-
-        private MultiABMgr GetMultiABMgr(string sceneName,string abName)
-        {
-            abName = abName.ToLower();//将名字转换成小写
-
-            if (!dicAllScenes.ContainsKey(sceneName))
-            {
-                MultiABMgr multiABMgrObj = new MultiABMgr(abName);
-                dicAllScenes.Add(sceneName, multiABMgrObj);
-            }
-
-            return dicAllScenes[sceneName];
         }
 
         /// <summary>
@@ -119,6 +117,25 @@ namespace Mx.Res
             AssetBundle.UnloadAllAssetBundles(false);
             Resources.UnloadUnusedAssets();
             System.GC.Collect();
+        }
+
+        /// <summary>
+        /// 获取多个AssetBundle资源包
+        /// </summary>
+        /// <param name="sceneName">场景名称（资源分组）</param>
+        /// <param name="abName">AssetBundle名称（带后缀名）</param>
+        /// <returns></returns>
+        private MultiABMgr GetMultiABMgr(string sceneName, string abName)
+        {
+            abName = abName.ToLower();//将名字转换成小写
+
+            if (!dicAllScenes.ContainsKey(sceneName))
+            {
+                MultiABMgr multiABMgrObj = new MultiABMgr(abName);
+                dicAllScenes.Add(sceneName, multiABMgrObj);
+            }
+
+            return dicAllScenes[sceneName];
         }
     }
 }
