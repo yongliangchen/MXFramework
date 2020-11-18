@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Mx.Util;
+using Mx.Utils;
 using System;
 using System.IO;
 

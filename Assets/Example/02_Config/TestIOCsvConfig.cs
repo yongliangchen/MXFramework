@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using Mx.Config;
-using Mx.Util;
+using Mx.Net;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -75,7 +75,7 @@ namespace Mx.Example
         {
             if (!File.Exists(outPath.Replace("file://", null)))
             {
-                UnityWebRequestMgr.Instance.CopyFile(inPath, outPath, null, (unityWeb) =>
+                UnityWebRequestMgr.Instance.CopyFile(inPath, outPath,(progress, unityWeb) =>
                 {
                     if (!string.IsNullOrEmpty(unityWeb.error))
                     {
