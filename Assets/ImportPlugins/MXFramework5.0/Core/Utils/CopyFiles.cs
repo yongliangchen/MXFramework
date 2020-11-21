@@ -31,14 +31,13 @@ namespace Mx.Utils
                     break;
             }
 
-            DownloadFile(inPath, outPath, progress, actionResult, 0);
+            copy(inPath, outPath, progress, actionResult);
         }
 
-        private static void DownloadFile(string url, string downloadFilePathAndName, Action<float> progress, Action<UnityWebRequest> actionResult, int timeout)
+        private static void copy(string url, string downloadFilePathAndName, Action<float> progress, Action<UnityWebRequest> actionResult)
         {
             var uwr = new UnityWebRequest(url, UnityWebRequest.kHttpVerbGET);
 
-            uwr.timeout = timeout;
             uwr.downloadHandler = new DownloadHandlerFile(downloadFilePathAndName);
             uwr.SendWebRequest();
 
@@ -49,6 +48,5 @@ namespace Mx.Utils
 
             if (actionResult != null) { actionResult(uwr); }
         }
-
     }
 }

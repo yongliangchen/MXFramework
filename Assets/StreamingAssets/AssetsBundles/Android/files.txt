@@ -1,6 +1,0 @@
-ui/atlas.data|8cefad20de544811366eee5462872f9e|9623676
-ui/atlas.data.manifest|a9ddb00ad28d7abc1f1e9d74c786b45|2042
-ui/uiprefabs.data|bfe21b416389ca61da2c5be37537f151|15704
-ui/uiprefabs.data.manifest|e1c71028b3704c9c4720191bb98d97b6|1608
-Android|8355e462a56589f87828951764d3345|1049
-Android.manifest|d3c31f2b0e41ecc324e39c89260cd9b|239

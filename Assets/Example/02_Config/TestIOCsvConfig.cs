@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using Mx.Config;
-using Mx.Net;
 using UnityEngine;
 using UnityEngine.UI;
+using Mx.Utils;
 
 namespace Mx.Example
 {
@@ -75,11 +75,11 @@ namespace Mx.Example
         {
             if (!File.Exists(outPath.Replace("file://", null)))
             {
-                UnityWebRequestMgr.Instance.CopyFile(inPath, outPath,(progress, unityWeb) =>
+                CopyFiles.Copy(inPath, outPath,null,(uwr) =>
                 {
-                    if (!string.IsNullOrEmpty(unityWeb.error))
+                    if (!string.IsNullOrEmpty(uwr.error))
                     {
-                        Debug.LogWarning(GetType() + "/CopyFile()/ copy error! " + unityWeb.error);
+                        Debug.LogWarning(GetType() + "/CopyFile()/ copy error! " + uwr.error);
                     }
                     else { if (finish != null) finish(); }
                 });
