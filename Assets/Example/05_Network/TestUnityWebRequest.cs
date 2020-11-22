@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Mx.Net;
-using Mx.Utils;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 namespace Mx.Example
 {
@@ -18,6 +18,8 @@ namespace Mx.Example
         public Text downloadInfo1;
 
         public Slider downloadSlider2;
+        public Text downloadProgress2;
+        public Text downloadInfo2;
         private string outFolder;
 
      
@@ -173,9 +175,7 @@ namespace Mx.Example
             downloadSlider1.value = 0;
             downloadProgress1.text = "0";
             downloadInfo1.text = null;
-            string[] tempArr = url.Split('/');
-            string saveName = tempArr[tempArr.Length - 1];
-            string savePath = Application.persistentDataPath + "/" + saveName;
+            string savePath = outFolder;
 
             DownLoadFile.Instance.Download(url, savePath, (progress, uwr) =>
             {
@@ -188,12 +188,11 @@ namespace Mx.Example
 
                 if (string.IsNullOrEmpty(uwr.error))
                 {
+                    downloadSlider1.value = progress;
+                    downloadProgress1.text = progress.ToString("f2");
                     downloadInfo1.color = Color.green;
                     downloadInfo1.text = "文件下载完成：" + savePath;
                     Debug.Log("文件下载完成：" + savePath);
-                    downloadSlider1.value = uwr.downloadProgress;
-                    downloadProgress1.text = uwr.downloadProgress.ToString();
-
                 }
                 else
                 {
@@ -201,12 +200,14 @@ namespace Mx.Example
                     downloadInfo1.text = "下载文件出错：" + uwr.error;
                     Debug.Log("下载文件出错：" + uwr.error);
                 }
-            }, 20);
+            });
         }
 
         public void Download2(string url)
         {
             downloadSlider2.value = 0;
+            downloadProgress2.text = "0";
+            downloadInfo2.text = null;
             string savePath = outFolder;
 
             DownLoadFile.Instance.GetLastModified(url, (version) =>
@@ -214,21 +215,39 @@ namespace Mx.Example
                 if (!string.IsNullOrEmpty(version))
                 {
                     DownLoadFile.Instance.Download(url, savePath, version, (progress, uwr) => {
-                        downloadSlider2.value = progress;
-                        if (!uwr.isDone) return;
+
+                        if (!uwr.isDone)
+                        {
+                            downloadSlider2.value = progress;
+                            downloadProgress2.text = progress.ToString("f2");
+                            return;
+                        }
 
                         if (string.IsNullOrEmpty(uwr.error))
                         {
+                            downloadSlider2.value = progress;
+                            downloadProgress2.text = progress.ToString("f2");
+                            downloadInfo2.color = Color.green;
+                            downloadInfo2.text = "文件下载完成：" + savePath;
                             Debug.Log(GetType() + "/Download()/文件下载完成！savePath:" + savePath);
+                           
+                            Debug.Log(File.Exists(savePath + "/pg3.zip"));
                         }
                         else
                         {
+                            downloadInfo2.color = Color.red;
+                            downloadInfo2.text = "下载文件出错：" + uwr.error;
                             Debug.LogWarning(GetType() + "/Download()/文件下载出错！error:" + uwr.error);
                         }
                     });
                 }
 
-                else Debug.LogWarning(GetType() + "/Download()/获取文件版本号错误！");
+                else
+                {
+                    downloadInfo2.color = Color.red;
+                    downloadInfo2.text = "获取文件版本号错误!";
+                    Debug.LogWarning(GetType() + "/Download()/获取文件版本号错误！");
+                }
             });
         }
 

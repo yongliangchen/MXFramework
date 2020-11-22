@@ -210,7 +210,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://hisceneapp.oss-cn-shenzhen.aliyuncs.com/Test.zip
+          m_StringArgument: https://hisceneapp.oss-cn-shenzhen.aliyuncs.com/pg3.zip
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -1248,7 +1248,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://hisceneapp.oss-cn-shenzhen.aliyuncs.com/%E6%89%93%E5%8D%A1.zip
+          m_StringArgument: https://hisceneapp.oss-cn-shenzhen.aliyuncs.com/Test.zip
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -1419,6 +1419,8 @@ MonoBehaviour:
   downloadProgress1: {fileID: 486574450}
   downloadInfo1: {fileID: 87900972}
   downloadSlider2: {fileID: 1080320111}
+  downloadProgress2: {fileID: 1606726356}
+  downloadInfo2: {fileID: 1011059194}
 --- !u!82 &907414214
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2177,7 +2179,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://hisceneapp.oss-cn-shenzhen.aliyuncs.com/mm.jpg
+          m_StringArgument: https://hisceneapp.oss-cn-shenzhen.aliyuncs.com/image.png
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
