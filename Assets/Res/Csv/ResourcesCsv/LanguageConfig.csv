@@ -1,0 +1,8 @@
+﻿string/En,string/Cn,string[]/Scene
+UserName,账号,LogonUIForm
+Please enter the user name,请输入账号,LogonUIForm
+Please input a password,请输入密码,LogonUIForm
+Password,密码,LogonUIForm
+ForgetPassword,忘记密码,LogonUIForm
+Login..,登录,LogonUIForm
+Registered,注册,LogonUIForm

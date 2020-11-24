@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using Mx.Utils;
 using System;
@@ -6,21 +6,23 @@ using System;
 namespace Mx.Config
 {
     [Serializable]
-	public class $DataClassName
+	public class LanguageConfigData
 	{
-		$DataAttributes
+		public string En;
+		public string Cn;
+		public string[] Scene;
 	}
 
-	public class $DataTypeName:IDatabase
+	public class LanguageConfigDatabase:IDatabase
 	{
-		public const uint TYPE_ID = $DataID;
-		public const string DATA_PATH = $DataPath;
+		public const uint TYPE_ID = 2;
+		public const string DATA_PATH = "LanguageConfig";
        
 		private string[][] m_datas;
-        private Dictionary<string, $DataClassName> dicData = new Dictionary<string, $DataClassName>();
-        private List<$DataClassName> listData = new List<$DataClassName>();
+        private Dictionary<string, LanguageConfigData> dicData = new Dictionary<string, LanguageConfigData>();
+        private List<LanguageConfigData> listData = new List<LanguageConfigData>();
 
-		public $DataTypeName(){}
+		public LanguageConfigDatabase(){}
 
 		public uint TypeID()
 		{
@@ -54,8 +56,10 @@ namespace Mx.Config
 		{
 			for(int cnt = 0; cnt < m_datas.Length; cnt++)
 			{
-                $DataClassName m_tempData = new $DataClassName();
-			    $CsvSerialize
+                LanguageConfigData m_tempData = new LanguageConfigData();
+			    m_tempData.En = m_datas[cnt][0];
+		m_tempData.Cn = m_datas[cnt][1];
+		m_tempData.Scene = CSVConverter.ConvertToArray<string>(m_datas[cnt][2]);
                 if(!dicData.ContainsKey(m_datas[cnt][0]))
                 {
                     dicData.Add(m_datas[cnt][0], m_tempData);
@@ -64,9 +68,9 @@ namespace Mx.Config
 			}
 		}
 
-        public $DataClassName GetDataByKey(string key)
+        public LanguageConfigData GetDataByKey(string key)
         {
-            $DataClassName data;
+            LanguageConfigData data;
             dicData.TryGetValue(key, out data);
             return data;
         }
@@ -76,7 +80,7 @@ namespace Mx.Config
 			return listData.Count;
 		}
 
-        public List <$DataClassName> GetAllData()
+        public List <LanguageConfigData> GetAllData()
         {
             return listData;
         }

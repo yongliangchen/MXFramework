@@ -4,9 +4,3 @@ public class UIFormNames
 {
     $UIAttributes
 }
-
-/// <summary>UI类型</summary>
-public enum EnumUIFormType
-{
-     $UIType
-}

@@ -17,7 +17,7 @@ namespace Mx.Config
 
 	public class TestResourcesCsvConfigDatabase:IDatabase
 	{
-		public const uint TYPE_ID = 2;
+		public const uint TYPE_ID = 3;
 		public const string DATA_PATH = "TestResourcesCsvConfig";
        
 		private string[][] m_datas;

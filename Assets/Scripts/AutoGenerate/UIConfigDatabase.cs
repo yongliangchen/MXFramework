@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using Mx.Utils;
 using System;
@@ -6,21 +6,28 @@ using System;
 namespace Mx.Config
 {
     [Serializable]
-	public class $DataClassName
+	public class UIConfigData
 	{
-		$DataAttributes
+		public string Name;
+		public int LandType;
+		public int UIFormsDepth;
+		public int UIFormShowMode;
+		public string ResourcesPath;
+		public string AssetBundlePath;
+		public string AssetName;
+		public string Des;
 	}
 
-	public class $DataTypeName:IDatabase
+	public class UIConfigDatabase:IDatabase
 	{
-		public const uint TYPE_ID = $DataID;
-		public const string DATA_PATH = $DataPath;
+		public const uint TYPE_ID = 4;
+		public const string DATA_PATH = "UIConfig";
        
 		private string[][] m_datas;
-        private Dictionary<string, $DataClassName> dicData = new Dictionary<string, $DataClassName>();
-        private List<$DataClassName> listData = new List<$DataClassName>();
+        private Dictionary<string, UIConfigData> dicData = new Dictionary<string, UIConfigData>();
+        private List<UIConfigData> listData = new List<UIConfigData>();
 
-		public $DataTypeName(){}
+		public UIConfigDatabase(){}
 
 		public uint TypeID()
 		{
@@ -54,8 +61,30 @@ namespace Mx.Config
 		{
 			for(int cnt = 0; cnt < m_datas.Length; cnt++)
 			{
-                $DataClassName m_tempData = new $DataClassName();
-			    $CsvSerialize
+                UIConfigData m_tempData = new UIConfigData();
+			    m_tempData.Name = m_datas[cnt][0];
+		
+			if(!int.TryParse(m_datas[cnt][1], out m_tempData.LandType))
+			{
+				m_tempData.LandType = 0;
+			}
+
+		
+			if(!int.TryParse(m_datas[cnt][2], out m_tempData.UIFormsDepth))
+			{
+				m_tempData.UIFormsDepth = 0;
+			}
+
+		
+			if(!int.TryParse(m_datas[cnt][3], out m_tempData.UIFormShowMode))
+			{
+				m_tempData.UIFormShowMode = 0;
+			}
+
+		m_tempData.ResourcesPath = m_datas[cnt][4];
+		m_tempData.AssetBundlePath = m_datas[cnt][5];
+		m_tempData.AssetName = m_datas[cnt][6];
+		m_tempData.Des = m_datas[cnt][7];
                 if(!dicData.ContainsKey(m_datas[cnt][0]))
                 {
                     dicData.Add(m_datas[cnt][0], m_tempData);
@@ -64,9 +93,9 @@ namespace Mx.Config
 			}
 		}
 
-        public $DataClassName GetDataByKey(string key)
+        public UIConfigData GetDataByKey(string key)
         {
-            $DataClassName data;
+            UIConfigData data;
             dicData.TryGetValue(key, out data);
             return data;
         }
@@ -76,7 +105,7 @@ namespace Mx.Config
 			return listData.Count;
 		}
 
-        public List <$DataClassName> GetAllData()
+        public List <UIConfigData> GetAllData()
         {
             return listData;
         }

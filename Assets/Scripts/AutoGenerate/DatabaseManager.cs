@@ -12,7 +12,9 @@ namespace Mx.Config
 			m_databases = new Dictionary<uint, IDatabase>();
 
 			RegisterDataType(new TestIOCsvConfigDatabase());
-RegisterDataType(new TestResourcesCsvConfigDatabase());
+RegisterDataType(new LanguageConfigDatabase());
+			RegisterDataType(new TestResourcesCsvConfigDatabase());
+			RegisterDataType(new UIConfigDatabase());
 
 
 			Load();

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mx.UI;
@@ -6,8 +6,8 @@ using Mx.Msg;
 using Mx.Utils;
 using UnityEngine.UI;
 
-/// <summary> $classNote </summary>
-public class $className : BaseUIForm
+/// <summary> 首页UI面板 </summary>
+public class MainUIForm : BaseUIForm
 {
     private void Awake()
     {
@@ -15,13 +15,13 @@ public class $className : BaseUIForm
         RigisterButtonEvent();
 
         MessageMgr.AddMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.AddMsgListener("$messageType",OnUIFormMessagesEvent);
+        MessageMgr.AddMsgListener("MainUIFormEvent",OnUIFormMessagesEvent);
     }
 
     private void OnDestroy()
     {
         MessageMgr.RemoveMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.RemoveMsgListener("$messageType", OnUIFormMessagesEvent);
+        MessageMgr.RemoveMsgListener("MainUIFormEvent", OnUIFormMessagesEvent);
     }
 
     /// <summary>初始化UI界面</summary>
@@ -55,3 +55,4 @@ public class $className : BaseUIForm
     }
 
 }
+
