@@ -1,3 +1,5 @@
+/*代码自动生成的类，请勿手动修改*/
+
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -12,7 +14,8 @@ namespace Mx.Config
 			m_databases = new Dictionary<uint, IDatabase>();
 
 			RegisterDataType(new TestIOCsvConfigDatabase());
-RegisterDataType(new LanguageConfigDatabase());
+RegisterDataType(new CnConfigDatabase());
+			RegisterDataType(new EnConfigDatabase());
 			RegisterDataType(new TestResourcesCsvConfigDatabase());
 			RegisterDataType(new UIConfigDatabase());
 

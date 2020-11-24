@@ -30,15 +30,15 @@ namespace Mx.Example
 
         private void Create()
         {
-            if(m_Database==null|| m_Database.GetAllData()==null|| m_Database.GetAllData().Count==0)
+            if(m_Database==null|| m_Database.GetAllDataList()==null|| m_Database.GetAllDataList().Count==0)
             {
                 Debug.LogWarning(GetType() + "/Create()/ data is null!");
                 return;
             }
 
-            for(int i=0;i< m_Database.GetAllData().Count;i++)
+            for(int i=0;i< m_Database.GetAllDataList().Count;i++)
             {
-                TestResourcesCsvConfigData data = m_Database.GetAllData()[i];
+                TestResourcesCsvConfigData data = m_Database.GetAllDataList()[i];
 
                 GameObject item = Instantiate(m_Prefab, m_Parent);
                 item.SetActive(true);

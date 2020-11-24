@@ -1,0 +1,35 @@
+fileFormatVersion: 2
+guid: 8382d7f8352b70544aa11f6729f875f7
+labels:
+- table
+- sql
+- database
+- query
+- storage
+- save
+- sqlite
+- data
+- xml
+- playerprefs
+timeCreated: 1473859911
+licenseType: Store
+PluginImporter:
+  serializedVersion: 1
+  iconMap: {}
+  executionOrder: {}
+  isPreloaded: 0
+  platformData:
+    Any:
+      enabled: 1
+      settings: {}
+    Editor:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+    WindowsStoreApps:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

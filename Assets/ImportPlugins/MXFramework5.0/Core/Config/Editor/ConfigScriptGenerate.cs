@@ -2,6 +2,7 @@
 using UnityEditor;
 using System.IO;
 using Mx.Utils;
+using Mx.UI;
 
 namespace Mx.Config
 {
@@ -21,6 +22,9 @@ namespace Mx.Config
             CreateDatabaseScript();
             CreateDatabaseManagerScript();
 
+            AssetDatabase.Refresh();
+
+            UIScriptGenerate.GenerateUIParam();
             AssetDatabase.Refresh();
         }
 

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿/*代码自动生成的类，请勿手动修改*/
+
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace Mx.Config

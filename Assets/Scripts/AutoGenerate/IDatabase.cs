@@ -1,3 +1,4 @@
+/*代码自动生成的类，请勿手动修改*/
 
 namespace Mx.Config
 {

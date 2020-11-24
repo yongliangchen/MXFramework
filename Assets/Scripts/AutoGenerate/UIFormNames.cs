@@ -1,9 +1,10 @@
+/*代码自动生成的类，请勿手动修改*/
  
 /// <summary>UI名称</summary>
 public class UIFormNames
 {
      /// <summary>登入UI面板</summary> 
-public const string  LOGON_UIFORM = "LogonUIForm";
+public const string  LOGIN_UIFORM = "LoginUIForm";
  /// <summary>选择英雄UI面板</summary> 
 public const string  SELECT_HERO_UIFORM = "SelectHeroUIForm";
  /// <summary>首页UI面板</summary> 

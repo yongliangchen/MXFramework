@@ -9,7 +9,7 @@ namespace Mx.UI
     /// <summary>自动生成UI</summary>
     public class UIScriptGenerate : MonoBehaviour
     {
-        [MenuItem("MXFramework/UI/Generate UI Param", false, 301)]
+        //[MenuItem("MXFramework/UI/Generate UI Param", false, 301)]
         public static void GenerateUIParam()
         {
             CreateUIFormNames();
@@ -34,7 +34,7 @@ namespace Mx.UI
             UIConfigDatabase uIConfigInfo = new UIConfigDatabase();
             uIConfigInfo.Load();
 
-            foreach (UIConfigData info in uIConfigInfo.GetAllData())
+            foreach (UIConfigData info in uIConfigInfo.GetAllDataList())
             {
                 uiFormNameLiset += SpliceFormName(info.Name, info.Des) + "\n";
                 uiuiFormNameType += SpliceFormType(info.Name, info.Des) + "\n";
@@ -43,7 +43,9 @@ namespace Mx.UI
             template = template.Replace("$UIAttributes", uiFormNameLiset);
             template = template.Replace("$UIType", uiuiFormNameType);
 
-            GenerateScript("UIFormNames", template);
+            string dataName = ConfigDefine.GENERATE_SCRIPT_PATH + "/" + "UIFormNames.cs";
+
+            GenerateScript(dataName, template);
         }
 
         /// <summary>
@@ -84,7 +86,7 @@ namespace Mx.UI
             UIConfigDatabase uIConfigInfo = new UIConfigDatabase();
             uIConfigInfo.Load();
 
-            foreach (UIConfigData info in uIConfigInfo.GetAllData())
+            foreach (UIConfigData info in uIConfigInfo.GetAllDataList())
             {
                 string dataName = UIDefine.UIFormCSharpScriptsPath + info.Name + ".cs";
                 if (!File.Exists(dataName))
@@ -94,7 +96,7 @@ namespace Mx.UI
                     template = template.Replace("$className", info.Name);
                     template = template.Replace("$messageType", info.Name + "Event");
 
-                    GenerateScript(info.Name, template);
+                    GenerateScript(dataName, template);
                 }
             }
         }
@@ -118,7 +120,6 @@ namespace Mx.UI
 		/// <param name="data">数据</param>
         private static void GenerateScript(string dataName, string data)
         {
-            dataName = UIDefine.UIFormCSharpScriptsPath + dataName + ".cs";
             if (File.Exists(dataName)) File.Delete(dataName);
 
             StreamWriter sr = File.CreateText(dataName);

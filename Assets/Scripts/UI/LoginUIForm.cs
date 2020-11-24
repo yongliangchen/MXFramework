@@ -7,7 +7,7 @@ using Mx.Utils;
 using UnityEngine.UI;
 
 /// <summary> 登入UI面板 </summary>
-public class LogonUIForm : BaseUIForm
+public class LoginUIForm : BaseUIForm
 {
     private void Awake()
     {
@@ -15,13 +15,13 @@ public class LogonUIForm : BaseUIForm
         RigisterButtonEvent();
 
         MessageMgr.AddMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.AddMsgListener("LogonUIFormEvent", OnUIFormMessagesEvent);
+        MessageMgr.AddMsgListener("LoginUIFormEvent",OnUIFormMessagesEvent);
     }
 
     private void OnDestroy()
     {
         MessageMgr.RemoveMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.RemoveMsgListener("LogonUIFormEvent", OnUIFormMessagesEvent);
+        MessageMgr.RemoveMsgListener("LoginUIFormEvent", OnUIFormMessagesEvent);
     }
 
     /// <summary>初始化UI界面</summary>
@@ -33,8 +33,7 @@ public class LogonUIForm : BaseUIForm
     /// <summary>注册按钮事件</summary>
     private void RigisterButtonEvent()
     {
-        RigisterButtonObjectEvent("BtnLogin", Login);
-        RigisterButtonObjectEvent("BtnRegister", Register);
+      
     }
 
     /// <summary>刷新UI显示</summary>
@@ -43,16 +42,7 @@ public class LogonUIForm : BaseUIForm
         InitUIForm();
     }
 
-    private void Login(GameObject click)
-    {
-       
-    }
-
-    private void Register(GameObject click)
-    {
-
-    }
-
+    /// <summary>当前UI事件监听</summary>
     private void OnUIFormMessagesEvent(string key, object values)
     {
         
@@ -63,5 +53,6 @@ public class LogonUIForm : BaseUIForm
     {
         if (key.Equals(UIDefine.REFRESH_UI_FORM_MSG)) OnRefreshUIForm();
     }
+
 }
 

@@ -1,0 +1,218 @@
+Version 2.11.1
+10 July 2020
+(Requires Unity 2017.4.8f1+)
+
+	Updated documentation
+
+
+Version 2.11.0
+19 May 2020
+(Requires Unity 2017.4.8f1+)
+
+	Added Attach Database demo
+
+
+Version 2.10.0
+25 March 2020
+(Requires Unity 2017.4.8f1+)
+
+    Updated demo scripts with namespace to avoid conflicts
+    Fixed Insert demo to start with scroll position at the top
+    Updated Playmaker scripts to use Unity UI instead of deprecated GUI
+
+
+Version 2.9.0
+20 December 2019
+(Requires Unity 2017.4.8f1+)
+
+	Updated windows sqlite library to version 3.30.1
+
+
+Version 2.8.0
+7 October 2019
+(Requires Unity 2017.4.8f1+)
+
+	Removed options window positioning to get around a Unity bug that places the window offscreen when sometimes using multiple monitors and sometimes not.
+	Added Unique attribute for fields.
+
+
+Version 2.7.1
+19 September 2019
+(Requires Unity 2017.4.8f1+)
+
+	Updated source zip file
+
+
+Version 2.7.0
+19 September 2019
+(Requires Unity 2017.4.8f1+)
+
+	Added Full Text Search (virtual tables) in demo #8
+	Updated Windows (Universal) sqlite to 3.29.0
+
+
+Version 2.6.1
+12 September 2019
+(Requires Unity 2017.4.8f1+)
+
+	Fixed anchor of Add Image button in Demo #7
+
+
+Version 2.6.0
+12 September 2019
+(Requires Unity 2017.4.8f1+)
+
+	Added Blobs demo (#7) that shows how to load and store images
+
+
+Version 2.5.2
+9 August 2019
+(Requires Unity 2017.4.8f1+)
+
+	Fixed a bug that sometimes occurred when using Insert or InsertAll
+
+
+Version 2.5.1
+8 August 2019
+(Requires Unity 2017.4.8f1+)
+
+	Updated Documentation
+
+
+Version 2.5.0
+4 June 2019
+(Requires Unity 2017.4.8f1+)
+
+	Updated Android sqlite library for universal platform and architecture
+
+
+Version 2.4.0
+7 December 2018
+(Requires Unity 2017.4.8f1+)
+
+	Updated Tools window
+	Added option to extract Android 9 version of libsqlite.so
+
+Version 2.3.1
+26 September 2018
+(Requires Unity 2017.4.8f1+)
+
+    Fixed debugTrace to update debugging at runtime, instead of just when the program loads
+
+
+Version 2.3.0 (Requires Unity 2017.3.0f3+)
+
+    Added ExecuteWithResults to SimpleSQLManager class. This will allow you to pass two new output parameters: the result code and the result error message, if relevant.
+
+
+Version 2.1.1 (Requires Unity 2017.3.0f3+)
+
+    Added overridePathMode to SimpleSQLManager to allow setting an override path as either absolute to the OS or as relative to the persistent data path directory
+    Added Changelog in the documentation folder
+
+
+Version 2.1.1 (Requires Unity 2017.3.0f3+)
+
+    Added menu setup explanation
+
+
+Version 2.1.0 (Requires Unity 2017.3.0f3+)
+
+    Recreated examples to use Unity's UI
+    Consolidated the Update and Delete demos
+    Modified some demo variable names for clarity
+
+
+Version 2.0.2
+
+    Fixed error "Reference rewriter: Error: method `System.Reflection.Assembly System.Reflection.Assembly::GetCallingAssembly()` doesn't exist in target framework. It is referenced from SimpleSQL_Runtime.dll at System.Void SimpleSQL.RuntimeHelper::LoadAssemblyFromEmbeddedResource(System.String)." that occurs on Windows Store builds.
+
+
+Version 2.0.1
+
+    Fixed "DllNotFoundException:__internal" error on Mac editor.
+    Included source code
+
+
+Version 2.0.0
+
+    Upgraded Unity library references to be compatible with Unity 2017
+
+
+Version 1.9.0
+
+    Removed the requirement to have a database file set in the SimpleSQLManager component on startup. You can now leave it empty and then set it later using the technique outlined here: http://www.echo17.com/forum/index.php?topic=257.msg911#msg911
+
+Version 1.8.0
+
+    Added overrideBasePath to SimpleSQLManager class to allow a different base path other than the persistent data path. This value can be accessed from the SimpleSQLManager inspector or through code. Note that this will only work on computer devices like Mac, PC, etc. Mobile devices will not allow free access to the file system.
+
+
+Version 1.7
+
+    Added databaseCreated delegate to SimpleSQLManager. This is called whenever the project database is copied to the working path (either the database file did not exist at the working path or it was overwritten).
+
+
+Version 1.6.4
+
+    Fixed Missing Dll Resource: SimpleSQL.Resources.sqlite3.dll.resource error for Windows platform
+
+Version 1.6.3
+
+- Fixed missing sqlite3.dll errors on Unity 5 Android platform.
+
+Version 1.6.2b
+
+- Fixed the missing sqlite3.dll error on Unity 5 64 bit editors
+
+Version 1.6.0
+
+- Fixed the missing sqlite3.dll errors in Unity 5.
+
+Version 1.5.1
+
+- Removed the editor post-build copy to avoid a harmless error when compiling the source.
+
+
+Version 1.5.0
+
+- Fixed Android bug that stated that it could not find the sqlite3.dll.
+- Moved menu items under "Tools" menu to conform to Unity standards
+-  8) Included source code!  8)
+
+Version 1.4.0
+
+- Added SimpleDataTable, SimpleDataRow, and SimpleDataColumn classes to store your data without having to create ORM classes or use the System.Data library. This allows you to use generic tables that will work on the free licenses of iOS and Android. This also allows access to Playmaker scripts on the free version of iOS and Android.
+
+Version 1.3.1
+
+Features:
+- Cosmetic changes to indicate that Android Free is now supported.
+
+
+Version 1.2.2
+
+Features:
+
+    Added Android Pro support
+    Added rowID as an optional output parameter to the Insert commands.
+    Added lastRowID as an optional output parameter to the InsertAll command.
+
+
+Bug Fixes:
+None
+- Created a new sample "SimpleTable" to demonstrate this
+
+Version 1.1.0
+
+Features:
+- Added "Options" to the Unity menu.
+- Added the ability to select your platform for better optimization of the final package.
+- Added the ability to use Sytem.Data library optionally.
+
+Bug Fixes:
+None
+
+Version 1.0.1
+
+Initial Release

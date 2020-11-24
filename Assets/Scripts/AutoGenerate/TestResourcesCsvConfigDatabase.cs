@@ -1,3 +1,5 @@
+/*代码自动生成的类，请勿手动修改*/
+
 using UnityEngine;
 using System.Collections.Generic;
 using Mx.Utils;
@@ -15,15 +17,21 @@ namespace Mx.Config
 		public string[] Designation;
 	}
 
-	public class TestResourcesCsvConfigDatabase:IDatabase
+    [Serializable]
+    public class TestResourcesCsvConfigDatas
+    {
+        public TestResourcesCsvConfigData[] content;
+    }
+
+	public partial class TestResourcesCsvConfigDatabase:IDatabase
 	{
-		public const uint TYPE_ID = 3;
+		public const uint TYPE_ID = 4;
 		public const string DATA_PATH = "TestResourcesCsvConfig";
        
 		private string[][] m_datas;
         private Dictionary<string, TestResourcesCsvConfigData> dicData = new Dictionary<string, TestResourcesCsvConfigData>();
         private List<TestResourcesCsvConfigData> listData = new List<TestResourcesCsvConfigData>();
-
+        private TestResourcesCsvConfigDatas configDatas;
 		public TestResourcesCsvConfigDatabase(){}
 
 		public uint TypeID()
@@ -38,6 +46,7 @@ namespace Mx.Config
 
         public void Load()
         {
+          configDatas = new TestResourcesCsvConfigDatas();
           dicData.Clear();
           listData.Clear();
 
@@ -94,14 +103,36 @@ namespace Mx.Config
             return data;
         }
 
+        public string GetJsonStringBykey(string key)
+        {
+            string data = string.Empty;
+            TestResourcesCsvConfigData jsonData = GetDataByKey(key);
+            if (data != null) data = JsonUtility.ToJson(jsonData);
+            return data;
+        }
+
+        public string GetAllJsonString()
+        {
+            configDatas.content = GetAllDataArray();
+
+            string datas = string.Empty;
+            if (listData!= null) datas = JsonUtility.ToJson(configDatas);
+            return datas;
+        }
+
 		public int GetCount()
 		{
 			return listData.Count;
 		}
 
-        public List <TestResourcesCsvConfigData> GetAllData()
+        public List <TestResourcesCsvConfigData> GetAllDataList()
         {
             return listData;
+        }
+
+        public TestResourcesCsvConfigData[] GetAllDataArray()
+        {
+            return listData.ToArray();
         }
 
 	}

@@ -9,7 +9,7 @@ namespace Mx.Example
     {
         private void Awake()
         {
-            UIManager.Instance.OpenUIForms(UIFormNames.LOGON_UIFORM);
+            UIManager.Instance.OpenUIForms(UIFormNames.LOGIN_UIFORM);
         }
     }
 }

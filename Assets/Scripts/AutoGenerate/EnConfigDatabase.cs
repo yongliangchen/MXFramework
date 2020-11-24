@@ -1,4 +1,4 @@
-﻿/*代码自动生成的类，请勿手动修改*/
+/*代码自动生成的类，请勿手动修改*/
 
 using UnityEngine;
 using System.Collections.Generic;
@@ -8,27 +8,30 @@ using System;
 namespace Mx.Config
 {
     [Serializable]
-	public class $DataClassName
+	public class EnConfigData
 	{
-		$DataAttributes
+		public string Id;
+		public string Value;
+		public string[] Scene;
+		public string Des;
 	}
 
     [Serializable]
-    public class $DataClassNames
+    public class EnConfigDatas
     {
-        public $DataClassName[] content;
+        public EnConfigData[] content;
     }
 
-	public partial class $DataTypeName:IDatabase
+	public partial class EnConfigDatabase:IDatabase
 	{
-		public const uint TYPE_ID = $DataID;
-		public const string DATA_PATH = $DataPath;
+		public const uint TYPE_ID = 3;
+		public const string DATA_PATH = "EnConfig";
        
 		private string[][] m_datas;
-        private Dictionary<string, $DataClassName> dicData = new Dictionary<string, $DataClassName>();
-        private List<$DataClassName> listData = new List<$DataClassName>();
-        private $DataClassNames configDatas;
-		public $DataTypeName(){}
+        private Dictionary<string, EnConfigData> dicData = new Dictionary<string, EnConfigData>();
+        private List<EnConfigData> listData = new List<EnConfigData>();
+        private EnConfigDatas configDatas;
+		public EnConfigDatabase(){}
 
 		public uint TypeID()
 		{
@@ -42,7 +45,7 @@ namespace Mx.Config
 
         public void Load()
         {
-          configDatas = new $DataClassNames();
+          configDatas = new EnConfigDatas();
           dicData.Clear();
           listData.Clear();
 
@@ -63,8 +66,11 @@ namespace Mx.Config
 		{
 			for(int cnt = 0; cnt < m_datas.Length; cnt++)
 			{
-                $DataClassName m_tempData = new $DataClassName();
-			    $CsvSerialize
+                EnConfigData m_tempData = new EnConfigData();
+			    m_tempData.Id = m_datas[cnt][0];
+		m_tempData.Value = m_datas[cnt][1];
+		m_tempData.Scene = CSVConverter.ConvertToArray<string>(m_datas[cnt][2]);
+		m_tempData.Des = m_datas[cnt][3];
                 if(!dicData.ContainsKey(m_datas[cnt][0]))
                 {
                     dicData.Add(m_datas[cnt][0], m_tempData);
@@ -73,9 +79,9 @@ namespace Mx.Config
 			}
 		}
 
-        public $DataClassName GetDataByKey(string key)
+        public EnConfigData GetDataByKey(string key)
         {
-            $DataClassName data;
+            EnConfigData data;
             dicData.TryGetValue(key, out data);
             return data;
         }
@@ -83,7 +89,7 @@ namespace Mx.Config
         public string GetJsonStringBykey(string key)
         {
             string data = string.Empty;
-            $DataClassName jsonData = GetDataByKey(key);
+            EnConfigData jsonData = GetDataByKey(key);
             if (data != null) data = JsonUtility.ToJson(jsonData);
             return data;
         }
@@ -102,12 +108,12 @@ namespace Mx.Config
 			return listData.Count;
 		}
 
-        public List <$DataClassName> GetAllDataList()
+        public List <EnConfigData> GetAllDataList()
         {
             return listData;
         }
 
-        public $DataClassName[] GetAllDataArray()
+        public EnConfigData[] GetAllDataArray()
         {
             return listData.ToArray();
         }

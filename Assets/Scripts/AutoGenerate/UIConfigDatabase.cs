@@ -1,3 +1,5 @@
+/*代码自动生成的类，请勿手动修改*/
+
 using UnityEngine;
 using System.Collections.Generic;
 using Mx.Utils;
@@ -18,15 +20,21 @@ namespace Mx.Config
 		public string Des;
 	}
 
-	public class UIConfigDatabase:IDatabase
+    [Serializable]
+    public class UIConfigDatas
+    {
+        public UIConfigData[] content;
+    }
+
+	public partial class UIConfigDatabase:IDatabase
 	{
-		public const uint TYPE_ID = 4;
+		public const uint TYPE_ID = 5;
 		public const string DATA_PATH = "UIConfig";
        
 		private string[][] m_datas;
         private Dictionary<string, UIConfigData> dicData = new Dictionary<string, UIConfigData>();
         private List<UIConfigData> listData = new List<UIConfigData>();
-
+        private UIConfigDatas configDatas;
 		public UIConfigDatabase(){}
 
 		public uint TypeID()
@@ -41,6 +49,7 @@ namespace Mx.Config
 
         public void Load()
         {
+          configDatas = new UIConfigDatas();
           dicData.Clear();
           listData.Clear();
 
@@ -100,14 +109,36 @@ namespace Mx.Config
             return data;
         }
 
+        public string GetJsonStringBykey(string key)
+        {
+            string data = string.Empty;
+            UIConfigData jsonData = GetDataByKey(key);
+            if (data != null) data = JsonUtility.ToJson(jsonData);
+            return data;
+        }
+
+        public string GetAllJsonString()
+        {
+            configDatas.content = GetAllDataArray();
+
+            string datas = string.Empty;
+            if (listData!= null) datas = JsonUtility.ToJson(configDatas);
+            return datas;
+        }
+
 		public int GetCount()
 		{
 			return listData.Count;
 		}
 
-        public List <UIConfigData> GetAllData()
+        public List <UIConfigData> GetAllDataList()
         {
             return listData;
+        }
+
+        public UIConfigData[] GetAllDataArray()
+        {
+            return listData.ToArray();
         }
 
 	}

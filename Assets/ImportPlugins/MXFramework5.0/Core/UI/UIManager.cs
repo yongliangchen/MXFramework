@@ -10,6 +10,7 @@
  *    Modify Recoder:      
  *
  */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,6 @@ using Mx.Config;
 using Mx.Res;
 using Mx.Utils;
 using UnityEngine;
-
 
 namespace Mx.UI
 {
@@ -138,11 +138,6 @@ namespace Mx.UI
             }
         }
 
-        //public bool IsOpen(EnumUIFormType uIFormType)
-        //{
-        //    return IsOpen(uIFormType.ToString());
-        //}
-
         public bool IsOpen(string uiFormName)
         {
             return dicOpenUIForms.ContainsKey(uiFormName);
@@ -154,9 +149,7 @@ namespace Mx.UI
 
         private void InitUI()
         {
-            DatabaseManager databaseManager = new DatabaseManager();
-            databaseManager.Load();
-            uIConfig = databaseManager.GetDatabase<UIConfigDatabase>();
+            uIConfig = ConfigManager.Instance.GetDatabase<UIConfigDatabase>();
 
             traUiRoot = Mx.Res.ResoucesMgr.Instance.CreateGameObject(UIDefine.PATH_UIROOT, false).transform;
             traUiRoot.name = "UIRoot";
@@ -184,7 +177,6 @@ namespace Mx.UI
 
             UIParam uiParam = new UIParam();
             uiParam.UIFormsDepth = (UIFormDepth)uiInfo.UIFormsDepth;
-            //uiParam.UIFormsShowMode = (UIFormShowMode)uiInfo.UIFormShowMode;
 
             if ((LoadType)uiInfo.LandType == LoadType.Resources)
             {
@@ -230,6 +222,5 @@ namespace Mx.UI
         }
 
         #endregion
-
     }
 }

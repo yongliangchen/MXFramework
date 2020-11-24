@@ -1,4 +1,5 @@
-﻿ 
+﻿/*代码自动生成的类，请勿手动修改*/
+ 
 /// <summary>声音名称</summary>
 public class AudioNames
 {
