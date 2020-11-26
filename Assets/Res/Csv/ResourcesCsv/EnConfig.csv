@@ -1,8 +1,0 @@
-﻿string/Id,string/Value,string[]/Scene,string/Des
-user_name,UserName,LoginUIForm,账号
-input_user_name,Please enter the user name,LoginUIForm,请输入账号
-input_password,Please input a password,LoginUIForm,请输入密码
-password,Password,LoginUIForm,密码
-forget_password,ForgetPassword,LoginUIForm,忘记密码
-login,Login..,LoginUIForm,登录
-register,Registered,LoginUIForm,注册

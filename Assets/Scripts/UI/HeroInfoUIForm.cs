@@ -1,57 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Mx.UI;
-using Mx.Msg;
-using Mx.Utils;
 using UnityEngine.UI;
+using Mx.Utils;
+using Mx.Example;
 
 /// <summary> 角色信息UI面板 </summary>
 public class HeroInfoUIForm : BaseUIForm
 {
-    private void Awake()
-    {
-        InitUIForm();
-        RigisterButtonEvent();
+    private Text m_CoinText;
 
-        MessageMgr.AddMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.AddMsgListener("HeroInfoUIFormEvent",OnUIFormMessagesEvent);
+    public override void OnAwake()
+    {
+        base.OnAwake();
+
+        m_CoinText = UnityHelper.FindTheChildNode(gameObject, "Coin").GetComponent<Text>();
+        m_CoinText.text = UserData.Coin.ToString();
+
+        rigisterButtonEvent();
     }
 
-    private void OnDestroy()
+    public override void OnRelease()
     {
-        MessageMgr.RemoveMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.RemoveMsgListener("HeroInfoUIFormEvent", OnUIFormMessagesEvent);
-    }
-
-    /// <summary>初始化UI界面</summary>
-    private void InitUIForm()
-    {
-
+        base.OnRelease();
     }
 
     /// <summary>注册按钮事件</summary>
-    private void RigisterButtonEvent()
+    private void rigisterButtonEvent()
     {
-      
+
     }
 
-    /// <summary>刷新UI显示</summary>
-    private void OnRefreshUIForm()
+    public override void OnGlobalUIFormMsgEvent(string key, object values)
     {
-        InitUIForm();
-    }
+        base.OnGlobalUIFormMsgEvent(key, values);
 
-    /// <summary>当前UI事件监听</summary>
-    private void OnUIFormMessagesEvent(string key, object values)
-    {
-        
-    }
-
-    /// <summary>刷新UI事件监听</summary>
-    private void OnRefreshUIFormMessagesEvent(string key, object values)
-    {
-        if (key.Equals(UIDefine.REFRESH_UI_FORM_MSG)) OnRefreshUIForm();
+        if(key.Equals("ChangeCoin")) m_CoinText.text = UserData.Coin.ToString();
     }
 
 }

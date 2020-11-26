@@ -17,9 +17,9 @@ namespace Mx.UI
     public class UIParam
 	{
         /// <summary>UI窗体层级</summary>
-        public UIFormDepth UIFormsDepth = UIFormDepth.Normal;
+        public UIFormDepth uIFormDepth = UIFormDepth.Normal;
         /// <summary>UI窗体显示类型</summary>
-        //public UIFormShowMode UIFormsShowMode = UIFormShowMode.Normal;
+        public UIFormShowMode uIFormShowMode = UIFormShowMode.Normal;
     }
 
 }

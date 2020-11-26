@@ -21,10 +21,10 @@ namespace Mx.UI
 {
     public sealed class UIDefine
     {
-        /// <summary>刷新UI显示</summary>
-        public const string REFRESH_UI_FORM_MSG = "RefreshUIFormMsg";
-        /// <summary>刷新UI显示事件</summary>
-        public const string REFRESH_UI_FORM_EVENT = "RefreshUIFormEvent";
+        /// <summary>全局UI消息事件</summary>
+        public const string GLOBAL_UI_FORM_MSG_EVENT = "GlobalUIFormMsgEvent";
+        /// <summary>吐司消息</summary>
+        public const string TOAST_INFO_MSG = "ToastInfoMsg";
 
         /// <summary>UIRoot的路径</summary>
         public const string PATH_UIROOT = "UIRoot";
@@ -69,16 +69,20 @@ namespace Mx.UI
         Notice,
     }
 
-    ///// <summary>UI窗体显示模式</summary>
-    //public enum UIFormShowMode
-    //{
-    //    /// <summary>普通窗体模式</summary>
-    //    Normal,
-    //    /// <summary>反向切换模式(ps只能按照顺序打开和关闭不然就会出错)</summary>
-    //    ReverseChange,
-    //    /// <summary>隐藏其他模式</summary>
-    //    HideOther,
-    //}
+    /// <summary>UI窗体显示模式</summary>
+    public enum UIFormShowMode
+    {
+        /// <summary>普通窗体模式</summary>
+        Normal,
+        /// <summary>反向切换模式</summary>
+        ReverseChange,
+        /// <summary>隐藏其他模式</summary>
+        HideOther,
+        /// <summary>冻结其他模式</summary>
+        FreezeOther,
+        /// <summary>吐司模式</summary>
+        Toast,
+    }
 
     /// <summary>UI加载方式</summary>
     public enum LoadType

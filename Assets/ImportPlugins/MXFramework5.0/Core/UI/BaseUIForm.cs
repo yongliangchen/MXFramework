@@ -1,14 +1,48 @@
 ﻿using Mx.Msg;
 using Mx.Utils;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Mx.UI
 {
     /// <summary>UI的父类</summary>
     public abstract class BaseUIForm : MonoBehaviour
     {
-        #region 封装子类常用的方法
+        public UIFormDepth uIFormsDepth { get; set; }
+        public UIFormShowMode uIFormShowMode { get; set; }
+        private string m_CurrentClassName;
+
+        private void Awake()
+        {
+            string[] tempStringArr = GetType().ToString().Split('.');
+            m_CurrentClassName = tempStringArr[tempStringArr.Length - 1];
+            OnAwake();
+
+            MessageMgr.AddMsgListener(m_CurrentClassName + "Msg", OnCurrentUIFormMsgEvent);
+            MessageMgr.AddMsgListener(UIDefine.GLOBAL_UI_FORM_MSG_EVENT, OnGlobalUIFormMsgEvent);
+        }
+
+        private void OnDestroy()
+        {
+            MessageMgr.RemoveMsgListener(m_CurrentClassName + "Msg", OnCurrentUIFormMsgEvent);
+            MessageMgr.RemoveMsgListener(UIDefine.GLOBAL_UI_FORM_MSG_EVENT, OnGlobalUIFormMsgEvent);
+
+            OnRelease();
+        }
+
+        public virtual void OnAwake() { }
+        public virtual void OnRelease() { }
+
+        /// <summary>打开UI窗体</summary>
+        public virtual void OnOpenUIEvent() { }
+
+        /// <summary>关闭UI窗体</summary>
+        public virtual void OnCloseUIEvent() { }
+
+        /// <summary>当前UI窗体消息事件监听</summary>
+        public virtual void OnCurrentUIFormMsgEvent(string key, object values) { }
+
+        /// <summary>全局UI窗体消息事件监听</summary>
+        public virtual void OnGlobalUIFormMsgEvent(string key, object values) { }
 
         /// <summary>
         /// 注册按钮事件
@@ -25,28 +59,26 @@ namespace Mx.UI
             }
         }
 
-        /// <summary>
-        /// 打开UI窗体
-        /// </summary>
-        /// <param name="uiFormNames">需要打开的窗体名字</param>
+        /// <summary>打开UI窗体</summary>
         protected void OpenUIForms(params string[] uiFormNames)
         {
             UIManager.Instance.OpenUIForms(uiFormNames);
         }
 
+        /// <summary>打开UI窗体并且关闭当前UI窗体</summary>
+        protected void OpenUIAndCloseCurrentUI(params string[] uiFormNames)
+        {
+            OpenUIForms(uiFormNames);
+            CloseUIForm();
+        }
 
         /// <summary>关闭当前UI窗体</summary>
         protected void CloseUIForm()
         {
-            string[] tempStringArr = GetType().ToString().Split('.');
-            string struiFormName = tempStringArr[tempStringArr.Length - 1];
-            UIManager.Instance.CloseUIForms(struiFormName);
+            UIManager.Instance.CloseUIForms(m_CurrentClassName);
         }
 
-        /// <summary>
-        /// 关闭UI窗体
-        /// </summary>
-        /// <param name="uiFormNames">需要关闭的窗体名字数组</param>
+        /// <summary>关闭UI窗体</summary>
         protected void CloseUIForms(params string[] uiFormNames)
         {
             UIManager.Instance.CloseUIForms(uiFormNames);
@@ -60,22 +92,17 @@ namespace Mx.UI
         /// <param name="values">消息内容</param>
         protected void SendMessageToUIForm(string uiFormName, string key, object values)
         {
-            MessageCenter.SendMessage(uiFormName + "Event", key, values);
+            MessageCenter.SendMessage(uiFormName + "Msg", key, values);
         }
 
-        /// <summary>打开UI窗体</summary>
-        public virtual void OnOpenUI()
+        /// <summary>
+        /// 发送消息给全部UI窗体
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="values"></param>
+        protected void SendGlobalUIFormMsg(string key,object values)
         {
-
+            MessageCenter.SendMessage(UIDefine.GLOBAL_UI_FORM_MSG_EVENT, key, values);
         }
-
-        /// <summary>关闭UI窗体</summary>
-        public virtual void OnCloseUI()
-        {
-
-        }
-
     }
-
-    #endregion
 }

@@ -3,7 +3,9 @@
 /// <summary>UI名称</summary>
 public class UIFormNames
 {
-     /// <summary>登入UI面板</summary> 
+     /// <summary>吐司UI面板</summary> 
+public const string  TOAST_UIFORM = "ToastUIForm";
+ /// <summary>登入UI面板</summary> 
 public const string  LOGIN_UIFORM = "LoginUIForm";
  /// <summary>选择英雄UI面板</summary> 
 public const string  SELECT_HERO_UIFORM = "SelectHeroUIForm";

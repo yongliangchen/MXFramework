@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 222471911659741474}
   - component: {fileID: 114024031305362308}
   m_Layer: 5
-  m_Name: LogonUIForm
+  m_Name: LoginUIForm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

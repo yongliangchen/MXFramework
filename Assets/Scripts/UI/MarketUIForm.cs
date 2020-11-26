@@ -1,58 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Mx.UI;
-using Mx.Msg;
-using Mx.Utils;
-using UnityEngine.UI;
+using UnityEngine;
 
 /// <summary> 背包UI面板 </summary>
 public class MarketUIForm : BaseUIForm
 {
-    private void Awake()
+    public override void OnAwake()
     {
-        InitUIForm();
-        RigisterButtonEvent();
-
-        MessageMgr.AddMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.AddMsgListener("MarketUIFormEvent",OnUIFormMessagesEvent);
+        base.OnAwake();
+        rigisterButtonEvent();
     }
 
-    private void OnDestroy()
+    public override void OnRelease()
     {
-        MessageMgr.RemoveMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.RemoveMsgListener("MarketUIFormEvent", OnUIFormMessagesEvent);
-    }
-
-    /// <summary>初始化UI界面</summary>
-    private void InitUIForm()
-    {
-
+        base.OnRelease();
     }
 
     /// <summary>注册按钮事件</summary>
-    private void RigisterButtonEvent()
+    private void rigisterButtonEvent()
     {
-      
+        RigisterButtonObjectEvent("BtnClose", closeCurrentUIForm);
+        RigisterButtonObjectEvent("BtnMask", closeCurrentUIForm);
+
+        //----------------------------------模拟购买装备----------------------------------
+        RigisterButtonObjectEvent("BtnClothes", (btnObject) => { openBuyUIForm(0); });
+        RigisterButtonObjectEvent("BtnTrousers", (btnObject) => { openBuyUIForm(1); });
+        RigisterButtonObjectEvent("BtnShoes", (btnObject) => { openBuyUIForm(2); });
     }
 
-    /// <summary>刷新UI显示</summary>
-    private void OnRefreshUIForm()
+    /// <summary>关闭当前UI面板</summary>
+    private void closeCurrentUIForm(GameObject btnObject)
     {
-        InitUIForm();
+        CloseUIForm();
     }
 
-    /// <summary>当前UI事件监听</summary>
-    private void OnUIFormMessagesEvent(string key, object values)
+    /// <summary>打开购买装备面板</summary>
+    private void openBuyUIForm(int id)
     {
-        
-    }
-
-    /// <summary>刷新UI事件监听</summary>
-    private void OnRefreshUIFormMessagesEvent(string key, object values)
-    {
-        if (key.Equals(UIDefine.REFRESH_UI_FORM_MSG)) OnRefreshUIForm();
+        OpenUIForms(UIFormNames.PTOP_DETAIL_UIFORM);
+        SendMessageToUIForm(UIFormNames.PTOP_DETAIL_UIFORM, "UpgradeEquipment", id);
     }
 
 }
-

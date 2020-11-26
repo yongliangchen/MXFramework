@@ -1,57 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Mx.UI;
-using Mx.Msg;
-using Mx.Utils;
-using UnityEngine.UI;
+using UnityEngine;
 
 /// <summary> 首页UI面板 </summary>
 public class MainUIForm : BaseUIForm
 {
-    private void Awake()
+    public override void OnAwake()
     {
-        InitUIForm();
-        RigisterButtonEvent();
-
-        MessageMgr.AddMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.AddMsgListener("MainUIFormEvent",OnUIFormMessagesEvent);
+        base.OnAwake();
+        rigisterButtonEvent();
     }
 
-    private void OnDestroy()
+    public override void OnRelease()
     {
-        MessageMgr.RemoveMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.RemoveMsgListener("MainUIFormEvent", OnUIFormMessagesEvent);
-    }
-
-    /// <summary>初始化UI界面</summary>
-    private void InitUIForm()
-    {
-
+        base.OnRelease();
     }
 
     /// <summary>注册按钮事件</summary>
-    private void RigisterButtonEvent()
+    private void rigisterButtonEvent()
     {
-      
+        RigisterButtonObjectEvent("BtnEquipment", openMarketUIForm);
     }
 
-    /// <summary>刷新UI显示</summary>
-    private void OnRefreshUIForm()
+    /// <summary>打开装备面板</summary>
+    private void openMarketUIForm(GameObject btnObject)
     {
-        InitUIForm();
-    }
-
-    /// <summary>当前UI事件监听</summary>
-    private void OnUIFormMessagesEvent(string key, object values)
-    {
-        
-    }
-
-    /// <summary>刷新UI事件监听</summary>
-    private void OnRefreshUIFormMessagesEvent(string key, object values)
-    {
-        if (key.Equals(UIDefine.REFRESH_UI_FORM_MSG)) OnRefreshUIForm();
+        OpenUIForms(UIFormNames.MARKET_UIFORM);
     }
 
 }

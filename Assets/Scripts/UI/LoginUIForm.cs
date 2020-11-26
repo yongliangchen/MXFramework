@@ -1,58 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Mx.UI;
-using Mx.Msg;
 using Mx.Utils;
+using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary> 登入UI面板 </summary>
-public class LoginUIForm : BaseUIForm
-{
-    private void Awake()
+    /// <summary> 登入UI面板 </summary>
+    public class LoginUIForm : BaseUIForm
     {
-        InitUIForm();
-        RigisterButtonEvent();
+        private InputField m_InputName;
+        private InputField m_InputPassword;
 
-        MessageMgr.AddMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.AddMsgListener("LoginUIFormEvent",OnUIFormMessagesEvent);
+        public override void OnAwake()
+        {
+            base.OnAwake();
+
+            m_InputName = UnityHelper.FindTheChildNode(gameObject, "InputName").GetComponent<InputField>();
+            m_InputPassword = UnityHelper.FindTheChildNode(gameObject, "InputPassword").GetComponent<InputField>();
+
+            rigisterButtonEvent();
+        }
+
+        public override void OnRelease()
+        {
+            base.OnRelease();
+        }
+
+        /// <summary>注册按钮事件</summary>
+        private void rigisterButtonEvent()
+        {
+            RigisterButtonObjectEvent("BtnLogin", login);
+            RigisterButtonObjectEvent("BtnRegister", register);
+        }
+
+        /// <summary>登录</summary>
+        private void login(GameObject btnObject)
+        {
+            OpenUIAndCloseCurrentUI(UIFormNames.SELECT_HERO_UIFORM);
+        }
+
+        /// <summary>注册</summary>
+        private void register(GameObject btnObject)
+        {
+
+        }
+
     }
-
-    private void OnDestroy()
-    {
-        MessageMgr.RemoveMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.RemoveMsgListener("LoginUIFormEvent", OnUIFormMessagesEvent);
-    }
-
-    /// <summary>初始化UI界面</summary>
-    private void InitUIForm()
-    {
-
-    }
-
-    /// <summary>注册按钮事件</summary>
-    private void RigisterButtonEvent()
-    {
-      
-    }
-
-    /// <summary>刷新UI显示</summary>
-    private void OnRefreshUIForm()
-    {
-        InitUIForm();
-    }
-
-    /// <summary>当前UI事件监听</summary>
-    private void OnUIFormMessagesEvent(string key, object values)
-    {
-        
-    }
-
-    /// <summary>刷新UI事件监听</summary>
-    private void OnRefreshUIFormMessagesEvent(string key, object values)
-    {
-        if (key.Equals(UIDefine.REFRESH_UI_FORM_MSG)) OnRefreshUIForm();
-    }
-
-}
-

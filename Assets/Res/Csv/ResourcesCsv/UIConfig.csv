@@ -1,4 +1,5 @@
 ﻿string/Name,int/LandType,int/UIFormsDepth,int/UIFormShowMode,string/ResourcesPath,string/AssetBundlePath,string/AssetName,string/Des
+ToastUIForm,0,3,4,UIPrefabs/ToastUIForm,,,吐司UI面板
 LoginUIForm,0,0,0,UIPrefabs/LoginUIForm,,,登入UI面板
 SelectHeroUIForm,0,0,0,UIPrefabs/SelectHeroUIForm,,,选择英雄UI面板
 MainUIForm,0,0,0,UIPrefabs/MainUIForm,,,首页UI面板

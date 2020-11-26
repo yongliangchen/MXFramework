@@ -1,58 +1,119 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Mx.UI;
-using Mx.Msg;
-using Mx.Utils;
+using UnityEngine;
 using UnityEngine.UI;
+using Mx.Utils;
+using Mx.Res;
+using Mx.Example;
 
 /// <summary> 弹出框UI面板 </summary>
 public class PtopDetailUIForm : BaseUIForm
 {
-    private void Awake()
-    {
-        InitUIForm();
-        RigisterButtonEvent();
+    private List<EquipmentInfo> m_EquipmentInfosList = new List<EquipmentInfo>();
+    private EquipmentInfo m_EquipmentInfo = null;
 
-        MessageMgr.AddMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.AddMsgListener("PtopDetailUIFormEvent",OnUIFormMessagesEvent);
+    private RawImage m_IconRawImage;
+    private Text m_NameText;
+    private Text m_DesText;
+    private Text M_CoinText;
+
+    public override void OnAwake()
+    {
+        base.OnAwake();
+
+        m_IconRawImage = UnityHelper.FindTheChildNode(gameObject, "Icon").GetComponent<RawImage>();
+        m_NameText = UnityHelper.FindTheChildNode(gameObject, "Name").GetComponent<Text>();
+        m_DesText = UnityHelper.FindTheChildNode(gameObject, "Des").GetComponent<Text>();
+        M_CoinText = UnityHelper.FindTheChildNode(gameObject, "Coin").GetComponent<Text>();
+
+        //--------------------------------------------模拟装备数据库--------------------------------------------
+        EquipmentInfo clothesInfo = new EquipmentInfo { Level = 1,Name= "普通布衣", Base=5, Coin=100, Icon= "1LVclothes" };
+        EquipmentInfo trousersInfo = new EquipmentInfo { Level = 1, Name= "粗布麻库", Base =8, Coin = 200, Icon = "1LVpants" };
+        EquipmentInfo shoesInfo = new EquipmentInfo { Level = 1, Name="敏捷鞋子", Base = 12, Coin = 300, Icon = "1LVshoes" };
+
+        m_EquipmentInfosList.Add(clothesInfo);
+        m_EquipmentInfosList.Add(trousersInfo);
+        m_EquipmentInfosList.Add(shoesInfo);
+
+        rigisterButtonEvent();
     }
 
-    private void OnDestroy()
-    {
-        MessageMgr.RemoveMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.RemoveMsgListener("PtopDetailUIFormEvent", OnUIFormMessagesEvent);
-    }
 
-    /// <summary>初始化UI界面</summary>
-    private void InitUIForm()
+    public override void OnRelease()
     {
-
+        base.OnRelease();
     }
 
     /// <summary>注册按钮事件</summary>
-    private void RigisterButtonEvent()
+    private void rigisterButtonEvent()
     {
-      
+        RigisterButtonObjectEvent("BtnClose", closeCurrentUIForm);
+        RigisterButtonObjectEvent("BtnUpgrade", upgrade);
     }
 
-    /// <summary>刷新UI显示</summary>
-    private void OnRefreshUIForm()
+    /// <summary>关闭当前UI面板</summary>
+    private void closeCurrentUIForm(GameObject btnObject)
     {
-        InitUIForm();
+        CloseUIForm();
     }
 
-    /// <summary>当前UI事件监听</summary>
-    private void OnUIFormMessagesEvent(string key, object values)
+    public override void OnCloseUIEvent()
     {
-        
+        base.OnCloseUIEvent();
+
+        m_EquipmentInfo = null;
     }
 
-    /// <summary>刷新UI事件监听</summary>
-    private void OnRefreshUIFormMessagesEvent(string key, object values)
+    /// <summary>升级武器</summary>
+    private void upgrade(GameObject btnObject)
     {
-        if (key.Equals(UIDefine.REFRESH_UI_FORM_MSG)) OnRefreshUIForm();
+        int cost = m_EquipmentInfo.Coin * m_EquipmentInfo.Level;
+
+        //升级成功
+        if(UserData.Coin>= cost)
+        {
+            UserData.Coin -= cost;
+            m_EquipmentInfo.Level++;
+            setPanelInfo();
+        }
+        //升级失败
+        else
+        {
+            //弹出吐司Todo
+        }
     }
+
+    public override void OnCurrentUIFormMsgEvent(string key, object values)
+    {
+        base.OnCurrentUIFormMsgEvent(key, values);
+
+        if (key.Equals("UpgradeEquipment"))
+        {
+            m_EquipmentInfo = m_EquipmentInfosList[(int)values];
+            setPanelInfo();
+        }
+    }
+
+    /// <summary>设置购买面板信息</summary>
+    private void setPanelInfo()
+    {
+        Texture2D texture2D = ResoucesMgr.Instance.Load<Texture2D>("Packages/" + m_EquipmentInfo.Icon, true);
+        m_IconRawImage.texture = texture2D;
+        m_NameText.text = m_EquipmentInfo.Level + "级" + m_EquipmentInfo.Name;
+        m_DesText.text = "战斗力+" + m_EquipmentInfo.Level * m_EquipmentInfo.Base;
+        M_CoinText.text = m_EquipmentInfo.Coin* m_EquipmentInfo.Level + " 金币";
+    }
+
+}
+
+/// <summary>模拟装备数据</summary>
+public class EquipmentInfo
+{
+    public int Level { get; set; }
+    public string Name { get; set; }
+    public int Base { get; set; }
+    public int Coin { get; set; }
+    public string Icon { get; set; }
 
 }
 

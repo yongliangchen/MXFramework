@@ -1,57 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Mx.UI;
-using Mx.Msg;
-using Mx.Utils;
-using UnityEngine.UI;
+using UnityEngine;
 
 /// <summary> 选择英雄UI面板 </summary>
 public class SelectHeroUIForm : BaseUIForm
 {
-    private void Awake()
+    public override void OnAwake()
     {
-        InitUIForm();
-        RigisterButtonEvent();
-
-        MessageMgr.AddMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.AddMsgListener("SelectHeroUIFormEvent",OnUIFormMessagesEvent);
+        base.OnAwake();
+        rigisterButtonEvent();
     }
 
-    private void OnDestroy()
+    public override void OnRelease()
     {
-        MessageMgr.RemoveMsgListener(UIDefine.REFRESH_UI_FORM_EVENT, OnRefreshUIFormMessagesEvent);
-        MessageMgr.RemoveMsgListener("SelectHeroUIFormEvent", OnUIFormMessagesEvent);
-    }
-
-    /// <summary>初始化UI界面</summary>
-    private void InitUIForm()
-    {
-
+        base.OnRelease();
     }
 
     /// <summary>注册按钮事件</summary>
-    private void RigisterButtonEvent()
+    private void rigisterButtonEvent()
     {
-      
+        RigisterButtonObjectEvent("BtnConfirm", openMainUIForm);
+        RigisterButtonObjectEvent("BtnClose", openLoginUIForm);
     }
 
-    /// <summary>刷新UI显示</summary>
-    private void OnRefreshUIForm()
+    /// <summary>打开首页UI面板</summary>
+    private void openMainUIForm(GameObject btnObject)
     {
-        InitUIForm();
+        OpenUIAndCloseCurrentUI(UIFormNames.MAIN_UIFORM, UIFormNames.HERO_INFO_UIFORM);
     }
 
-    /// <summary>当前UI事件监听</summary>
-    private void OnUIFormMessagesEvent(string key, object values)
+    /// <summary>打开登入UI面板</summary>
+    private void openLoginUIForm(GameObject btnObject)
     {
-        
-    }
-
-    /// <summary>刷新UI事件监听</summary>
-    private void OnRefreshUIFormMessagesEvent(string key, object values)
-    {
-        if (key.Equals(UIDefine.REFRESH_UI_FORM_MSG)) OnRefreshUIForm();
+        OpenUIAndCloseCurrentUI(UIFormNames.LOGIN_UIFORM);
     }
 
 }

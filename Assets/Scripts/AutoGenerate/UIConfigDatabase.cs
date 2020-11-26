@@ -28,7 +28,7 @@ namespace Mx.Config
 
 	public partial class UIConfigDatabase:IDatabase
 	{
-		public const uint TYPE_ID = 5;
+		public const uint TYPE_ID = 4;
 		public const string DATA_PATH = "UIConfig";
        
 		private string[][] m_datas;
