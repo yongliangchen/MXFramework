@@ -1,10 +1,10 @@
 using Mx.UI;
-using Mx.Utils;
 using UnityEngine;
 using UnityEngine.UI;
+using Mx.Utils;
 
-/// <summary> 登入UI面板 </summary>
-public class LoginUIForm : BaseUIForm
+/// <summary> 注册UI面板 </summary>
+public class RegisterUIForm : BaseUIForm
 {
     private InputField m_InputName;
     private InputField m_InputPassword;
@@ -19,28 +19,32 @@ public class LoginUIForm : BaseUIForm
         rigisterButtonEvent();
     }
 
-    public override void OnRelease()
+    /// <summary>关闭UI窗口事件</summary>
+    public override void OnCloseUIEvent()
     {
-        base.OnRelease();
+        base.OnCloseUIEvent();
+
+        m_InputName.text = null;
+        m_InputPassword.text = null;
     }
 
     /// <summary>注册按钮事件</summary>
     private void rigisterButtonEvent()
     {
-        RigisterButtonObjectEvent("BtnLogin", login);
-        RigisterButtonObjectEvent("BtnRegister", register);
+        RigisterButtonObjectEvent("BtnDefine", define);
+        RigisterButtonObjectEvent("BtnClose", closeCurrentUIForm);
     }
 
-    /// <summary>登录</summary>
-    private void login(GameObject btnObject)
+    /// <summary>确认注册</summary>
+    private void define(GameObject btnObject)
     {
-        if (verify()) OpenUIAndCloseCurrentUI(UIFormNames.SELECT_HERO_UIFORM);
+        if (verify()) OpenUIAndCloseCurrentUI(UIFormNames.LOGIN_UIFORM);
     }
 
-    /// <summary>注册</summary>
-    private void register(GameObject btnObject)
+    /// <summary>关闭当前UI面板</summary>
+    private void closeCurrentUIForm(GameObject btnObject)
     {
-        OpenUIAndCloseCurrentUI(UIFormNames.REGISTER_UIFORM);
+        OpenUIAndCloseCurrentUI(UIFormNames.LOGIN_UIFORM);
     }
 
     /// <summary>验证登录</summary>
@@ -52,9 +56,10 @@ public class LoginUIForm : BaseUIForm
             return false;
         }
 
-        //链接服务器登入账号......
+        //链接服务器注册账号......
 
         return true;
     }
 
 }
+

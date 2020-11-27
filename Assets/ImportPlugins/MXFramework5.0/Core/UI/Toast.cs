@@ -39,7 +39,7 @@ namespace Mx.UI
     {
         public string Content { get; set; }
         public string Prefab { get; set; } = "UIPrefabs/Toast/Item01";
-        public Vector3 Position { get; set; } = Vector3.zero;
+        public Vector3 Position { get; set; } = new Vector3(0,100,0);
         public float ShowTime { get; set; } = 2f;
         //public int AnimationMode { get; set; }
     }

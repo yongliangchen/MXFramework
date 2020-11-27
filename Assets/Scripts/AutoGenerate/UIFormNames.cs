@@ -5,8 +5,12 @@ public class UIFormNames
 {
      /// <summary>吐司UI面板</summary> 
 public const string  TOAST_UIFORM = "ToastUIForm";
+ /// <summary>登入背景UI面板</summary> 
+public const string  LOGIN_BG_UIFORM = "LoginBgUIForm";
  /// <summary>登入UI面板</summary> 
 public const string  LOGIN_UIFORM = "LoginUIForm";
+ /// <summary>注册UI面板</summary> 
+public const string  REGISTER_UIFORM = "RegisterUIForm";
  /// <summary>选择英雄UI面板</summary> 
 public const string  SELECT_HERO_UIFORM = "SelectHeroUIForm";
  /// <summary>首页UI面板</summary> 

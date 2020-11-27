@@ -100,6 +100,23 @@ namespace Mx.UI
         Vertical,
     }
 
+    /// <summary>UI动画样式</summary>
+    public enum EnumUIAnimationStyle
+    {
+        /// <summary>没有动画</summary>
+        None,
+        /// <summary>中间由小变大 </summary>
+        CenterScaleBigNomal = 0,
+        /// <summary>由上往下 </summary>
+        TopToSlide,
+        /// <summary>由下往上 </summary>
+        DoweToSlide,
+        /// <summary>由左往中 </summary>
+        LeftToSlide,
+        /// <summary>由右往中 </summary>
+        RightToSlide,
+    }
+
     #endregion
 
 }

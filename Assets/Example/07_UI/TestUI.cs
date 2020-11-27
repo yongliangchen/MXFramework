@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Mx.UI;
 using UnityEngine;
-using Mx.UI;
 
 namespace Mx.Example
 {
@@ -9,7 +7,7 @@ namespace Mx.Example
     {
         private void Awake()
         {
-            UIManager.Instance.OpenUIForms(UIFormNames.LOGIN_UIFORM);
+            UIManager.Instance.OpenUIForms(UIFormNames.LOGIN_BG_UIFORM,UIFormNames.LOGIN_UIFORM);
         }
     }
 }

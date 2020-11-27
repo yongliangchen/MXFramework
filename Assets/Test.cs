@@ -17,7 +17,7 @@ public class Test : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.A))
         {
             i++;
-            Toast.Show("点击返回按钮退出应用"+i);
+            Toast.Show("点击返回按钮退出应用"+i,new Vector3(0, 100, 0));
         }
     }
 

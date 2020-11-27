@@ -15,6 +15,10 @@ namespace Mx.Example
                 UIManager.Instance.SendGlobalUIFormMsg("ChangeCoin", coin);
             }
 
-        } 
+        }
+
+        /// <summary>战斗力</summary>
+        public static int Capability { get; set; } = 25;
+       
     }
 }

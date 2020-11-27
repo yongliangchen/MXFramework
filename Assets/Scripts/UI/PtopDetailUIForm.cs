@@ -79,7 +79,7 @@ public class PtopDetailUIForm : BaseUIForm
         //升级失败
         else
         {
-            //弹出吐司Todo
+            Toast.Show("金币不足，升级失败！", new Vector3(0, 100, 0));
         }
     }
 
@@ -102,6 +102,23 @@ public class PtopDetailUIForm : BaseUIForm
         m_NameText.text = m_EquipmentInfo.Level + "级" + m_EquipmentInfo.Name;
         m_DesText.text = "战斗力+" + m_EquipmentInfo.Level * m_EquipmentInfo.Base;
         M_CoinText.text = m_EquipmentInfo.Coin* m_EquipmentInfo.Level + " 金币";
+
+        refreshCapability();
+    }
+
+    /// <summary>刷新战斗力</summary>
+    private void refreshCapability()
+    {
+
+        int capability = 0;
+
+        for(int i=0;i< m_EquipmentInfosList.Count;i++)
+        {
+            capability += (m_EquipmentInfosList[i].Level * m_EquipmentInfosList[i].Base);
+        }
+
+        UserData.Capability = capability;
+        SendMessageToUIForm(UIFormNames.HERO_INFO_UIFORM, "Capability", "战斗力增加了");
     }
 
 }

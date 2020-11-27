@@ -7,6 +7,7 @@ using Mx.Example;
 public class HeroInfoUIForm : BaseUIForm
 {
     private Text m_CoinText;
+    private Text m_CapabilityText;
 
     public override void OnAwake()
     {
@@ -14,6 +15,8 @@ public class HeroInfoUIForm : BaseUIForm
 
         m_CoinText = UnityHelper.FindTheChildNode(gameObject, "Coin").GetComponent<Text>();
         m_CoinText.text = UserData.Coin.ToString();
+        m_CapabilityText = UnityHelper.FindTheChildNode(gameObject, "Capability").GetComponent<Text>();
+        m_CapabilityText.text = m_CapabilityText.text = "战斗力：" + UserData.Capability;
 
         rigisterButtonEvent();
     }
@@ -27,6 +30,13 @@ public class HeroInfoUIForm : BaseUIForm
     private void rigisterButtonEvent()
     {
 
+    }
+
+    public override void OnCurrentUIFormMsgEvent(string key, object values)
+    {
+        base.OnCurrentUIFormMsgEvent(key, values);
+
+        if(key.Equals("Capability")) m_CapabilityText.text = "战斗力："+UserData.Capability;
     }
 
     public override void OnGlobalUIFormMsgEvent(string key, object values)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using Mx.Res;
 using Mx.UI;
 using Mx.Utils;
@@ -46,7 +47,9 @@ public class ToastUIForm : BaseUIForm
     {
         if (info == null) return;
         GameObject item = Instantiate(ResoucesMgr.Instance.Load<GameObject>(info.Prefab, true),transform);
+        item.transform.localScale = Vector3.zero;
         item.SetActive(true);
+        item.transform.DOScale(Vector3.one, 0.2f);
         if (item.transform.Find("Content") != null)
         {
             item.transform.Find("Content").GetComponent<Text>().text = info.Content;
@@ -58,11 +61,17 @@ public class ToastUIForm : BaseUIForm
         if (item.GetComponent<ContentSizeFitter>()!=null)
         item.GetComponent<ContentSizeFitter>().SetLayoutHorizontal();
 
+        item.GetComponent<RectTransform>().anchoredPosition3D = info.Position;
+
         m_ListToast.Add(item);
 
         Timer.CreateTimer("Toast_Timer").StartTiming(info.ShowTime, () =>
         {
-            if (item != null) Destroy(item);
+            if (item != null)
+            {
+                //item.transform.DOScale(Vector3.zero, 0.2f).OnComplete(() => { Destroy(item); });
+                Destroy(item);
+            }
             m_ListToast.Remove(item);
         });
     }
