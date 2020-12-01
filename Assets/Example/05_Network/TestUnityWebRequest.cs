@@ -33,11 +33,11 @@ namespace Mx.Example
         }
 
         /// <summary>测试获取头文件</summary>
-        public void GetHeadFile(string url)
+        public void GetHeadFile(string uri)
         {
             //headers.TryGetValue("Last-Modified", out m_ServerResVersion);//获取文件修改时间可以用来做版本号
 
-            WebRequest.Instance.GetHeadFile(url, (uwr) =>
+            WebRequest.Instance.GetHeadFile(uri, (uwr) =>
             {
                 if(string.IsNullOrEmpty(uwr.error))
                 {
@@ -56,9 +56,9 @@ namespace Mx.Example
         }
 
         /// <summary>测试Get方法</summary>
-        public void Get(string url)
+        public void Get(string uri)
         {
-            WebRequest.Instance.Get(url, (uwr) =>
+            WebRequest.Instance.Get(uri, (uwr) =>
             {
                 if (string.IsNullOrEmpty(uwr.error))
                 {
@@ -73,11 +73,11 @@ namespace Mx.Example
         }
 
         /// <summary>测试下载图片</summary>
-        public void GetTexture(string url)
+        public void GetTexture(string uri)
         {
             rawImage.texture = null;
             slider.value = 0;
-            WebRequest.Instance.GetTexture(url, (progress)=> { slider.value = progress; }, (error, texture2D) =>
+            WebRequest.Instance.GetTexture(uri, (progress)=> { slider.value = progress; }, (error, texture2D) =>
              {
                  if (string.IsNullOrEmpty(error))
                  {
@@ -94,9 +94,9 @@ namespace Mx.Example
         }
         
         /// <summary>测试获取Text</summary>
-        public void GetText(string url)
+        public void GetText(string uri)
         {
-            WebRequest.Instance.GetText(url,null, (error, text) =>
+            WebRequest.Instance.GetText(uri,null, (error, text) =>
             {
                 if (string.IsNullOrEmpty(error))
                 {
@@ -111,9 +111,9 @@ namespace Mx.Example
         }
         
         /// <summary>测试获取AB</summary>
-        public void GetAssetBundle(string url)
+        public void GetAssetBundle(string uri)
         {
-            WebRequest.Instance.GetAssetBundle(url, null, (error, ab) =>
+            WebRequest.Instance.GetAssetBundle(uri, null, (error, ab) =>
             {
                 if (string.IsNullOrEmpty(error))
                 {
@@ -129,11 +129,11 @@ namespace Mx.Example
         }
 
         /// <summary>测试获取Clip(</summary>
-        public void GetAudioClip(string url)
+        public void GetAudioClip(string uri)
         {
             m_AudioSource.Stop();
 
-            WebRequest.Instance.GetAudioClip(url, AudioType.WAV, null, (error, clip) =>
+            WebRequest.Instance.GetAudioClip(uri, AudioType.WAV, null, (error, clip) =>
             {
                 if (string.IsNullOrEmpty(error))
                 {
@@ -150,12 +150,12 @@ namespace Mx.Example
         }
 
         /// <summary>测试Post</summary>
-        public void Post(string url)
+        public void Post(string uri)
         {
             WWWForm form = new WWWForm();
             //form.AddField("请输入Key", "数输入参数");
 
-            WebRequest.Instance.Post(url, form,(uwr) =>
+            WebRequest.Instance.Post(uri, form,(uwr) =>
             {
                 if (string.IsNullOrEmpty(uwr.error))
                 {
@@ -170,14 +170,14 @@ namespace Mx.Example
         }
 
         /// <summary>测试下载文件(没有断点续传)</summary>
-        public void Download1(string url)
+        public void Download1(string uri)
         {
             downloadSlider1.value = 0;
             downloadProgress1.text = "0";
             downloadInfo1.text = null;
             string savePath = outFolder;
 
-            DownLoadFile.Instance.Download(url, savePath, (progress, uwr) =>
+            DownLoadFile.Instance.Download(uri, savePath, (progress, uwr) =>
             {
                 if (!uwr.isDone)
                 {
@@ -203,18 +203,18 @@ namespace Mx.Example
             });
         }
 
-        public void Download2(string url)
+        public void Download2(string uri)
         {
             downloadSlider2.value = 0;
             downloadProgress2.text = "0";
             downloadInfo2.text = null;
             string savePath = outFolder;
 
-            DownLoadFile.Instance.GetLastModified(url, (version) =>
+            DownLoadFile.Instance.GetLastModified(uri, (version) =>
             {
                 if (!string.IsNullOrEmpty(version))
                 {
-                    DownLoadFile.Instance.Download(url, savePath, version, (progress, uwr) => {
+                    DownLoadFile.Instance.Download(uri, savePath, version, (progress, uwr) => {
 
                         if (!uwr.isDone)
                         {

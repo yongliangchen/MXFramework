@@ -39,17 +39,17 @@ namespace Mx.Net
         }
 
         /// <summary>获取头文件信息</summary>
-        public new void GetHeadFile(string url, Action<UnityWebRequest> callback, int timeout = 0)
+        public new void GetHeadFile(string uri, Action<UnityWebRequest> callback, int timeout = 0)
         {
-            StartCoroutine(base.GetHeadFile(url, callback, timeout));
+            StartCoroutine(base.GetHeadFile(uri, callback, timeout));
         }
 
         /// <summary>获取文件最后修改时间用来做版本号（也可以获取MD5）</summary>
-        public void GetLastModified(string url,Action<string> callback)
+        public void GetLastModified(string uri,Action<string> callback)
         {
             string version = string.Empty;
 
-            GetHeadFile(url, (uwr) =>
+            GetHeadFile(uri, (uwr) =>
             {
                 if (string.IsNullOrEmpty(uwr.error))
                 {
@@ -68,26 +68,26 @@ namespace Mx.Net
         }
 
         /// <summary>下载文件(没有断点续传)</summary>
-        public new void Download(string url, string savePath, DelWebRequestCallback callback = null, int timeout = 0)
+        public new void Download(string uri, string savePath, DelWebRequestCallback callback = null, int timeout = 0)
         {
             if (!Directory.Exists(savePath)) Directory.CreateDirectory(savePath);
-            string fileName = url.Split('/')[url.Split('/').Length - 1];
+            string fileName = uri.Split('/')[uri.Split('/').Length - 1];
             savePath += "/" + fileName;
 
-            if (!downReqMap.ContainsKey(url))
+            if (!downReqMap.ContainsKey(uri))
             {
-                coroutines.Add(url, StartCoroutine(base.Download(url, savePath, callback, timeout)));
+                coroutines.Add(uri, StartCoroutine(base.Download(uri, savePath, callback, timeout)));
             }
         }
 
         /// <summary>下载文件(断点续传)</summary>
-        public new void Download(string url, string savePath, string version, DelWebRequestCallback callback = null, int timeout = 0)
+        public new void Download(string uri, string savePath, string version, DelWebRequestCallback callback = null, int timeout = 0)
         {
             if (!Directory.Exists(savePath)) Directory.CreateDirectory(savePath);
 
-            if (!downReqMap.ContainsKey(url))
+            if (!downReqMap.ContainsKey(uri))
             {
-                coroutines.Add(url, StartCoroutine(base.Download(url, savePath, version, callback, timeout)));
+                coroutines.Add(uri, StartCoroutine(base.Download(uri, savePath, version, callback, timeout)));
             }
         }
     }

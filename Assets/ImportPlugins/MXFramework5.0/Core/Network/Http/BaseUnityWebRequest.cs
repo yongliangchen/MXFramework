@@ -26,9 +26,9 @@ namespace Mx.Net
         protected Dictionary<string, UnityWebRequest> downReqMap = new Dictionary<string, UnityWebRequest>();
         protected Dictionary<string, Coroutine> coroutines = new Dictionary<string, Coroutine>();
 
-        protected IEnumerator Get(string url, Action<UnityWebRequest> callback, int timeout)
+        protected IEnumerator Get(string uri, Action<UnityWebRequest> callback, int timeout)
         {
-            using (UnityWebRequest uwr = UnityWebRequest.Get(url))
+            using (UnityWebRequest uwr = UnityWebRequest.Get(uri))
             {
                 uwr.timeout = timeout;
                 yield return uwr.SendWebRequest();
@@ -36,9 +36,9 @@ namespace Mx.Net
             }
         }
 
-        protected IEnumerator GetHeadFile(string url, Action<UnityWebRequest> callback, int timeout)
+        protected IEnumerator GetHeadFile(string uri, Action<UnityWebRequest> callback, int timeout)
         {
-            using (UnityWebRequest uwr = UnityWebRequest.Head(url))
+            using (UnityWebRequest uwr = UnityWebRequest.Head(uri))
             {
                 uwr.timeout = timeout;
                 yield return uwr.SendWebRequest();
@@ -46,66 +46,66 @@ namespace Mx.Net
             }
         }
 
-        protected IEnumerator GetTexture(string url, Action<float> progress, DelGetTextureCallback callback, int timeout)
+        protected IEnumerator GetTexture(string uri, Action<float> progress, DelGetTextureCallback callback, int timeout)
         {
-            UnityWebRequest uwr = new UnityWebRequest(url);
+            UnityWebRequest uwr = new UnityWebRequest(uri);
             uwr.timeout = timeout;
             DownloadHandlerTexture downloadTexture = new DownloadHandlerTexture(true);
             uwr.downloadHandler = downloadTexture;
             uwr.SendWebRequest();
-            downReqMap.Add(url, uwr);
+            downReqMap.Add(uri, uwr);
 
             yield return getProgress(uwr, progress);
 
             Texture2D texture2D = (string.IsNullOrEmpty(uwr.error)) ? downloadTexture.texture : null;
             if (callback != null) { callback(uwr.error, texture2D); }
-            Dispose(url);
+            Dispose(uri);
         }
 
-        protected IEnumerator GetText(string url, Action<float> progress, DelGetTextCallback callback, int timeout)
+        protected IEnumerator GetText(string uri, Action<float> progress, DelGetTextCallback callback, int timeout)
         {
-            UnityWebRequest uwr = UnityWebRequest.Get(url);
+            UnityWebRequest uwr = UnityWebRequest.Get(uri);
             uwr.timeout = timeout;
             uwr.SendWebRequest();
-            downReqMap.Add(url, uwr);
+            downReqMap.Add(uri, uwr);
 
             yield return getProgress(uwr, progress);
 
             string text = (string.IsNullOrEmpty(uwr.error)) ? uwr.downloadHandler.text : string.Empty;
             if (callback != null) { callback(uwr.error, text); }
-            Dispose(url);
+            Dispose(uri);
         }
 
-        protected IEnumerator GetAssetBundle(string url, Action<float> progress, DelGetAbCallback callback, int timeout)
+        protected IEnumerator GetAssetBundle(string uri, Action<float> progress, DelGetAbCallback callback, int timeout)
         {
-            UnityWebRequest uwr = new UnityWebRequest(url);
+            UnityWebRequest uwr = new UnityWebRequest(uri);
             uwr.timeout = timeout;
             DownloadHandlerAssetBundle handler = new DownloadHandlerAssetBundle(uwr.url, uint.MaxValue);
             uwr.downloadHandler = handler;
             uwr.SendWebRequest();
-            downReqMap.Add(url, uwr);
+            downReqMap.Add(uri, uwr);
 
             yield return getProgress(uwr, progress);
 
             AssetBundle ab = (string.IsNullOrEmpty(uwr.error)) ? handler.assetBundle : null;
             if (callback != null) { callback(uwr.error,ab); }
-            Dispose(url);
+            Dispose(uri);
         }
 
-        protected IEnumerator GetAudioClip(string url, AudioType audioType, Action<float> progress, DelGetAudioClipCallback callback, int timeout)
+        protected IEnumerator GetAudioClip(string uri, AudioType audioType, Action<float> progress, DelGetAudioClipCallback callback, int timeout)
         {
-            using (var uwr = UnityWebRequestMultimedia.GetAudioClip(url, audioType))
+            using (var uwr = UnityWebRequestMultimedia.GetAudioClip(uri, audioType))
             {
                 uwr.timeout = timeout;
                 uwr.SendWebRequest();
 
-                downReqMap.Add(url, uwr);
+                downReqMap.Add(uri, uwr);
 
                 yield return getProgress(uwr, progress);
 
                 AudioClip clip = (string.IsNullOrEmpty(uwr.error)) ? DownloadHandlerAudioClip.GetContent(uwr) : null;
                 if (callback != null) callback(uwr.error, clip);
-                Dispose(url);
+                Dispose(uri);
             }
         }
 
@@ -115,7 +115,7 @@ namespace Mx.Net
             if (callback != null) { callback(uwr); }
         }
 
-        protected IEnumerator Upload(string url, byte[] bytes, DelWebRequestCallback callback, string contentType = "application/octet-stream")
+        protected IEnumerator Upload(string uri, byte[] bytes, DelWebRequestCallback callback, string contentType = "application/octet-stream")
         {
             UnityWebRequest uwr = new UnityWebRequest();
             UploadHandler uploader = new UploadHandlerRaw(bytes);
@@ -123,7 +123,7 @@ namespace Mx.Net
             uwr.uploadHandler = uploader;
             uwr.SendWebRequest();
 
-            downReqMap.Add(url, uwr);
+            downReqMap.Add(uri, uwr);
 
             while (!uwr.isDone)
             {
@@ -131,17 +131,17 @@ namespace Mx.Net
                 yield return null;
             }
             if (callback != null) callback(uwr.uploadProgress, uwr);
-            Dispose(url);
+            Dispose(uri);
         }
 
-        protected IEnumerator Download(string url, string savePath, DelWebRequestCallback callback,int timeout)
+        protected IEnumerator Download(string uri, string savePath, DelWebRequestCallback callback,int timeout)
         {
-            var uwr = new UnityWebRequest(url, UnityWebRequest.kHttpVerbGET);
+            var uwr = new UnityWebRequest(uri, UnityWebRequest.kHttpVerbGET);
             uwr.timeout = timeout;
             uwr.downloadHandler = new DownloadHandlerFile(savePath);
             uwr.SendWebRequest();
 
-            downReqMap.Add(url, uwr);
+            downReqMap.Add(uri, uwr);
 
             while (!uwr.isDone)
             {
@@ -150,14 +150,14 @@ namespace Mx.Net
             }
 
             if (callback != null) { callback(uwr.downloadProgress, uwr); }
-            Dispose(url);
+            Dispose(uri);
         }
 
-        protected IEnumerator Download(string url, string savePath, string version, DelWebRequestCallback callback, int timeout)
+        protected IEnumerator Download(string uri, string savePath, string version, DelWebRequestCallback callback, int timeout)
         {
-            string fileName = url.Split('/')[url.Split('/').Length - 1];
+            string fileName = uri.Split('/')[uri.Split('/').Length - 1];
 
-            UnityWebRequest uwr = UnityWebRequest.Get(url);
+            UnityWebRequest uwr = UnityWebRequest.Get(uri);
             uwr.timeout = timeout;
             DownloadFileHandler downloadFile = new DownloadFileHandler(savePath, fileName, version);
             uwr.downloadHandler = downloadFile;
@@ -165,7 +165,7 @@ namespace Mx.Net
             uwr.SetRequestHeader("Range", "bytes=" + length + "-");
             uwr.SendWebRequest();
 
-            downReqMap.Add(url, uwr);
+            downReqMap.Add(uri, uwr);
 
             while (!uwr.isDone)
             {
@@ -175,7 +175,7 @@ namespace Mx.Net
             }
 
             if (callback != null) {callback(downloadFile.DownloadProgress, uwr); }
-            Dispose(url);
+            Dispose(uri);
         }
 
         private IEnumerator getProgress(UnityWebRequest uwr, Action<float> progress)
@@ -188,19 +188,19 @@ namespace Mx.Net
             }
         }
 
-        public virtual void Dispose(string url)
+        public virtual void Dispose(string uri)
         {
-            if (coroutines.ContainsKey(url))
+            if (coroutines.ContainsKey(uri))
             {
-                if (coroutines[url] != null) StopCoroutine(coroutines[url]);
-                coroutines.Remove(url);
+                if (coroutines[uri] != null) StopCoroutine(coroutines[uri]);
+                coroutines.Remove(uri);
             }
 
-            if (downReqMap.ContainsKey(url))
+            if (downReqMap.ContainsKey(uri))
             {
-                if (downReqMap[url] != null) downReqMap[url].Abort();
-                if (downReqMap[url] != null) downReqMap[url].Dispose();
-                downReqMap.Remove(url);
+                if (downReqMap[uri] != null) downReqMap[uri].Abort();
+                if (downReqMap[uri] != null) downReqMap[uri].Dispose();
+                downReqMap.Remove(uri);
             }
         }
 
