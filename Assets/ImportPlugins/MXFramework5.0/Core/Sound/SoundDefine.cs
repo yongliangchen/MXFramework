@@ -16,6 +16,8 @@
         Play,
         /// <summary>暂停状态</summary>
         Pause,
+        /// <summary>播放结束（循环模式是不会有播放结束的事件的）</summary>
+        PlayFinish,
         /// <summary>停止状态</summary>
         Stop,
         /// <summary>发生错误</summary>

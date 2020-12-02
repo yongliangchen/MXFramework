@@ -126,6 +126,26 @@ namespace Mx.Sound
             PauseSound(GetAllSoundName());
         }
 
+        /// <summary>停止播放声音</summary>
+        public void StopSound(params string[] soundNames)
+        {
+            for (int i = 0; i < soundNames.Length; i++)
+            {
+                string soundName = soundNames[i];
+                DeleteNullSound(soundName);
+                if (m_DicAllSound.ContainsKey(soundName))
+                {
+                    if (m_DicAllSound[soundName].state != SoundState.Stop) m_DicAllSound[soundName].Stop();
+                }
+            }
+        }
+
+        /// <summary>停止播放所有声音</summary>
+        public void StopAllSounds()
+        {
+            StopSound(GetAllSoundName());
+        }
+
         /// <summary>重新播放声音（进度从0开始）</summary>
         public void ReplaySounds(params string[] soundNames)
         {
@@ -191,6 +211,14 @@ namespace Mx.Sound
         {
             string[] soundNameArr = m_DicAllSound.Keys.ToArray<string>();
             return soundNameArr;
+        }
+
+        /// <summary>通过名称获取Itme</summary>
+        public SoundItem GetSoundItemByName(string soundName)
+        {
+            SoundItem soundItem=null;
+            m_DicAllSound.TryGetValue(soundName, out soundItem);
+            return soundItem;
         }
 
         /// <summary>判断库存中是否有这个声音</summary>

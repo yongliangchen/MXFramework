@@ -40,8 +40,7 @@ namespace Mx.Sound
                     playTime = time;
                     m_IsPlay = false;
 
-                    state = SoundState.Stop;
-
+                    state = SoundState.PlayFinish;
                     if (onCallback != null) onCallback(soundName, state, time, playTime);
                 }
 
@@ -106,6 +105,7 @@ namespace Mx.Sound
         {
             audioSource.Pause();
             m_IsPlay = false;
+            state = SoundState.Pause;
 
             if (onCallback != null) onCallback(soundName, state, time, playTime);
         }
@@ -115,6 +115,7 @@ namespace Mx.Sound
         {
             audioSource.Stop();
             m_IsPlay = false;
+            state = SoundState.Stop;
 
             if (onCallback != null) onCallback(soundName, state, time, playTime);
         }
