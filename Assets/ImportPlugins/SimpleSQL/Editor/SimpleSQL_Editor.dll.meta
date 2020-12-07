@@ -1,0 +1,33 @@
+fileFormatVersion: 2
+guid: fae49353094933f4eb15be670bebc99c
+labels:
+- table
+- sql
+- database
+- query
+- storage
+- save
+- sqlite
+- data
+- xml
+- playerprefs
+PluginImporter:
+  serializedVersion: 1
+  iconMap: {}
+  executionOrder: {}
+  isPreloaded: 0
+  platformData:
+    Any:
+      enabled: 0
+      settings: {}
+    Editor:
+      enabled: 1
+      settings:
+        DefaultValueInitialized: true
+    WindowsStoreApps:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,21 +1,15 @@
 ﻿using System;
+using SimpleSQL;
 
 namespace Mx.Cache
 {
-    [Serializable]
+
     public class CacheInfo 
     {
-        public string Id;
-        public string Version;
-        public string LastModify;
-        public string Md5;
-    }
-
-    [Serializable]
-    public class CacheInfos
-    {
-        public string LastModify;
-        public int Count;
-        public CacheInfo[] content;
+        [PrimaryKey]
+        public string Name { get; set; }
+        public string Version { get; set; }
+        public string LastModify { get; set; }
+        public string Md5 { get; set; }
     }
 }
