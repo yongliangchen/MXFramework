@@ -23,18 +23,6 @@ namespace Mx.UI
     {
         UIFormDatas m_UIFormDatas = new UIFormDatas();
 
-        //private Transform m_TraUiRoot = null;
-        //private Transform m_TraNormal = null;
-        //private Transform m_TraFixed = null;
-        //private Transform m_TraPopUp = null;
-        //private Transform m_TraNotice = null;
-        //private Transform m_TraScripts = null;
-
-        private void Awake()
-        {
-            initUI();
-        }
-
         /// <summary>添加一个UI到Ui管理库</summary>
         public void AddUIForm(UIConfigData uiconfig, string uiFormName, GameObject uiFormPrefab)
         {
@@ -64,7 +52,6 @@ namespace Mx.UI
         {
 
         }
-
 
         /// <summary>打开UI面板</summary>
         public void OpenUIForms(params string[] uiFormNames)
@@ -137,34 +124,18 @@ namespace Mx.UI
             MessageCenter.SendMessage(UIDefine.GLOBAL_UI_FORM_MSG_EVENT, key, values);
         }
 
-        private void initUI()
-        {
-            //m_TraUiRoot = Mx.Res.ResoucesMgr.Instance.CreateGameObject(UIDefine.PATH_UIROOT, false).transform;
-            //m_TraUiRoot.name = "UIRoot";
-
-            //m_TraNormal = UnityHelper.FindTheChildNode(m_TraUiRoot.gameObject, UIDefine.NORMAL_MODE);
-            //m_TraFixed = UnityHelper.FindTheChildNode(m_TraUiRoot.gameObject, UIDefine.FIXED_MODE);
-            //m_TraPopUp = UnityHelper.FindTheChildNode(m_TraUiRoot.gameObject, UIDefine.POPUP_MODE);
-            //m_TraNotice = UnityHelper.FindTheChildNode(m_TraUiRoot.gameObject, UIDefine.NOTICE_MODE);
-            //m_TraScripts = UnityHelper.FindTheChildNode(m_TraUiRoot.gameObject, UIDefine.SCRIPTSLMANAGER_MODE);
-
-            //this.gameObject.transform.SetParent(m_TraScripts, false);
-            //DontDestroyOnLoad(m_TraUiRoot);//加载场景的时候不销毁
-        }
-
         /// <summary>获取UI显示层级</summary>
         private Transform getParent(UIConfigData uiInfo)
         {
             Transform parent = null;
 
-            //switch ((EnumUIFormDepth)uiInfo.UIFormsDepth)
-            //{
-            //    case EnumUIFormDepth.Normal: parent = m_TraNormal; break;
-            //    case EnumUIFormDepth.Fixed: parent = m_TraFixed; break;
-            //    case EnumUIFormDepth.PopUp: parent = m_TraPopUp; break;
-            //    case EnumUIFormDepth.Notice: parent = m_TraNotice; break;
-            //    default: parent = m_TraNormal; break;
-            //}
+            if(uiInfo.UIFormsDepth>=UIRoot.Instance.uiFormDepthArr.Length)
+            {
+                Debug.LogError(GetType() + "/getParent()/Index was outside the bounds of the array！ uiFormName：" + uiInfo.Name);
+                return parent;
+            }
+
+            parent = UIRoot.Instance.uiFormDepthArr[uiInfo.UIFormsDepth];
 
             return parent;
         }

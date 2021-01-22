@@ -12,7 +12,7 @@ namespace Mx.Example
             {
                 coin = value;
                 if (coin <= 0) coin = 0;
-                UIManager.Instance.SendGlobalUIFormMsg("ChangeCoin", coin);
+                //UIManager.Instance.SendGlobalUIFormMsg("ChangeCoin", coin);
             }
 
         }

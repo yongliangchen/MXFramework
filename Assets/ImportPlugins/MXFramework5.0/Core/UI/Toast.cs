@@ -30,8 +30,8 @@ namespace Mx.UI
 
         private static void sendMsgToToastUIForm(ToastMsgInfo info)
         {
-            if (!UIManager.Instance.IsOpen(UIFormNames.TOAST_UIFORM)) UIManager.Instance.OpenUIForms(UIFormNames.TOAST_UIFORM);
-            UIManager.Instance.SendMessageToUIForm(UIFormNames.TOAST_UIFORM, UIDefine.TOAST_INFO_MSG, info);
+            //if (!UIManager.Instance.IsOpen(UIFormNames.TOAST_UIFORM)) UIManager.Instance.OpenUIForms(UIFormNames.TOAST_UIFORM);
+            //UIManager.Instance.SendMessageToUIForm(UIFormNames.TOAST_UIFORM, UIDefine.TOAST_INFO_MSG, info);
         }
     }
 

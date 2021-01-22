@@ -26,16 +26,16 @@ namespace Mx.UI
         /// <summary>吐司消息</summary>
         public const string TOAST_INFO_MSG = "ToastInfoMsg";
 
+        /// <summary>UI设计尺寸，宽</summary>
+        public const int UI_ORIFINAL_WIDTH = 1280;
+        /// <summary>UI设计尺寸，高</summary>
+        public const int UI_ORIFINAL_HEIGHT = 720;
+      
+        /// <summary>UI层级名称</summary>
+        public const string LAYER_UI = "UI";
         /// <summary>UIRoot的路径</summary>
-        public const string PATH_UIROOT = "UIRoot";
-        /// <summary>普通窗体节点常量</summary>
-        public const string NORMAL_MODE = "Normal";
-        /// <summary>固定窗体节点常量</summary>
-        public const string FIXED_MODE = "Fixed";
-        /// <summary>弹出窗体节点常量</summary>
-        public const string POPUP_MODE = "PopUp";
-        /// <summary>通知窗体节点常量</summary>
-        public const string NOTICE_MODE = "Notice";
+        public const string NAME_UIROOT = "UIRoot";
+
         /// <summary>脚本管理节点常量</summary>
         public const string SCRIPTSLMANAGER_MODE = "ScriptsManager";
 

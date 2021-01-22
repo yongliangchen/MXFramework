@@ -7,6 +7,7 @@ public class TestUI : MonoBehaviour
 {
     private void Awake()
     {
-        UIControl.Instance.Init();
+        print("Awake");
+        //UIControl.Instance.Init();
     }
 }

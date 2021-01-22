@@ -62,7 +62,7 @@ namespace Mx.UI
         /// <summary>打开UI窗体</summary>
         protected void OpenUIForms(params string[] uiFormNames)
         {
-            UIManager.Instance.OpenUIForms(uiFormNames);
+            //UIManager.Instance.OpenUIForms(uiFormNames);
         }
 
         /// <summary>打开UI窗体并且关闭当前UI窗体</summary>
@@ -75,13 +75,13 @@ namespace Mx.UI
         /// <summary>关闭当前UI窗体</summary>
         protected void CloseUIForm()
         {
-            UIManager.Instance.CloseUIForms(m_CurrentClassName);
+            //UIManager.Instance.CloseUIForms(m_CurrentClassName);
         }
 
         /// <summary>关闭UI窗体</summary>
         protected void CloseUIForms(params string[] uiFormNames)
         {
-            UIManager.Instance.CloseUIForms(uiFormNames);
+            //UIManager.Instance.CloseUIForms(uiFormNames);
         }
 
         /// <summary>

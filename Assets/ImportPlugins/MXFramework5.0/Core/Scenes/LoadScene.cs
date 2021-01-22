@@ -47,7 +47,7 @@ namespace Mx.Scene
         {
             if(!string.IsNullOrEmpty(LoadSceneData.LoadSceneUIName))
             {
-                UIManager.Instance.SendMessageToUIForm(LoadSceneData.LoadSceneUIName, "RefreshLoadSceneProgress", m_progress);
+                //UIManager.Instance.SendMessageToUIForm(LoadSceneData.LoadSceneUIName, "RefreshLoadSceneProgress", m_progress);
             }
         }
 
@@ -56,7 +56,7 @@ namespace Mx.Scene
         {
             if (!string.IsNullOrEmpty(LoadSceneData.LoadSceneUIName))
             {
-                UIManager.Instance.CloseUIForms(LoadSceneData.LoadSceneUIName);
+                //UIManager.Instance.CloseUIForms(LoadSceneData.LoadSceneUIName);
             }
 
             LoadSceneData.LoadSceneUIName = null;
