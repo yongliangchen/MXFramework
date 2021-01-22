@@ -7,8 +7,8 @@ namespace Mx.UI
     /// <summary>UI的父类</summary>
     public abstract class BaseUIForm : MonoBehaviour
     {
-        public UIFormDepth uIFormsDepth { get; set; }
-        public UIFormShowMode uIFormShowMode { get; set; }
+        public EnumUIFormDepth uIFormsDepth { get; set; }
+        public EnumUIFormShowMode uIFormShowMode { get; set; }
         private string m_CurrentClassName;
 
         private void Awake()

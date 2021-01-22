@@ -57,7 +57,7 @@ namespace Mx.UI
     #region 系统枚举类型
 
     /// <summary>Ui窗体层级</summary>
-    public enum UIFormDepth
+    public enum EnumUIFormDepth
     {
         /// <summary>普通窗体</summary>
         Normal,
@@ -70,7 +70,7 @@ namespace Mx.UI
     }
 
     /// <summary>UI窗体显示模式</summary>
-    public enum UIFormShowMode
+    public enum EnumUIFormShowMode
     {
         /// <summary>普通窗体模式</summary>
         Normal,
@@ -85,7 +85,7 @@ namespace Mx.UI
     }
 
     /// <summary>UI加载方式</summary>
-    public enum LoadType
+    public enum EnumLoadType
     {
         /// <summary>通过Resources方式加载</summary>
         Resources,
@@ -94,11 +94,11 @@ namespace Mx.UI
     }
 
     /// <summary>UI方向</summary>
-    public enum UIDirection
-    {
-        Horizontal,
-        Vertical,
-    }
+    //public enum EnumUIDirection
+    //{
+    //    Horizontal,
+    //    Vertical,
+    //}
 
     /// <summary>UI动画样式</summary>
     public enum EnumUIAnimationStyle

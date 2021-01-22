@@ -6,7 +6,7 @@
  *           功能：是整个UI框架的核心。
  *                                  
  *    Date: 2020
- *    Version: v4.1版本
+ *    Version: v5.1版本
  *    Modify Recoder:      
  */
 
@@ -26,8 +26,8 @@ namespace Mx.UI
     {
         private UIConfigDatabase uIConfig;
 
-        private Dictionary<string, UIFormItem> m_DicAllUIForms = new Dictionary<string, UIFormItem>();
-        private Dictionary<string, UIFormItem> m_DicOpenUIForms = new Dictionary<string, UIFormItem>();
+        private Dictionary<string, UIFormInfo> m_DicAllUIForms = new Dictionary<string, UIFormInfo>();
+        private Dictionary<string, UIFormInfo> m_DicOpenUIForms = new Dictionary<string, UIFormInfo>();
         private Dictionary<string, BaseUIForm> m_DicReverseChangeUIForms = new Dictionary<string, BaseUIForm>();
         private Dictionary<string, BaseUIForm> m_DicFreezeOtherUIForms = new Dictionary<string, BaseUIForm>();
         private Dictionary<string,BaseUIForm> m_DicOpenUIFormsStack = new Dictionary<string, BaseUIForm>();
@@ -114,7 +114,7 @@ namespace Mx.UI
         {
             foreach (string uiFormName in m_DicOpenUIForms.Keys)
             {
-                UIFormItem uiFormItem = m_DicOpenUIForms[uiFormName];
+                UIFormInfo uiFormItem = m_DicOpenUIForms[uiFormName];
                 if (uiFormItem != null) uiFormItem.gameObject.SetActive(false);
             }
         }
@@ -124,7 +124,7 @@ namespace Mx.UI
             foreach (string uiFormName in m_DicOpenUIForms.Keys)
             {
                 if (uiFormName.Equals(excludeUIFormName)) continue;
-                UIFormItem uiFormItem = m_DicOpenUIForms[uiFormName];
+                UIFormInfo uiFormItem = m_DicOpenUIForms[uiFormName];
                 if (uiFormItem != null) uiFormItem.gameObject.SetActive(false);
             }
         }
@@ -133,7 +133,7 @@ namespace Mx.UI
         {
             foreach (string uiFormName in m_DicOpenUIForms.Keys)
             {
-                UIFormItem uiFormItem = m_DicOpenUIForms[uiFormName];
+                UIFormInfo uiFormItem = m_DicOpenUIForms[uiFormName];
                 if (uiFormItem != null) uiFormItem.gameObject.SetActive(true);
             }
 
@@ -175,24 +175,24 @@ namespace Mx.UI
         private void loadUIForm(UIConfigData uiInfo, string uiFormName)
         {
             Transform parent = null;
-            switch ((UIFormDepth)uiInfo.UIFormsDepth)
+            switch ((EnumUIFormDepth)uiInfo.UIFormsDepth)
             {
-                case UIFormDepth.Normal: parent = m_TraNormal; break;
-                case UIFormDepth.Fixed: parent = m_TraFixed; break;
-                case UIFormDepth.PopUp: parent = m_TraPopUp; break;
-                case UIFormDepth.Notice: parent = m_TraNotice; break;
+                case EnumUIFormDepth.Normal: parent = m_TraNormal; break;
+                case EnumUIFormDepth.Fixed: parent = m_TraFixed; break;
+                case EnumUIFormDepth.PopUp: parent = m_TraPopUp; break;
+                case EnumUIFormDepth.Notice: parent = m_TraNotice; break;
             }
 
             UIParam uiParam = new UIParam();
-            uiParam.uIFormDepth = (UIFormDepth)uiInfo.UIFormsDepth;
-            uiParam.uIFormShowMode = (UIFormShowMode)uiInfo.UIFormShowMode;
+            uiParam.uIFormDepth = (EnumUIFormDepth)uiInfo.UIFormsDepth;
+            uiParam.uIFormShowMode = (EnumUIFormShowMode)uiInfo.UIFormShowMode;
 
-            if ((LoadType)uiInfo.LandType == LoadType.Resources)
+            if ((EnumLoadType)uiInfo.LandType == EnumLoadType.Resources)
             {
                 GameObject prefab = ResoucesMgr.Instance.Load<GameObject>(uiInfo.ResourcesPath, false);
                 loadUIFormFinish(uiFormName, prefab, parent, uiParam);
             }
-            else if ((LoadType)uiInfo.LandType == LoadType.AssetBundle)
+            else if ((EnumLoadType)uiInfo.LandType == EnumLoadType.AssetBundle)
             {
                 AssetBundleMgr.Instance.LoadAssetBunlde("UI", uiInfo.AssetBundlePath);
                 GameObject prefab = AssetBundleMgr.Instance.LoadAsset("UI", uiInfo.AssetBundlePath, uiInfo.AssetName) as GameObject;
@@ -212,8 +212,8 @@ namespace Mx.UI
             GameObject item = Instantiate(prefab, parent);
             item.name = uiFormName;
 
-            UIFormItem uIFormItem = item.GetComponent<UIFormItem>();
-            if (uIFormItem == null) uIFormItem = item.AddComponent<UIFormItem>();
+            UIFormInfo uIFormItem = item.GetComponent<UIFormInfo>();
+            if (uIFormItem == null) uIFormItem = item.AddComponent<UIFormInfo>();
             uIFormItem.CurrentUIParam = uiParam;
             m_DicAllUIForms[uiFormName] = uIFormItem;
 
@@ -238,21 +238,21 @@ namespace Mx.UI
             BaseUIForm baseUIForm = m_DicAllUIForms[uiFormName].gameObject.GetComponent<BaseUIForm>();
             if (baseUIForm != null)
             {
-                if (baseUIForm.uIFormShowMode == UIFormShowMode.ReverseChange && !m_DicReverseChangeUIForms.ContainsKey(uiFormName))
+                if (baseUIForm.uIFormShowMode == EnumUIFormShowMode.ReverseChange && !m_DicReverseChangeUIForms.ContainsKey(uiFormName))
                 {
                     m_DicReverseChangeUIForms.Add(uiFormName, baseUIForm);
                     refreshReverseChangeUIForms();
                 }
 
-                if (baseUIForm.uIFormShowMode == UIFormShowMode.FreezeOther && !m_DicFreezeOtherUIForms.ContainsKey(uiFormName))
+                if (baseUIForm.uIFormShowMode == EnumUIFormShowMode.FreezeOther && !m_DicFreezeOtherUIForms.ContainsKey(uiFormName))
                     m_DicFreezeOtherUIForms.Add(uiFormName, baseUIForm);
 
-                if((baseUIForm.uIFormsDepth == UIFormDepth.PopUp || baseUIForm.uIFormsDepth == UIFormDepth.Notice) &&
-                    baseUIForm.uIFormShowMode!= UIFormShowMode.FreezeOther && baseUIForm.uIFormShowMode != UIFormShowMode.Toast &&
+                if((baseUIForm.uIFormsDepth == EnumUIFormDepth.PopUp || baseUIForm.uIFormsDepth == EnumUIFormDepth.Notice) &&
+                    baseUIForm.uIFormShowMode!= EnumUIFormShowMode.FreezeOther && baseUIForm.uIFormShowMode != EnumUIFormShowMode.Toast &&
                     !m_DicOpenUIFormsStack.ContainsKey(uiFormName))
                     m_DicOpenUIFormsStack.Add(uiFormName, baseUIForm);
 
-                if (baseUIForm.uIFormShowMode == UIFormShowMode.HideOther) HideOther(uiFormName);
+                if (baseUIForm.uIFormShowMode == EnumUIFormShowMode.HideOther) HideOther(uiFormName);
 
                 baseUIForm.OnOpenUIEvent();
             }
@@ -271,7 +271,7 @@ namespace Mx.UI
             }
 
             if (m_DicFreezeOtherUIForms.ContainsKey(uiFormName)) m_DicFreezeOtherUIForms.Remove(uiFormName);
-            if (baseUIForm.uIFormShowMode == UIFormShowMode.HideOther) DisplayOpenUIForms();
+            if (baseUIForm.uIFormShowMode == EnumUIFormShowMode.HideOther) DisplayOpenUIForms();
 
             if(m_DicOpenUIFormsStack.ContainsKey(uiFormName)) m_DicOpenUIFormsStack.Remove(uiFormName);
         }

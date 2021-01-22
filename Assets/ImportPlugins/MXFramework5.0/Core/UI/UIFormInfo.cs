@@ -2,7 +2,8 @@
 
 namespace Mx.UI
 {
-    public sealed class UIFormItem : MonoBehaviour
+    /// <summary>储存当前UI面板的信息</summary>
+    public sealed class UIFormInfo : MonoBehaviour
     {
         private UIParam currentUIParam = new UIParam();
         /// <summary>当前UI窗体类型</summary>
