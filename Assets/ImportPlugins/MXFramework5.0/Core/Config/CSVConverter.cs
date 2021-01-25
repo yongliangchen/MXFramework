@@ -17,10 +17,10 @@ namespace Mx.Config
         {
             string[][] csv;
             string[] lineArray = csvData.Replace("\n", string.Empty).Split("\r"[0]);
-            csv = new string[lineArray.Length - 1][];
-            for (int i = 0; i < lineArray.Length - 1; i++)
+            csv = new string[lineArray.Length - 2][];
+            for (int i = 0; i < lineArray.Length - 2; i++)
             {
-                csv[i] = lineArray[i + 1].Split(',');
+                csv[i] = lineArray[i + 2].Split(',');
             }
 
             return csv;
