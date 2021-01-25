@@ -22,19 +22,16 @@ namespace Mx.UI
         /// <summary>全部已经打开的UI面板</summary>
 		public Dictionary<string, UIFormInfo> dicOpenUIForms { get; private set; } 
         /// <summary>全部反向切换的UI面板</summary>
-		public Dictionary<string, BaseUIForm> dicReverseChangeUIForms { get; private set; }
+		public Dictionary<string, UIFormInfo> dicReverseChangeUIForms { get; private set; }
         /// <summary>全部隐藏其他的UI面板</summary>
-        public Dictionary<string, BaseUIForm> dicFreezeOtherUIForms { get; private set; } 
-        /// <summary>全部堆栈UI面板</summary>
-        public Dictionary<string, BaseUIForm> dicOpenUIFormsStack { get; private set; }
+        public Dictionary<string, UIFormInfo> dicFreezeOtherUIForms { get; private set; }
 
         public UIFormDatas()
         {
             dicAllUIForms = new Dictionary<string, UIFormInfo>();
             dicOpenUIForms = new Dictionary<string, UIFormInfo>();
-            dicReverseChangeUIForms = new Dictionary<string, BaseUIForm>();
-            dicFreezeOtherUIForms = new Dictionary<string, BaseUIForm>();
-            dicOpenUIFormsStack = new Dictionary<string, BaseUIForm>();
+            dicReverseChangeUIForms = new Dictionary<string, UIFormInfo>();
+            dicFreezeOtherUIForms = new Dictionary<string, UIFormInfo>();
         }
     }
 }

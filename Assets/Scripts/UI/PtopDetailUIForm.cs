@@ -54,7 +54,7 @@ public class PtopDetailUIForm : BaseUIForm
     /// <summary>关闭当前UI面板</summary>
     private void closeCurrentUIForm(GameObject btnObject)
     {
-        CloseUIForm();
+        CloseCurrentUIForm();
     }
 
     public override void OnCloseUIEvent()

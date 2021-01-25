@@ -93,6 +93,13 @@ namespace Mx.UI
         AssetBundle,
     }
 
+    /// <summary>开发语言类型</summary>
+    public enum EnumScriptType
+    {
+        CSharp,
+        Lua,
+    }
+
     /// <summary>UI方向</summary>
     //public enum EnumUIDirection
     //{

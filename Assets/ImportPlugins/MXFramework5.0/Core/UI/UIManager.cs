@@ -11,7 +11,11 @@
  *    Modify Recoder:      
  */
 
+
+using System.Collections.Generic;
+using Mx.Config;
 using Mx.Msg;
+using Mx.Res;
 using Mx.Utils;
 using UnityEngine;
 
@@ -20,10 +24,13 @@ namespace Mx.UI
     /// <summary>UI管理器</summary>
     public class UIManager : MonoSingleton<UIManager>
     {
+        private UIConfigDatabase m_UIConfig;
         private  UIControl m_UIControl;
+        private Dictionary<string, string> m_DicLoadUIForm = new Dictionary<string, string>();
 
         private void Awake()
         {
+            m_UIConfig = ConfigManager.Instance.GetDatabase<UIConfigDatabase>();
             m_UIControl = FindObjectOfType<UIControl>();
         }
 
@@ -33,7 +40,6 @@ namespace Mx.UI
             for(int i=0;i<uiFormNames.Length;i++)
             {
                 string uiformName = uiFormNames[i];
-
                 if (m_UIControl.IsOpen(uiformName)) continue;
 
                 if (m_UIControl.IsExist(uiformName)) m_UIControl.OpenUIForms(uiformName);
@@ -120,13 +126,52 @@ namespace Mx.UI
         /// <summary>加载UI面板</summary>
         private void loadUIForm(string uiFormName)
         {
+            if (m_DicLoadUIForm.ContainsKey(uiFormName)) return;
 
+            m_DicLoadUIForm.Add(uiFormName, uiFormName);
+
+            UIConfigData uiInfo = m_UIConfig.GetDataByKey(uiFormName);
+            if (uiInfo == null)
+            {
+                if (m_DicLoadUIForm.ContainsKey(uiFormName)) m_DicLoadUIForm.Remove(uiFormName);
+                Debug.LogError(GetType() + "/loadUIForm()/ uiConfigData is null! uiFormName:" + uiFormName);
+                return;
+            }
+
+            if ((EnumLoadType)uiInfo.LandType == EnumLoadType.Resources)
+            {
+                GameObject prefab = ResoucesMgr.Instance.Load<GameObject>(uiInfo.ResourcesPath, false);
+                loadUIFormFinish(uiInfo,uiFormName, prefab);
+            }
+            else if ((EnumLoadType)uiInfo.LandType == EnumLoadType.AssetBundle)
+            {
+                AssetBundleMgr.Instance.LoadAssetBunlde("UI", uiInfo.AssetBundlePath);
+                GameObject prefab = AssetBundleMgr.Instance.LoadAsset("UI", uiInfo.AssetBundlePath, uiInfo.AssetName) as GameObject;
+                loadUIFormFinish(uiInfo,uiFormName, prefab);
+            }
         }
 
         /// <summary>加载UI面板完成</summary>
-        private void loadUIFormFinish(string uiFormName, GameObject prefab, Transform parent, UIParam uiParam)
+        private void loadUIFormFinish(UIConfigData uiInfo,string uiFormName,GameObject uiFormPrefab)
         {
+            if (m_DicLoadUIForm.ContainsKey(uiFormName)) m_DicLoadUIForm.Remove(uiFormName);
 
+            if(uiFormPrefab==null)
+            {
+                Debug.LogError(GetType() + "/loadUIFormFinish()/ uiFormPrefab is null! uiFormName:"+ uiFormName);
+                return;
+            }
+
+            if (m_UIControl.IsExist(uiFormName))
+            {
+                m_UIControl.OpenUIForms(uiFormName);
+                return;
+            }
+
+            m_UIControl.AddUIForm(uiInfo, uiFormName, uiFormPrefab);
+
+            m_UIControl.OpenUIForms(uiFormName);
         }
+
     }
 }

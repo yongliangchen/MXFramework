@@ -62,47 +62,39 @@ namespace Mx.UI
         /// <summary>打开UI窗体</summary>
         protected void OpenUIForms(params string[] uiFormNames)
         {
-            //UIManager.Instance.OpenUIForms(uiFormNames);
+            UIManager.Instance.OpenUIForms(uiFormNames);
         }
 
         /// <summary>打开UI窗体并且关闭当前UI窗体</summary>
         protected void OpenUIAndCloseCurrentUI(params string[] uiFormNames)
         {
             OpenUIForms(uiFormNames);
-            CloseUIForm();
+            CloseCurrentUIForm();
         }
 
         /// <summary>关闭当前UI窗体</summary>
-        protected void CloseUIForm()
+        protected void CloseCurrentUIForm()
         {
-            //UIManager.Instance.CloseUIForms(m_CurrentClassName);
+            UIManager.Instance.CloseUIForms(m_CurrentClassName);
         }
 
         /// <summary>关闭UI窗体</summary>
         protected void CloseUIForms(params string[] uiFormNames)
         {
-            //UIManager.Instance.CloseUIForms(uiFormNames);
+            UIManager.Instance.CloseUIForms(uiFormNames);
         }
 
-        /// <summary>
-        /// 发送消息给UI窗体
-        /// </summary>
-        /// <param name="uiFormName">接收消息的UI窗体</param>
-        /// <param name="key">消息名称</param>
-        /// <param name="values">消息内容</param>
-        protected void SendMessageToUIForm(string uiFormName, string key, object values)
+        /// <summary>发送消息给指定UI面板</summary>
+        public void SendMessageToUIForm(string key, object values, params string[] uiFormNames)
         {
-            MessageCenter.SendMessage(uiFormName + "Msg", key, values);
+            UIManager.Instance.SendMessageToUIForm(key, values, uiFormNames);
         }
 
-        /// <summary>
-        /// 发送消息给全部UI窗体
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="values"></param>
-        protected void SendGlobalUIFormMsg(string key,object values)
+        /// <summary>发送消息给全部UI面板</summary>
+        public void SendGlobalUIFormMsg(string key, object values)
         {
-            MessageCenter.SendMessage(UIDefine.GLOBAL_UI_FORM_MSG_EVENT, key, values);
+            UIManager.Instance.SendGlobalUIFormMsg(key, values);
         }
+
     }
 }

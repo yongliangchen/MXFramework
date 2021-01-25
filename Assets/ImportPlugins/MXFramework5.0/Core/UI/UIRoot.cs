@@ -14,7 +14,6 @@
  */
 
 using Mx.Utils;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -131,6 +130,7 @@ namespace Mx.UI
             for(int i=0;i< values.Length;i++)
             {
                 GameObject obj = createObject(values[i], uiRootObject.transform, uiLayer);
+                setRectTransform(obj);
                 uiFormDepthArr[i] = obj.transform;
             }
         }
@@ -146,8 +146,6 @@ namespace Mx.UI
             }
             uIControl.gameObject.transform.SetParent(scriptsParent);
             resetObject(uIControl.gameObject);
-
-            //创建UI管理脚本
         }
 
         /// <summary>创建空对象</summary>
@@ -177,6 +175,17 @@ namespace Mx.UI
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localEulerAngles = Vector3.zero;
             obj.transform.localScale = Vector3.one;
+        }
+
+        /// <summary>设置RectTransform</summary>
+        private void setRectTransform(GameObject obj)
+        {
+            RectTransform rect= obj.AddComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0, 0);
+            rect.anchorMax = new Vector2(1, 1);
+            rect.pivot= new Vector2(0.5f, 0.5f);
+            rect.sizeDelta = Vector2.zero;
+            rect.anchoredPosition3D = Vector3.zero;
         }
 
     }
