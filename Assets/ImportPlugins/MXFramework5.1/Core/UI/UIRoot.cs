@@ -32,6 +32,11 @@ namespace Mx.UI
 
         private void Awake()
         {
+            CreateUIRoot();
+        }
+
+        public void CreateUIRoot()
+        {
             uiLayer = LayerMask.NameToLayer(UIDefine.LAYER_UI);
             uiRootObject = transform.gameObject;
 
@@ -43,7 +48,7 @@ namespace Mx.UI
             addScripts();
 
             this.gameObject.transform.SetParent(scriptsParent, false);
-            DontDestroyOnLoad(uiRootObject);//加载场景的时候不销毁
+            if(Application.isPlaying) DontDestroyOnLoad(uiRootObject);//加载场景的时候不销毁
         }
 
         /// <summary>设置UIRoot参数</summary>
@@ -180,10 +185,12 @@ namespace Mx.UI
         /// <summary>设置RectTransform</summary>
         private void setRectTransform(GameObject obj)
         {
-            RectTransform rect= obj.AddComponent<RectTransform>();
+            RectTransform rect = obj.GetComponent<RectTransform>();
+            if(rect==null) rect = obj.AddComponent<RectTransform>();
+
             rect.anchorMin = new Vector2(0, 0);
             rect.anchorMax = new Vector2(1, 1);
-            rect.pivot= new Vector2(0.5f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
             rect.sizeDelta = Vector2.zero;
             rect.anchoredPosition3D = Vector3.zero;
         }
