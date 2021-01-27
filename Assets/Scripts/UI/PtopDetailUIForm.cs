@@ -109,7 +109,6 @@ public class PtopDetailUIForm : BaseUIForm
     /// <summary>刷新战斗力</summary>
     private void refreshCapability()
     {
-
         int capability = 0;
 
         for(int i=0;i< m_EquipmentInfosList.Count;i++)
@@ -118,7 +117,7 @@ public class PtopDetailUIForm : BaseUIForm
         }
 
         UserData.Capability = capability;
-        SendMessageToUIForm(UIFormNames.HERO_INFO_UIFORM, "Capability", "战斗力增加了");
+        SendMessageToUIForm("Capability", "战斗力增加了", UIFormNames.HERO_INFO_UIFORM);
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Mx.UI;
+using Mx.Log;
 
 public class ExampleClass : MonoBehaviour
 {
@@ -7,18 +8,20 @@ public class ExampleClass : MonoBehaviour
     static void BeforeRuntimeInitializeOnLoadMethod()
     {
         Debug.Log("BeforeRuntimeInitializeOnLoadMethod");
+
+        DebugManager.Instance.Init();
         UIRoot.Instance.Init();
     }
 
     [RuntimeInitializeOnLoadMethod]
     private static void OnRuntimeMethodLoad()
     {
-        Debug.Log("RuntimeInitializeOnLoadMethod");
+        //Debug.Log("RuntimeInitializeOnLoadMethod");
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void AfterRuntimeInitializeOnLoadMethod()
     {
-        Debug.Log("AfterRuntimeInitializeOnLoadMethod");
+        //Debug.Log("AfterRuntimeInitializeOnLoadMethod");
     }
 }
