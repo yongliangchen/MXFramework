@@ -1,4 +1,5 @@
-﻿using Mx.Msg;
+﻿using Mx.Config;
+using Mx.Msg;
 using Mx.Utils;
 using UnityEngine;
 
@@ -7,8 +8,7 @@ namespace Mx.UI
     /// <summary>UI的父类</summary>
     public abstract class BaseUIForm : MonoBehaviour
     {
-        public EnumUIFormDepth uIFormsDepth { get; set; }
-        public EnumUIFormShowMode uIFormShowMode { get; set; }
+        /// <summary>当前类的名称</summary>
         private string m_CurrentClassName;
 
         private void Awake()
@@ -95,6 +95,5 @@ namespace Mx.UI
         {
             UIManager.Instance.SendGlobalUIFormMsg(key, values);
         }
-
     }
 }

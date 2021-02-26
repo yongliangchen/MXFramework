@@ -207,12 +207,10 @@ namespace Mx.UI
         /// <summary>添加UI数据管理脚本</summary>
         private UIFormInfo addUIFormInfoScripts(UIConfigData uiconfig, GameObject uiFormObject)
         {
-            UIParam uiParam = new UIParam();
-            uiParam.uIFormDepth = (EnumUIFormDepth)uiconfig.UIFormsDepth;
-            uiParam.uIFormShowMode = (EnumUIFormShowMode)uiconfig.UIFormShowMode;
             UIFormInfo uIFormInfo = uiFormObject.GetComponent<UIFormInfo>();
             if (uIFormInfo == null) uIFormInfo = uiFormObject.AddComponent<UIFormInfo>();
-            uIFormInfo.CurrentUIParam = uiParam;
+            uIFormInfo.uIFormDepth = (EnumUIFormDepth)uiconfig.UIFormsDepth;
+            uIFormInfo.uIFormShowMode = (EnumUIFormShowMode)uiconfig.UIFormShowMode;
             uIFormInfo.UIConfig = uiconfig;
 
             return uIFormInfo;
@@ -254,7 +252,7 @@ namespace Mx.UI
             setDepthToTop(uiFormName);
 
             //打开的是反向切换类型UI窗体
-            if (uIFormInfo.CurrentUIParam.uIFormShowMode == EnumUIFormShowMode.ReverseChange &&
+            if (uIFormInfo.uIFormShowMode == EnumUIFormShowMode.ReverseChange &&
                 !m_UIFormDatas.dicReverseChangeUIForms.ContainsKey(uiFormName))
             {
                 m_UIFormDatas.dicReverseChangeUIForms.Add(uiFormName, uIFormInfo);
@@ -262,14 +260,14 @@ namespace Mx.UI
             }
 
             //打开的是冻结其他类型UI窗体
-            if (uIFormInfo.CurrentUIParam.uIFormShowMode == EnumUIFormShowMode.FreezeOther &&
+            if (uIFormInfo.uIFormShowMode == EnumUIFormShowMode.FreezeOther &&
                 !m_UIFormDatas.dicFreezeOtherUIForms.ContainsKey(uiFormName))
             {
                 m_UIFormDatas.dicFreezeOtherUIForms.Add(uiFormName, uIFormInfo);
             }
 
             //打开的是隐藏其他UI窗口类型
-            if (uIFormInfo.CurrentUIParam.uIFormShowMode == EnumUIFormShowMode.HideOther) HideOther(uiFormName);
+            if (uIFormInfo.uIFormShowMode == EnumUIFormShowMode.HideOther) HideOther(uiFormName);
 
 
             EnumScriptType scriptType = (EnumScriptType)uIFormInfo.UIConfig.ScriptType;
@@ -328,7 +326,7 @@ namespace Mx.UI
             }
 
             if (m_UIFormDatas.dicFreezeOtherUIForms.ContainsKey(uiFormName)) m_UIFormDatas.dicFreezeOtherUIForms.Remove(uiFormName);
-            if (uIFormInfo.CurrentUIParam.uIFormShowMode == EnumUIFormShowMode.HideOther) DisplayOpenUIForms();
+            if (uIFormInfo.uIFormShowMode == EnumUIFormShowMode.HideOther) DisplayOpenUIForms();
         }
 
         /// <summary>刷新反向切换UI显示</summary>

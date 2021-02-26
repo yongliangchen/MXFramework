@@ -100,13 +100,6 @@ namespace Mx.UI
         Lua,
     }
 
-    /// <summary>UI方向</summary>
-    //public enum EnumUIDirection
-    //{
-    //    Horizontal,
-    //    Vertical,
-    //}
-
     /// <summary>UI动画样式</summary>
     public enum EnumUIAnimationStyle
     {
