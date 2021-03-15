@@ -1,7 +1,0 @@
-﻿/*代码自动生成的类，请勿手动修改*/
- 
-/// <summary>UI名称</summary>
-public class UIFormNames
-{
-    $UIAttributes
-}

@@ -27,7 +27,7 @@ namespace Mx.Config
 	public partial class TestIOCsvConfigDatabase:IDatabase
 	{
 		public const uint TYPE_ID = 1;
-		public const string DATA_PATH = "TestIOCsvConfig";
+		public const string DATA_PATH = "7666871b29e5d1db16e34bdfa502eb75";
        
 		private string[][] m_datas;
         private Dictionary<string, TestIOCsvConfigData> dicData = new Dictionary<string, TestIOCsvConfigData>();
@@ -42,7 +42,7 @@ namespace Mx.Config
 
 		public string DataPath()
 		{
-			return ConfigDefine.GetStreamingConfigOutPath+DATA_PATH+".txt";
+			return ConfigDefine.GetExternalConfigOutPath+DATA_PATH;
 		}
 
         public void Load()
@@ -62,7 +62,7 @@ namespace Mx.Config
           streamReader.Close();
           streamReader.Dispose();
 
-          string textData = StringEncrypt.DecryptDES(str);
+          string textData = (ConfigDefine.Encrypt)?StringEncrypt.DecryptDES(str):str;
           m_datas = CSVConverter.SerializeCSVData(textData);
           Serialization();
 

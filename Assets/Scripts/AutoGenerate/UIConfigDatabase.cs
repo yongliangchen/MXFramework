@@ -31,7 +31,7 @@ namespace Mx.Config
 	public partial class UIConfigDatabase:IDatabase
 	{
 		public const uint TYPE_ID = 2;
-		public const string DATA_PATH = "UIConfig";
+		public const string DATA_PATH = "9dc3d76cecd2f13062a92801246fcf2d";
        
 		private string[][] m_datas;
         private Dictionary<string, UIConfigData> dicData = new Dictionary<string, UIConfigData>();
@@ -46,7 +46,7 @@ namespace Mx.Config
 
 		public string DataPath()
 		{
-			return ConfigDefine.GetStreamingConfigOutPath+DATA_PATH+".txt";
+			return ConfigDefine.GetExternalConfigOutPath+DATA_PATH;
 		}
 
         public void Load()
@@ -66,7 +66,7 @@ namespace Mx.Config
           streamReader.Close();
           streamReader.Dispose();
 
-          string textData = StringEncrypt.DecryptDES(str);
+          string textData = (ConfigDefine.Encrypt)?StringEncrypt.DecryptDES(str):str;
           m_datas = CSVConverter.SerializeCSVData(textData);
           Serialization();
 

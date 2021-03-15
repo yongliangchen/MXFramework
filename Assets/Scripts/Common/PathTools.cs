@@ -23,8 +23,11 @@ public class PathTools
         get
         {
             string path = string.Empty;
-            if (Application.isEditor) path = Application.streamingAssetsPath + "/Data";
-            else path = Application.persistentDataPath + "/Data";
+            //if (Application.isEditor) path = Application.streamingAssetsPath + "/Data";
+            //else path = Application.persistentDataPath + "/Data";
+
+            path = Application.persistentDataPath + "/Data";
+
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
             return path;

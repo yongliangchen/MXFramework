@@ -26,7 +26,7 @@ namespace Mx.Config
 	public partial class TestResourcesCsvConfigDatabase:IDatabase
 	{
 		public const uint TYPE_ID = 3;
-		public const string DATA_PATH = "TestResourcesCsvConfig";
+		public const string DATA_PATH = "26539f9b9dfff25a9f1a069f4ffa4eaa";
        
 		private string[][] m_datas;
         private Dictionary<string, TestResourcesCsvConfigData> dicData = new Dictionary<string, TestResourcesCsvConfigData>();
@@ -57,7 +57,7 @@ namespace Mx.Config
                Debug.LogError(GetType() + "/Load()/ load config error! path:" + DataPath());
            }
          
-          string textData = StringEncrypt.DecryptDES(str);
+          string textData = (ConfigDefine.Encrypt)?StringEncrypt.DecryptDES(str):str;
           m_datas = CSVConverter.SerializeCSVData(textData);
           Serialization();
 
