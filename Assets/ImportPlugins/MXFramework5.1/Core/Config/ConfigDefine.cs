@@ -45,7 +45,11 @@ namespace Mx.Config
         /// <summary>获取persistentDataPath文件夹资源的加载路径</summary>
         public static string GetStreamingConfigOutPath
         {
-            get { return Application.persistentDataPath + "/Config/"; }
+            get
+            {
+                if(Application.isEditor)return Application.streamingAssetsPath + "/Config/";
+                else return Application.persistentDataPath + "/Config/";
+            }
         }
 
         /// <summary>获取Resouces文件夹下的配置文档路径</summary>

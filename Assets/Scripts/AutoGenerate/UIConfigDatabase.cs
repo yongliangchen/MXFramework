@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Mx.Utils;
 using System;
+using System.IO;
 
 namespace Mx.Config
 {
@@ -29,7 +30,7 @@ namespace Mx.Config
 
 	public partial class UIConfigDatabase:IDatabase
 	{
-		public const uint TYPE_ID = 4;
+		public const uint TYPE_ID = 2;
 		public const string DATA_PATH = "UIConfig";
        
 		private string[][] m_datas;
@@ -45,7 +46,7 @@ namespace Mx.Config
 
 		public string DataPath()
 		{
-			return ConfigDefine.GetResoucesConfigOutPath + DATA_PATH;
+			return ConfigDefine.GetStreamingConfigOutPath+DATA_PATH+".txt";
 		}
 
         public void Load()
@@ -54,13 +55,17 @@ namespace Mx.Config
           dicData.Clear();
           listData.Clear();
 
-           TextAsset textAsset = Resources.Load<TextAsset>(DataPath());
-           string str = textAsset.text;
-           if (string.IsNullOrEmpty(str))
-           {
-               Debug.LogError(GetType() + "/Load()/ load config error! path:" + DataPath());
-           }
-         
+          StreamReader streamReader = null;
+          if (File.Exists(DataPath())) streamReader = File.OpenText(DataPath());
+          else {
+                 Debug.LogError(GetType() + "/Load() load config eroor!  path:" + DataPath());
+                 return;
+              }
+
+          string str = streamReader.ReadToEnd();
+          streamReader.Close();
+          streamReader.Dispose();
+
           string textData = StringEncrypt.DecryptDES(str);
           m_datas = CSVConverter.SerializeCSVData(textData);
           Serialization();
