@@ -14,9 +14,9 @@ public class HeroInfoUIForm : BaseUIForm
         base.OnAwake();
 
         m_CoinText = UnityHelper.FindTheChildNode(gameObject, "Coin").GetComponent<Text>();
-        m_CoinText.text = UserData.Coin.ToString();
+        m_CoinText.text = TestUserDatas.Coin.ToString();
         m_CapabilityText = UnityHelper.FindTheChildNode(gameObject, "Capability").GetComponent<Text>();
-        m_CapabilityText.text = m_CapabilityText.text = "战斗力：" + UserData.Capability;
+        m_CapabilityText.text = m_CapabilityText.text = "战斗力：" + TestUserDatas.Capability;
 
         rigisterButtonEvent();
     }
@@ -36,13 +36,13 @@ public class HeroInfoUIForm : BaseUIForm
     {
         base.OnCurrentUIFormMsgEvent(key, values);
 
-        if(key.Equals("Capability")) m_CapabilityText.text = "战斗力："+UserData.Capability;
+        if(key.Equals("Capability")) m_CapabilityText.text = "战斗力："+ TestUserDatas.Capability;
     }
 
     public override void OnGlobalUIFormMsgEvent(string key, object values)
     {
         base.OnGlobalUIFormMsgEvent(key, values);
-        if(key.Equals("ChangeCoin")) m_CoinText.text = UserData.Coin.ToString();
+        if(key.Equals("ChangeCoin")) m_CoinText.text = TestUserDatas.Coin.ToString();
     }
 
 }

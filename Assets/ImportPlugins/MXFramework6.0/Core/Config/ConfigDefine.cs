@@ -7,7 +7,7 @@ namespace Mx.Config
     public sealed class ConfigDefine
     {
         /// <summary>是否对配置表进行加密</summary>
-        public static bool Encrypt = true;
+        public static bool Encrypt = UserData.Encrypt;
 
         public static string GENERATE_SCRIPT_PATH = Application.dataPath + "/Scripts/AutoGenerate/";
 

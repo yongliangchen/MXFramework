@@ -24,7 +24,7 @@ namespace Mx.Example
         private void AddCombatEffectiveness()
         {
             m_CombatEffectiveness++;
-            UserDatas.CombatEffectiveness = m_CombatEffectiveness;
+            TestUserDatas.CombatEffectiveness = m_CombatEffectiveness;
         }
     }
 }

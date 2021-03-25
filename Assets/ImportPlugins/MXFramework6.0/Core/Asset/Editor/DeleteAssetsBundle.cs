@@ -9,8 +9,8 @@ namespace Mx.Res
     /// </summary>
     public class DeleteAssetsBundle
     {
-        [MenuItem("MXFramework/AssetBundle/DeleteAssetsBundle",false, 210)]
-        private static void DelAssetsBundle()
+        [MenuItem("MXFramework/AssetBundle/Delete AssetsBundle",false, 210)]
+        private static void deleteAssetsBundle()
         {
 			string strNeedDeleteDIR = string.Empty;
 

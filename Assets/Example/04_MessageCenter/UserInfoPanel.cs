@@ -17,7 +17,7 @@ namespace Mx.Example
             m_CombatEffectiveness = transform.Find("CombatEffectiveness").GetComponent<Text>();
             m_Gold = transform.Find("Gold").GetComponent<Text>();
 
-            m_Name.text = "角色姓名：" + UserDatas.Name;
+            m_Name.text = "角色姓名：" + TestUserDatas.Name;
             UpdatCombatEffectiveness();
             UpdateGold();
 
@@ -60,13 +60,13 @@ namespace Mx.Example
         //更新战斗力显示
         private void UpdatCombatEffectiveness()
         {
-            m_CombatEffectiveness.text = "战斗力：" + UserDatas.CombatEffectiveness;
+            m_CombatEffectiveness.text = "战斗力：" + TestUserDatas.CombatEffectiveness;
         }
 
         //更新金币数量显示
         private void UpdateGold()
         {
-            m_Gold.text = "金币：" + UserDatas.Gold;
+            m_Gold.text = "金币：" + TestUserDatas.Gold;
         }
 
     }

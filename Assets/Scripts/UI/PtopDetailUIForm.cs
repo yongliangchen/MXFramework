@@ -70,9 +70,9 @@ public class PtopDetailUIForm : BaseUIForm
         int cost = m_EquipmentInfo.Coin * m_EquipmentInfo.Level;
 
         //升级成功
-        if(UserData.Coin>= cost)
+        if(TestUserDatas.Coin>= cost)
         {
-            UserData.Coin -= cost;
+            TestUserDatas.Coin -= cost;
             m_EquipmentInfo.Level++;
             setPanelInfo();
         }
@@ -116,7 +116,7 @@ public class PtopDetailUIForm : BaseUIForm
             capability += (m_EquipmentInfosList[i].Level * m_EquipmentInfosList[i].Base);
         }
 
-        UserData.Capability = capability;
+        TestUserDatas.Capability = capability;
         SendMessageToUIForm("Capability", "战斗力增加了", UIFormNames.HERO_INFO_UIFORM);
     }
 

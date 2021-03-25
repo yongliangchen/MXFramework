@@ -1,26 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.IO;
+using Mx.Utils;
 using UnityEngine;
-using System.IO;
 
 namespace Mx.Lua
 {
     public class LuaDefine
     {
-        /// <summary>获取lua脚本的输出路径</summary>
-        public static string GetLuaOutPath()
+        /// <summary>是否对Lua进行加密</summary>
+        public static bool Encrypt = UserData.Encrypt;
+        /// <summary>Lua脚本后缀</summary>
+        public const string LUA_SCRIPTS_EXTENSIONS = "lua";
+
+        /// <summary>Lua脚本存放路径</summary>
+        public static string LUA_SCRIPTS_PATH = Application.dataPath + "/Scripts/Lua";
+
+        /// <summary>获取Lua脚本输入路径</summary>
+        public static string GetLuaScriptsOutPath
         {
-            string path = string.Empty;
-
-            if (Application.isEditor) path = Application.streamingAssetsPath + "/Lua";
-            else path = Application.persistentDataPath + "/Lua";
-
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-
-            return path;
+            get
+            {
+                string folderName = Encrypt ? StringEncrypt.GetStringMd5("Lua") : "Lua";
+                string path = string.Format(PathTools.InitialResPath + "/{0}/", folderName);
+                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+                return path;
+            }
         }
-
-        /// <summary>脚本的后缀名</summary>
-        public const string SCRIPTS_EXTENSIONS = "lua";
     }
 }
