@@ -86,9 +86,6 @@ namespace Mx.Lua
             newTextName = newTextName.Replace(".lua", string.Empty);
 
             string data = (LuaDefine.Encrypt) ? StringEncrypt.EncryptDES(text) : text;
-            //string textPath = LuaDefine.GetLuaScriptsOutPath + "/" + ((LuaDefine.Encrypt) ?
-            //    StringEncrypt.EncryptDES(newTextName) : newTextName)+"."+LuaDefine.LUA_SCRIPTS_EXTENSIONS;
-
             string textPath = LuaDefine.GetLuaScriptsOutPath + "/" + ((LuaDefine.Encrypt) ?
                StringEncrypt.EncryptDES(newTextName) : newTextName);
 
