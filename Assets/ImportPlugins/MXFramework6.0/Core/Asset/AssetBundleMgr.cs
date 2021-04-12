@@ -31,7 +31,7 @@ namespace Mx.Res
             }
         }
 
-        /// <summary>加载Manifest</summary>
+        /// <summary>同步加载AssetBunde资源</summary>
         public void LoadAssetBunlde(string sceneName, string abName)
         {
             if (m_Manifest == null) return;

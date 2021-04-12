@@ -7,7 +7,7 @@ public class ExampleClass : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void BeforeRuntimeInitializeOnLoadMethod()
     {
-        Debug.Log("BeforeRuntimeInitializeOnLoadMethod");
+        Debug.Log("Init Application!  dataPath:"+ Application.persistentDataPath);
 
         DebugManager.Instance.Init();
         UIRoot.Instance.Init();

@@ -21,7 +21,7 @@ namespace Mx.Lua
 {
     public class CopyLuaScripts
     {
-        [MenuItem("MXFramework/Lua/Copy Lua Scripts", false, 401)]
+        [MenuItem("MXFramework/Lua/Copy Lua Scripts #l", false, 401)]
         public static void copyScripts()
         {
             if (Directory.Exists(LuaDefine.GetLuaScriptsOutPath)) Directory.Delete(LuaDefine.GetLuaScriptsOutPath,true);
@@ -87,7 +87,7 @@ namespace Mx.Lua
 
             string data = (LuaDefine.Encrypt) ? StringEncrypt.EncryptDES(text) : text;
             string textPath = LuaDefine.GetLuaScriptsOutPath + "/" + ((LuaDefine.Encrypt) ?
-               StringEncrypt.EncryptDES(newTextName) : newTextName);
+               StringEncrypt.GetStringMd5(newTextName) : newTextName);
 
             if (File.Exists(textPath))
             {

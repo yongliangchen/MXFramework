@@ -6,6 +6,9 @@ namespace Mx.Lua
 {
     public class LuaDefine
     {
+        /// <summary>映射脚本的名称</summary>
+        public static string MappingScriptName { get; set; }
+
         /// <summary>是否对Lua进行加密</summary>
         public static bool Encrypt = UserData.Encrypt;
         /// <summary>Lua脚本后缀</summary>

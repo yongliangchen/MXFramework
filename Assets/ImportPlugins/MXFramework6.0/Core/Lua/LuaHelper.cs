@@ -40,11 +40,27 @@ namespace Mx.Lua
             }
         }
 
+        /// <summary>得到lua环境</summary>
+        public LuaEnv GetLuaEnv()
+        {
+            if (m_luaEnv != null) return m_luaEnv;
+            else
+            {
+                Debug.LogError(GetType() + "/GetLuaEnv()/ luaEnv is null!");
+                return null;
+            }
+        }
+
         /// <summary>执行lua代码</summary>
         public void DoString(string chunk, string chunkName = "chunk", LuaTable env = null)
         {
-            //为了让 DoString 函数+require和不加require都能运行
-            if(!chunk.StartsWith("require"))
+            m_luaEnv.DoString(chunk, chunkName, env);
+        }
+
+        /// <summary>直接运行代码（简写'require'关键字）</summary>
+        public void RunScripts(string chunk, string chunkName = "chunk", LuaTable env = null)
+        {
+            if (!chunk.StartsWith("require"))
             {
                 chunk = string.Format("require '{0}'", chunk);
             }
@@ -64,6 +80,14 @@ namespace Mx.Lua
             LuaTable luaTable = m_luaEnv.Global.Get<LuaTable>(luaScriptName);
             LuaFunction luaFunction = luaTable.Get<LuaFunction>(luaMethodName);
             return luaFunction.Call(args);
+        }
+
+        /// <summary>给指定对象动态添加“BaseLuaUIForm”脚本</summary>
+        public void AddBaseLuaUIForm(GameObject go,string luaScriptsName)
+        {
+            BaseLuaUIForm baseLuaUIForm = go.GetComponent<BaseLuaUIForm>();
+            LuaDefine.MappingScriptName = luaScriptsName;
+            if (baseLuaUIForm == null) baseLuaUIForm=go.AddComponent<BaseLuaUIForm>();
         }
 
         /// <summary>获取所有Lua脚本的路径</summary>
@@ -105,7 +129,7 @@ namespace Mx.Lua
         {
             string luaName = fileName.Replace(".lua.txt", string.Empty);
             luaName = luaName.Replace(".lua", string.Empty);
-            luaName = (LuaDefine.Encrypt) ? StringEncrypt.EncryptDES(luaName) : luaName;
+            luaName = (LuaDefine.Encrypt) ? StringEncrypt.GetStringMd5(luaName) : luaName;
 
             if (!m_DicLuaScriptsPaht.ContainsKey(luaName))
             {

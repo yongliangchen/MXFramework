@@ -1468,6 +1468,10 @@ namespace CSObjectWrapEditor
 
             BlackList = new List<List<string>>()
             {
+              new List<string>(){"UnityEngine.Light", "shadowRadius"},
+              new List<string>(){"UnityEngine.Light", "SetLightDirty"},
+              new List<string>(){"UnityEngine.Light", "shadowAngle"},
+              new List<string>(){"UnityEngine.Light", "shadowAngle"}
             };
 
             HotfixCfg = new Dictionary<Type, HotfixFlag>();
@@ -1476,11 +1480,11 @@ namespace CSObjectWrapEditor
 
             DoNotGen = new Dictionary<Type, HashSet<string>>();
 
-#if UNITY_EDITOR && HOTFIX_ENABLE
+            #if UNITY_EDITOR && HOTFIX_ENABLE
             assemblyList = HotfixConfig.GetHotfixAssembly().Select(a => a.GetName().Name).ToList();
-#else
+            #else
             assemblyList = new List<string>();
-#endif
+            #endif
             memberFilters = new List<Func<MemberInfo, bool>>();
 
             foreach (var t in check_types)
@@ -1504,7 +1508,7 @@ namespace CSObjectWrapEditor
                 }
             }
             LuaCallCSharp = LuaCallCSharp.Distinct()
-                .Where(type=> IsPublic(type) && !isObsolete(type) && !type.IsGenericTypeDefinition)
+                .Where(type => IsPublic(type) && !isObsolete(type) && !type.IsGenericTypeDefinition)
                 .Where(type => !typeof(Delegate).IsAssignableFrom(type))
                 .Where(type => !type.Name.Contains("<"))
                 .ToList();
