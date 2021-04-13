@@ -27,8 +27,8 @@ public class LoginUIForm : BaseUIForm
     /// <summary>注册按钮事件</summary>
     private void rigisterButtonEvent()
     {
-        RigisterButtonObjectEvent("BtnLogin", login);
-        RigisterButtonObjectEvent("BtnRegister", register);
+        RigisterButtonEvent("BtnLogin", login);
+        RigisterButtonEvent("BtnRegister", register);
     }
 
     /// <summary>登录</summary>

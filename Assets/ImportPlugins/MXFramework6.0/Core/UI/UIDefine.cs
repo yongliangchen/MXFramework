@@ -30,7 +30,7 @@ namespace Mx.UI
         public const int UI_ORIFINAL_WIDTH = 1280;
         /// <summary>UI设计尺寸，高</summary>
         public const int UI_ORIFINAL_HEIGHT = 720;
-      
+
         /// <summary>UI层级名称</summary>
         public const string LAYER_UI = "UI";
         /// <summary>UIRoot的路径</summary>
@@ -61,8 +61,10 @@ namespace Mx.UI
             }
         }
 
-        /// <summary>UI名称类模板</summary>
-        public const string Template_UIFORM_NAMES = "Template/UI/Template_UIFormNames";
+        /// <summary>UI名称类模板C#版本</summary>
+        public const string Template_UIFORM_NAMES_CSHARP = "Template/UI/Template_UIFormNamesCSharp";
+        /// <summary>UI名称类模板Lua版本</summary>
+        public const string Template_UIFORM_NAMES_LUA = "Template/UI/Template_UIFormNamesLua";
         /// <summary>C#脚本模板</summary>
         public const string Template_UIFORM_CSHARP_BASE = "Template/UI/Template_UIFormCSharpBase";
         /// <summary>Lua脚本模板</summary>

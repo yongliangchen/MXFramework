@@ -6,17 +6,20 @@ using Mx.Example;
 /// <summary> 角色信息UI面板 </summary>
 public class HeroInfoUIForm : BaseUIForm
 {
-    private Text m_CoinText;
-    private Text m_CapabilityText;
+    private Text m_TextName;
+    private Text m_TextCoin;
+    private Text m_TextCapability;
 
     public override void OnAwake()
     {
         base.OnAwake();
 
-        m_CoinText = UnityHelper.FindTheChildNode(gameObject, "Coin").GetComponent<Text>();
-        m_CoinText.text = TestUserDatas.Coin.ToString();
-        m_CapabilityText = UnityHelper.FindTheChildNode(gameObject, "Capability").GetComponent<Text>();
-        m_CapabilityText.text = m_CapabilityText.text = "战斗力：" + TestUserDatas.Capability;
+        m_TextName=UnityHelper.FindTheChildNode(gameObject, "Name").GetComponent<Text>();
+        m_TextName.text = TestUserDatas.Name;
+        m_TextCoin = UnityHelper.FindTheChildNode(gameObject, "Coin").GetComponent<Text>();
+        m_TextCoin.text = TestUserDatas.Coin.ToString();
+        m_TextCapability = UnityHelper.FindTheChildNode(gameObject, "Capability").GetComponent<Text>();
+        m_TextCapability.text = m_TextCapability.text = "战斗力：" + TestUserDatas.Capability;
 
         rigisterButtonEvent();
     }
@@ -36,13 +39,13 @@ public class HeroInfoUIForm : BaseUIForm
     {
         base.OnCurrentUIFormMsgEvent(key, values);
 
-        if(key.Equals("Capability")) m_CapabilityText.text = "战斗力："+ TestUserDatas.Capability;
+        if(key.Equals("Capability")) m_TextCapability.text = "战斗力："+ TestUserDatas.Capability;
     }
 
     public override void OnGlobalUIFormMsgEvent(string key, object values)
     {
         base.OnGlobalUIFormMsgEvent(key, values);
-        if(key.Equals("ChangeCoin")) m_CoinText.text = TestUserDatas.Coin.ToString();
+        if(key.Equals("ChangeCoin")) m_TextCoin.text = TestUserDatas.Coin.ToString();
     }
 
 }

@@ -1,5 +1,4 @@
-﻿using Mx.Config;
-using Mx.Msg;
+﻿using Mx.Msg;
 using Mx.Utils;
 using UnityEngine;
 
@@ -49,7 +48,7 @@ namespace Mx.UI
         /// </summary>
         /// <param name="buttonName">按钮的名称</param>
         /// <param name="delHandle">委托的方法</param>
-        protected void RigisterButtonObjectEvent(string buttonName, EventTriggerListener.VoidDelegate delHandle)
+        protected void RigisterButtonEvent(string buttonName, EventTriggerListener.VoidDelegate delHandle)
         {
             GameObject goButton = UnityHelper.FindTheChildNode(this.gameObject, buttonName).gameObject;
             if (goButton != null) { EventTriggerListener.Get(goButton).onClick = delHandle; }

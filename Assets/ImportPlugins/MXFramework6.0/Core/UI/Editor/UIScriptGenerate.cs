@@ -3,6 +3,7 @@ using UnityEditor;
 using Mx.Config;
 using System.IO;
 using System.Text.RegularExpressions;
+using Mx.Lua;
 
 namespace Mx.UI
 {
@@ -12,40 +13,70 @@ namespace Mx.UI
         //[MenuItem("MXFramework/UI/Generate UI Param", false, 301)]
         public static void GenerateUIParam()
         {
-            CreateUIFormNames();
-            AssetDatabase.Refresh();
+            createCSharpUIFormNames();
+            createLuaUIFormNames();
+            //AssetDatabase.Refresh();
         }
 
         [MenuItem("MXFramework/UI/Generate UI CSharp Script", false, 302)]
         public static void GenerateUICSharpScript()
         {
-            CreateUICSharpScript();
+            createUICSharpScript();
             AssetDatabase.Refresh();
         }
 
-        /// <summary>创建UI窗口</summary>
-        private static void CreateUIFormNames()
+        /// <summary>创建UI窗口名称C#版本</summary>
+        private static void createCSharpUIFormNames()
         {
-            string template = GetTemplate(UIDefine.Template_UIFORM_NAMES);
+            string template = getTemplate(UIDefine.Template_UIFORM_NAMES_CSHARP);
 
             string uiFormNameLiset = null;
-            string uiuiFormNameType = null;
+            string uiFormNameType = null;
 
             UIConfigDatabase uIConfigInfo = new UIConfigDatabase();
             uIConfigInfo.Load();
 
             foreach (UIConfigData info in uIConfigInfo.GetAllDataList())
             {
-                uiFormNameLiset += SpliceFormName(info.Name, info.Des) + "\n";
-                uiuiFormNameType += SpliceFormType(info.Name, info.Des) + "\n";
+                uiFormNameLiset += spliceFormName(info.Name, info.Des) + "\n";
+                uiFormNameType += spliceFormType(info.Name, info.Des) + "\n";
             }
 
             template = template.Replace("$UIAttributes", uiFormNameLiset);
-            template = template.Replace("$UIType", uiuiFormNameType);
+            template = template.Replace("$UIType", uiFormNameType);
 
             string dataName = ConfigDefine.GENERATE_SCRIPT_PATH + "/" + "UIFormNames.cs";
 
-            GenerateScript(dataName, template);
+            generateScript(dataName, template);
+        }
+
+        /// <summary>创建UI窗口名称Lua版本</summary>
+        private static void createLuaUIFormNames()
+        {
+            string template = getTemplate(UIDefine.Template_UIFORM_NAMES_LUA);
+
+            string uiFormNames = null;
+            string viewNames = null;
+
+            UIConfigDatabase uIConfigInfo = new UIConfigDatabase();
+            uIConfigInfo.Load();
+
+            foreach (UIConfigData info in uIConfigInfo.GetAllDataList())
+            {
+                uiFormNames += info.Name + "=" + "\"" + info.Name + "\"" + "," + "\n";
+
+                if (info.ScriptType == 1)
+                {
+                    viewNames += "\"" + info.Name + "\"" + "," + "\n";
+                }
+            }
+
+            template = template.Replace("$UINames", uiFormNames);
+            template = template.Replace("$ViewNames", viewNames);
+
+            string dataName = LuaDefine.LUA_SCRIPTS_PATH + "/src/UIFormNames.lua";
+
+            generateScript(dataName, template);
         }
 
         /// <summary>
@@ -54,7 +85,7 @@ namespace Mx.UI
 		/// <param name="uiFormName">UI窗口名称</param>
 		/// <param name="des">描述</param>
 		/// <returns></returns>
-        private static string SpliceFormName(string uiFormName, string des)
+        private static string spliceFormName(string uiFormName, string des)
         {
             string note = string.Format(" /// <summary>{0}</summary> \n", des);
 
@@ -72,7 +103,7 @@ namespace Mx.UI
 		/// <param name="uiFormName">UI窗口名称</param>
 		/// <param name="des">描述</param>
 		/// <returns></returns>
-		private static string SpliceFormType(string uiFormName, string des)
+		private static string spliceFormType(string uiFormName, string des)
         {
             string note = string.Format(" /// <summary>{0}</summary> \n", des);
             string res = uiFormName + ",";
@@ -81,7 +112,7 @@ namespace Mx.UI
         }
 
         /// <summary>自动创建UI脚本</summary>
-        private static void CreateUICSharpScript()
+        private static void createUICSharpScript()
         {
             UIConfigDatabase uIConfigInfo = new UIConfigDatabase();
             uIConfigInfo.Load();
@@ -94,12 +125,12 @@ namespace Mx.UI
                     string scriptPath = UIDefine.UIFormCSharpScriptsPath + info.Name + ".cs";
                     if (!File.Exists(scriptPath))
                     {
-                        string template = GetTemplate(UIDefine.Template_UIFORM_CSHARP_BASE);
+                        string template = getTemplate(UIDefine.Template_UIFORM_CSHARP_BASE);
                         template = template.Replace("$classNote", info.Des);
                         template = template.Replace("$className", info.Name);
                         template = template.Replace("$messageType", info.Name + "Event");
 
-                        GenerateScript(scriptPath, template);
+                        generateScript(scriptPath, template);
                     }
                 }
 
@@ -109,11 +140,11 @@ namespace Mx.UI
                     string scriptPath = UIDefine.UIFormLuaScriptsPath + info.Name + ".lua";
                     if (!File.Exists(scriptPath))
                     {
-                        string template = GetTemplate(UIDefine.Template_UIFORM_LUA_BASE);
+                        string template = getTemplate(UIDefine.Template_UIFORM_LUA_BASE);
                         template = template.Replace("$classNote", info.Des);
                         template = template.Replace("$className", info.Name);
 
-                        GenerateScript(scriptPath, template);
+                        generateScript(scriptPath, template);
                     }
                 }
             }
@@ -124,7 +155,7 @@ namespace Mx.UI
 		/// </summary>
 		/// <param name="path">UI模板路径</param>
 		/// <returns></returns>
-        private static string GetTemplate(string path)
+        private static string getTemplate(string path)
         {
             //TextAsset txt = (TextAsset)AssetDatabase.LoadAssetAtPath(path, typeof(TextAsset));
             TextAsset txt = Resources.Load<TextAsset>(path);
@@ -136,7 +167,7 @@ namespace Mx.UI
 		/// </summary>
 		/// <param name="dataName">数据名称</param>
 		/// <param name="data">数据</param>
-        private static void GenerateScript(string dataName, string data)
+        private static void generateScript(string dataName, string data)
         {
             if (File.Exists(dataName)) File.Delete(dataName);
 

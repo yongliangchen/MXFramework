@@ -1,22 +1,22 @@
+--退出应用UI面板
 
---$classNote
-
-
-$className = {}
-local this = $className
-local TAG = "$className"
+QuitAppUIForm = {}
+local this = QuitAppUIForm
+local TAG = "QuitAppUIForm"
 local transform
 
 --映射Unity Awake 生命周期
 function this.Awake(obj)
-    this.gameObject=obj
-    transform=obj.transform
+    this.gameObject = obj
+    transform = obj.transform
     this.InitView()
 end
 
 --初始化面板事件
 function this.InitView()
-   
+    this.RigisterButtonEvent("BtnMask", this.OnClickCloseButton)
+    this.RigisterButtonEvent("BtnClose", this.OnClickCloseButton)
+    this.RigisterButtonEvent("BtnQuitGame", this.OnClickQuitAppButton)
 end
 
 --映射Unity Update 生命周期
@@ -46,10 +46,20 @@ end
 
 --注册按钮事件
 function this.RigisterButtonEvent(buttonName, callback)
-    UIManager.RigisterButtonEvent(this.gameObject,buttonName,callback)
+    UIManager.RigisterButtonEvent(this.gameObject, buttonName, callback)
 end
 
 --关闭当前UI面板
 function this.CloseCurrentUIForm()
     UIManager.CloseUIForms(TAG)
+end
+
+--点击了关闭当前面板按钮
+function this.OnClickCloseButton(buttonObj)
+    this.CloseCurrentUIForm()
+end
+
+--点击退出应用按钮
+function this.OnClickQuitAppButton(buttonObj)
+    Application.Quit()
 end

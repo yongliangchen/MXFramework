@@ -12,11 +12,13 @@
 
 using UnityEngine;
 using UnityEngine.EventSystems;
+using XLua;
 
 namespace Mx.UI
 {
     public class EventTriggerListener :UnityEngine.EventSystems.EventTrigger 
     {
+        [CSharpCallLua]
         public delegate void VoidDelegate(GameObject go);
         public VoidDelegate onClick;
         public VoidDelegate onDown;

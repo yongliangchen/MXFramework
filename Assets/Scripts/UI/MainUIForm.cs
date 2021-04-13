@@ -18,8 +18,8 @@ public class MainUIForm : BaseUIForm
     /// <summary>注册按钮事件</summary>
     private void rigisterButtonEvent()
     {
-        RigisterButtonObjectEvent("BtnEquipment", openMarketUIForm);
-        RigisterButtonObjectEvent("BtnSetting", openSettingsUIForm);
+        RigisterButtonEvent("BtnEquipment", openMarketUIForm);
+        RigisterButtonEvent("BtnSetting", openSettingsUIForm);
     }
 
     /// <summary>打开装备面板</summary>

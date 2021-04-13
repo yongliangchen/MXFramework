@@ -47,6 +47,13 @@ namespace Mx.UI
             }
         }
 
+        /// <summary>打开UI面板,并关闭除当前打开的其他UI面板</summary>
+        public void OpenUIFormsAndCloseOther(params string[] uiFormNames)
+        {
+            CloseAllUIForms();
+            OpenUIForms(uiFormNames);
+        }
+
         /// <summary>关闭UI面板</summary>
         public void CloseUIForms(params string[] uiFormNames)
         {
@@ -109,6 +116,21 @@ namespace Mx.UI
         public void SendGlobalUIFormMsg(string key, object values)
         {
             MessageCenter.SendMessage(UIDefine.GLOBAL_UI_FORM_MSG_EVENT, key, values);
+        }
+
+        /// <summary>
+        /// 注册按钮事件(提供给lua调用)
+        /// </summary>
+        /// <param name="buttonName">按钮的名称</param>
+        /// <param name="delHandle">委托的方法</param>
+        public void RigisterButtonEvent(GameObject uiFormObj,string buttonName, EventTriggerListener.VoidDelegate delHandle)
+        {
+            GameObject goButton = UnityHelper.FindTheChildNode(uiFormObj, buttonName).gameObject;
+            if (goButton != null) { EventTriggerListener.Get(goButton).onClick = delHandle; }
+            else
+            {
+                Debug.LogWarning(GetType() + "/RigisterButtonEvent()/add button event is error! button is null!  buttonName:" + buttonName);
+            }
         }
 
         /// <summary>加载UI面板</summary>

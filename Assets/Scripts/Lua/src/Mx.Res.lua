@@ -1,6 +1,9 @@
+--AssetBundle资源管理器
+
 local abMgrObj = CS.Mx.Res.AssetBundleMgr.Instance
 AssetBundleMgr = {}
 local this = AssetBundleMgr
+local TAG = "Mx.Res"
 
 --加载Manifest
 function AssetBundleMgr.LoadManifest()

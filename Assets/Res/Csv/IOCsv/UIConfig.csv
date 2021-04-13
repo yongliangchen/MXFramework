@@ -10,3 +10,4 @@ HeroInfoUIForm,0,1,0,0,UIPrefabs/HeroInfoUIForm,,,角色信息UI面板
 MarketUIForm,0,2,0,0,UIPrefabs/MarketUIForm,,,背包UI面板
 PtopDetailUIForm,0,3,0,0,UIPrefabs/PtopDetailUIForm,,,弹出框UI面板
 SettingsUIForm,1,2,0,1,,ui/uiprefabs.data,SettingsUIForm.prefab,设置UI面板
+QuitAppUIForm,1,2,0,1,,ui/uiprefabs.data,QuitAppUIForm.prefab,退出应用UI面板

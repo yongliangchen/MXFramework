@@ -1,7 +1,10 @@
 --  Lua项目，入口脚本
 
-require("LuaDefine")
+require("UIFormNames")
 require("ProjectInit")
+require("Mx.UI")
+require("UnityEngine.UI")
+require("UnityEngine")
 
 print("Start Lua!")
 

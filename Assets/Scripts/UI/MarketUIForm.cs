@@ -18,13 +18,13 @@ public class MarketUIForm : BaseUIForm
     /// <summary>注册按钮事件</summary>
     private void rigisterButtonEvent()
     {
-        RigisterButtonObjectEvent("BtnClose", closeCurrentUIForm);
-        RigisterButtonObjectEvent("BtnMask", closeCurrentUIForm);
+        RigisterButtonEvent("BtnClose", closeCurrentUIForm);
+        RigisterButtonEvent("BtnMask", closeCurrentUIForm);
 
         //----------------------------------模拟购买装备----------------------------------
-        RigisterButtonObjectEvent("BtnClothes", (btnObject) => { openBuyUIForm(0); });
-        RigisterButtonObjectEvent("BtnTrousers", (btnObject) => { openBuyUIForm(1); });
-        RigisterButtonObjectEvent("BtnShoes", (btnObject) => { openBuyUIForm(2); });
+        RigisterButtonEvent("BtnClothes", (btnObject) => { openBuyUIForm(0); });
+        RigisterButtonEvent("BtnTrousers", (btnObject) => { openBuyUIForm(1); });
+        RigisterButtonEvent("BtnShoes", (btnObject) => { openBuyUIForm(2); });
     }
 
     /// <summary>关闭当前UI面板</summary>

@@ -1,0 +1,9 @@
+--*代码自动生成的类，请勿手动修改*--
+ 
+--全部UI窗体名称
+UINames={
+ $UINames }
+
+--项目中用到的视图层脚本名称
+ViewNames = {
+  $ViewNames }

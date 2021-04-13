@@ -3,6 +3,7 @@ using System.IO;
 using Mx.Utils;
 using XLua;
 using UnityEngine;
+using Mx.UI;
 
 namespace Mx.Lua
 {

@@ -31,8 +31,8 @@ public class RegisterUIForm : BaseUIForm
     /// <summary>注册按钮事件</summary>
     private void rigisterButtonEvent()
     {
-        RigisterButtonObjectEvent("BtnDefine", define);
-        RigisterButtonObjectEvent("BtnClose", closeCurrentUIForm);
+        RigisterButtonEvent("BtnDefine", define);
+        RigisterButtonEvent("BtnClose", closeCurrentUIForm);
     }
 
     /// <summary>确认注册</summary>

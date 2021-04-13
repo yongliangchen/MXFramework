@@ -280,7 +280,8 @@ namespace Mx.UI
             }
             if (scriptType == EnumScriptType.Lua)
             {
-                //通知Lua脚本刷新Todo
+                BaseLuaUIForm baseUIForm = uIFormInfo.gameObject.GetComponent<BaseLuaUIForm>();
+                if (baseUIForm != null) baseUIForm.OnOpenUIEvent();
             }
         }
 
@@ -317,7 +318,8 @@ namespace Mx.UI
             }
             if(scriptType== EnumScriptType.Lua)
             {
-                //通知Lua脚本刷新Todo
+                BaseLuaUIForm baseUIForm = uIFormInfo.gameObject.GetComponent<BaseLuaUIForm>();
+                if (baseUIForm != null) baseUIForm.OnCloseUIEvent();
             }
 
             if (m_UIFormDatas.dicReverseChangeUIForms.ContainsKey(uiFormName))

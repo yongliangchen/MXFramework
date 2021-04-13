@@ -23,6 +23,8 @@ public const string  MARKET_UIFORM = "MarketUIForm";
 public const string  PTOP_DETAIL_UIFORM = "PtopDetailUIForm";
  /// <summary>设置UI面板</summary> 
 public const string  SETTINGS_UIFORM = "SettingsUIForm";
+ /// <summary>退出应用UI面板</summary> 
+public const string  QUIT_APP_UIFORM = "QuitAppUIForm";
 
 }
 

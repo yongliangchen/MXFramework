@@ -104,7 +104,30 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp4(UnityEngine.GameObject p0)
+		public void __Gen_Delegate_Imp4(string p0, object p1)
+		{
+#if THREAD_SAFE || HOTFIX_ENABLE
+            lock (luaEnv.luaEnvLock)
+            {
+#endif
+                RealStatePtr L = luaEnv.rawL;
+                int errFunc = LuaAPI.pcall_prepare(L, errorFuncRef, luaReference);
+                ObjectTranslator translator = luaEnv.translator;
+                LuaAPI.lua_pushstring(L, p0);
+                translator.PushAny(L, p1);
+                
+                PCall(L, 2, 0, errFunc);
+                
+                
+                
+                LuaAPI.lua_settop(L, errFunc - 1);
+                
+#if THREAD_SAFE || HOTFIX_ENABLE
+            }
+#endif
+		}
+        
+		public void __Gen_Delegate_Imp5(UnityEngine.GameObject p0)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -160,44 +183,14 @@ namespace XLua
 			    return new System.Action<double>(__Gen_Delegate_Imp3);
 			}
 		
-		    if (type == typeof(BaseLuaUIForm.delLuaAwake))
+		    if (type == typeof(Mx.UI.BaseLuaUIForm.DelLuaUIFormMsgEvent))
 			{
-			    return new BaseLuaUIForm.delLuaAwake(__Gen_Delegate_Imp4);
+			    return new Mx.UI.BaseLuaUIForm.DelLuaUIFormMsgEvent(__Gen_Delegate_Imp4);
 			}
 		
-		    if (type == typeof(BaseLuaUIForm.delLuaOnEnable))
+		    if (type == typeof(Mx.UI.EventTriggerListener.VoidDelegate))
 			{
-			    return new BaseLuaUIForm.delLuaOnEnable(__Gen_Delegate_Imp4);
-			}
-		
-		    if (type == typeof(BaseLuaUIForm.delLuaStart))
-			{
-			    return new BaseLuaUIForm.delLuaStart(__Gen_Delegate_Imp4);
-			}
-		
-		    if (type == typeof(BaseLuaUIForm.delLuaFixedUpdate))
-			{
-			    return new BaseLuaUIForm.delLuaFixedUpdate(__Gen_Delegate_Imp4);
-			}
-		
-		    if (type == typeof(BaseLuaUIForm.delLuaUpdate))
-			{
-			    return new BaseLuaUIForm.delLuaUpdate(__Gen_Delegate_Imp4);
-			}
-		
-		    if (type == typeof(BaseLuaUIForm.delLuaLateUpdate))
-			{
-			    return new BaseLuaUIForm.delLuaLateUpdate(__Gen_Delegate_Imp4);
-			}
-		
-		    if (type == typeof(BaseLuaUIForm.delLuaOnDisable))
-			{
-			    return new BaseLuaUIForm.delLuaOnDisable(__Gen_Delegate_Imp4);
-			}
-		
-		    if (type == typeof(BaseLuaUIForm.delLuaOnDestroy))
-			{
-			    return new BaseLuaUIForm.delLuaOnDestroy(__Gen_Delegate_Imp4);
+			    return new Mx.UI.EventTriggerListener.VoidDelegate(__Gen_Delegate_Imp5);
 			}
 		
 		    return null;

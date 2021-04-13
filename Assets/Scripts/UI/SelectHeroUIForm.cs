@@ -18,8 +18,8 @@ public class SelectHeroUIForm : BaseUIForm
     /// <summary>注册按钮事件</summary>
     private void rigisterButtonEvent()
     {
-        RigisterButtonObjectEvent("BtnConfirm", openMainUIForm);
-        RigisterButtonObjectEvent("BtnClose", openLoginUIForm);
+        RigisterButtonEvent("BtnConfirm", openMainUIForm);
+        RigisterButtonEvent("BtnClose", openLoginUIForm);
     }
 
     /// <summary>打开首页UI面板</summary>

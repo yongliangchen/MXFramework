@@ -47,8 +47,8 @@ public class PtopDetailUIForm : BaseUIForm
     /// <summary>注册按钮事件</summary>
     private void rigisterButtonEvent()
     {
-        RigisterButtonObjectEvent("BtnClose", closeCurrentUIForm);
-        RigisterButtonObjectEvent("BtnUpgrade", upgrade);
+        RigisterButtonEvent("BtnClose", closeCurrentUIForm);
+        RigisterButtonEvent("BtnUpgrade", upgrade);
     }
 
     /// <summary>关闭当前UI面板</summary>
@@ -117,7 +117,7 @@ public class PtopDetailUIForm : BaseUIForm
         }
 
         TestUserDatas.Capability = capability;
-        SendMessageToUIForm("Capability", "战斗力增加了", UIFormNames.HERO_INFO_UIFORM);
+        SendMessageToUIForm("Capability", "战斗力增加了", UIFormNames.HERO_INFO_UIFORM, UIFormNames.SETTINGS_UIFORM);
     }
 
 }
