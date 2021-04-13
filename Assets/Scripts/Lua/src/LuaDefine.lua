@@ -8,7 +8,7 @@ CtrlName = {
 
 --项目中用到的视图层脚本名称
 ViewNames = {
-    "UIRootView", "TaskView"
+    "UIRootView", "TaskView","SettingsUIForm"
 }
 
 GameObject = CS.UnityEngine.GameObject

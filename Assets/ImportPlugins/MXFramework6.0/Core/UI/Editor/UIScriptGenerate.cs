@@ -88,15 +88,33 @@ namespace Mx.UI
 
             foreach (UIConfigData info in uIConfigInfo.GetAllDataList())
             {
-                string dataName = UIDefine.UIFormCSharpScriptsPath + info.Name + ".cs";
-                if (!File.Exists(dataName))
+                //创建C#脚本
+                if (info.ScriptType == 0)
                 {
-                    string template = GetTemplate(UIDefine.Template_UIFORM_CSHARP_BASE);
-                    template = template.Replace("$classNote", info.Des);
-                    template = template.Replace("$className", info.Name);
-                    template = template.Replace("$messageType", info.Name + "Event");
+                    string scriptPath = UIDefine.UIFormCSharpScriptsPath + info.Name + ".cs";
+                    if (!File.Exists(scriptPath))
+                    {
+                        string template = GetTemplate(UIDefine.Template_UIFORM_CSHARP_BASE);
+                        template = template.Replace("$classNote", info.Des);
+                        template = template.Replace("$className", info.Name);
+                        template = template.Replace("$messageType", info.Name + "Event");
 
-                    GenerateScript(dataName, template);
+                        GenerateScript(scriptPath, template);
+                    }
+                }
+
+                //创建Lua脚本
+                else
+                {
+                    string scriptPath = UIDefine.UIFormLuaScriptsPath + info.Name + ".lua";
+                    if (!File.Exists(scriptPath))
+                    {
+                        string template = GetTemplate(UIDefine.Template_UIFORM_LUA_BASE);
+                        template = template.Replace("$classNote", info.Des);
+                        template = template.Replace("$className", info.Name);
+
+                        GenerateScript(scriptPath, template);
+                    }
                 }
             }
         }

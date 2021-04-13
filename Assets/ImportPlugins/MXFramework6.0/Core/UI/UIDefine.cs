@@ -50,8 +50,23 @@ namespace Mx.UI
             }
         }
 
+        private static string uIFormLuaScriptsPath = Application.dataPath + "/Scripts/Lua/src/UI/";
+        /// <summary>UI窗口Lua脚本存放路径</summary>
+        public static string UIFormLuaScriptsPath
+        {
+            get
+            {
+                if (!Directory.Exists(uIFormLuaScriptsPath)) Directory.CreateDirectory(uIFormLuaScriptsPath);
+                return uIFormLuaScriptsPath;
+            }
+        }
+
+        /// <summary>UI名称类模板</summary>
         public const string Template_UIFORM_NAMES = "Template/UI/Template_UIFormNames";
+        /// <summary>C#脚本模板</summary>
         public const string Template_UIFORM_CSHARP_BASE = "Template/UI/Template_UIFormCSharpBase";
+        /// <summary>Lua脚本模板</summary>
+        public const string Template_UIFORM_LUA_BASE = "Template/UI/Template_UIFormLuaBase";
     }
 
     #region 系统枚举类型

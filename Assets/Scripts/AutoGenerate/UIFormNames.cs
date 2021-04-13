@@ -21,6 +21,8 @@ public const string  HERO_INFO_UIFORM = "HeroInfoUIForm";
 public const string  MARKET_UIFORM = "MarketUIForm";
  /// <summary>弹出框UI面板</summary> 
 public const string  PTOP_DETAIL_UIFORM = "PtopDetailUIForm";
+ /// <summary>设置UI面板</summary> 
+public const string  SETTINGS_UIFORM = "SettingsUIForm";
 
 }
 

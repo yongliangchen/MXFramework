@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 930316963
+CRC: 1942557799
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 69c57fda3048089d133fe040149b57af
+    Hash: 2c35f71a01d021db102f83fb07df2a05
   TypeTreeHash:
     serializedVersion: 2
-    Hash: af5599becd3bc843ba4a669c0fccc588
+    Hash: 4b42d64013dc5a7e748475a13a3635f6
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -20,11 +20,13 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
 - Class: 115
@@ -41,6 +43,8 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Res/AbRes/Ui/UIPrefabs/SettingsUIForm.prefab
 - Assets/Res/AbRes/Ui/UIPrefabs/UIRootView.prefab
 - Assets/Res/AbRes/Ui/UIPrefabs/TaskView.prefab
-Dependencies: []
+Dependencies:
+- /Users/chenyongliang/UnityProject/CompanyProject/Framework/MXFramework/Assets/StreamingAssets/AssetsBundles/OSX/ui/atlas.data

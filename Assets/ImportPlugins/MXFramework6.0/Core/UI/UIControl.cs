@@ -15,6 +15,7 @@ using System.Linq;
 using Mx.Config;
 using Mx.Utils;
 using UnityEngine;
+using Mx.Lua;
 
 namespace Mx.UI
 {
@@ -230,7 +231,7 @@ namespace Mx.UI
             }
             if(scriptType== EnumScriptType.Lua)
             {
-                //添加Lua脚本Todo
+                LuaHelper.Instance.AddBaseLuaUIForm(uiFormObject,uiFormName);
             }
         }
 

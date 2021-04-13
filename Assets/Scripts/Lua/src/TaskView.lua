@@ -12,5 +12,6 @@ function TaskView.Awake(obj)
 end
 
 function TaskView.InitView()
+    print(TAG)
     this.BtnClose=transform:Find("BtnClose"):GetComponent("UnityEngine.UI.Button")
 end

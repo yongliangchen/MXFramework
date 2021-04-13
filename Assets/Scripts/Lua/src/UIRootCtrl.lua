@@ -4,7 +4,6 @@ require("UnityEngine")
 require("Mx.Res")
 require("Mx.Lua")
 
-
 UIRootCtrl = {}
 local this = UIRootCtrl
 local TAG = "UIRootCtrl"

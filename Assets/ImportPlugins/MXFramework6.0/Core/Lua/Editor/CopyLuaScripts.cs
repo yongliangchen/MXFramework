@@ -21,6 +21,12 @@ namespace Mx.Lua
 {
     public class CopyLuaScripts
     {
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void BeforeRuntimeInitializeOnLoadMethod()
+        {
+           if(Application.isEditor) copyScripts();
+        }
+
         [MenuItem("MXFramework/Lua/Copy Lua Scripts #l", false, 401)]
         public static void copyScripts()
         {
@@ -37,12 +43,13 @@ namespace Mx.Lua
 
                     if (filter(fileInfo))
                     {
-                        Debug.Log(fileInfo.Name);
-
+                        //Debug.Log(fileInfo.Name);
                         string str = readTxt(fileInfo.FullName);
                         writeTxt(fileInfo.Name, str);
                     }
                 }
+
+                Debug.Log("拷贝Lua脚本完成！ 脚本数量：" + files.Length);
             }
         }
 

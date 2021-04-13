@@ -1,0 +1,24 @@
+
+--$classNote
+
+require("UnityEngine")
+
+$className = {}
+local this = $className
+local TAG = "$className"
+local transform
+
+
+function $className.Awake(obj)
+    this.gameObject=obj
+    transform=obj.transform
+    this.InitView()
+end
+
+function $className.InitView()
+   
+end
+
+function $className.Update()
+
+end

@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 2209947276
+CRC: 1073899486
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -7,4 +7,5 @@ AssetBundleManifest:
       Dependencies: {}
     Info_1:
       Name: ui/uiprefabs.data
-      Dependencies: {}
+      Dependencies:
+        Dependency_0: ui/atlas.data
