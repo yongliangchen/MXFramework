@@ -24,7 +24,7 @@ public class PathTools
         {
             string path = string.Empty;
 
-            path = Application.persistentDataPath + "/Data";
+            path = Application.streamingAssetsPath + "/Data";
 
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 

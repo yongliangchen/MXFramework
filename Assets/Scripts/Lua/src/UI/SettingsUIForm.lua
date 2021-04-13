@@ -15,10 +15,8 @@ end
 
 function SettingsUIForm.InitView()
 
-    print(TAG .. "/InitView()")
 end
 
 function SettingsUIForm.Update()
 
-    print(TAG .. "/Update()")
 end

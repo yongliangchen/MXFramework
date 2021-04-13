@@ -27,9 +27,14 @@ namespace Mx.Lua
            if(Application.isEditor) copyScripts();
         }
 
+        /// <summary>Lua脚本的数量</summary>
+        private static int m_LuaScriptsCount = 0;
+
         [MenuItem("MXFramework/Lua/Copy Lua Scripts #l", false, 401)]
         public static void copyScripts()
         {
+            m_LuaScriptsCount = 0;
+
             if (Directory.Exists(LuaDefine.GetLuaScriptsOutPath)) Directory.Delete(LuaDefine.GetLuaScriptsOutPath,true);
 
             string path = LuaDefine.LUA_SCRIPTS_PATH;
@@ -43,13 +48,13 @@ namespace Mx.Lua
 
                     if (filter(fileInfo))
                     {
-                        //Debug.Log(fileInfo.Name);
+                        m_LuaScriptsCount++;
                         string str = readTxt(fileInfo.FullName);
                         writeTxt(fileInfo.Name, str);
                     }
                 }
 
-                Debug.Log("拷贝Lua脚本完成！ 脚本数量：" + files.Length);
+                Debug.Log("拷贝Lua脚本完成！ 脚本数量："+ m_LuaScriptsCount);
             }
         }
 

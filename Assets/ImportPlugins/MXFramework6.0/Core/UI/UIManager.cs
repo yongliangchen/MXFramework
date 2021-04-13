@@ -65,18 +65,6 @@ namespace Mx.UI
             m_UIControl.CloseAllUIForms();
         }
 
-        /// <summary>释放指定的UI面板</summary>
-        public void DisposeUIForm(string[] uiFormNames)
-        {
-
-        }
-
-        /// <summary>释放所有UI面板</summary>
-        public void DisposeAll()
-        {
-
-        }
-
         /// <summary>隐藏全部打开的UI面板</summary>
         public void HideOpenUIForms()
         {
