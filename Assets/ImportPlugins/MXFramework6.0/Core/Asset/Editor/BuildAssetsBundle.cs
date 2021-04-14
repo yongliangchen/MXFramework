@@ -20,17 +20,17 @@ namespace Mx.Res
             BuildPlatformDirectory(BuildTarget.iOS);
         }
 
-        [MenuItem("MXFramework/AssetBundle/Build AssetBundles/Windows", false, 205)]
-        public static void BuildWindowsAssetBundles()
-        {
-            BuildPlatformDirectory(BuildTarget.StandaloneWindows64);
-        }
+        //[MenuItem("MXFramework/AssetBundle/Build AssetBundles/Windows", false, 205)]
+        //public static void BuildWindowsAssetBundles()
+        //{
+        //    BuildPlatformDirectory(BuildTarget.StandaloneWindows64);
+        //}
 
-        [MenuItem("MXFramework/AssetBundle/Build AssetBundles/Mac", false, 206)]
-        public static void BuildMacAssetBundles()
-        {
-            BuildPlatformDirectory(BuildTarget.StandaloneOSX);
-        }
+        //[MenuItem("MXFramework/AssetBundle/Build AssetBundles/Mac", false, 206)]
+        //public static void BuildMacAssetBundles()
+        //{
+        //    BuildPlatformDirectory(BuildTarget.StandaloneOSX);
+        //}
 
         /// <summary>
         /// 根据选择平台进行打包
@@ -79,7 +79,7 @@ namespace Mx.Res
             AssetDatabase.Refresh();//刷新
             Debug.Log("打包资源成功! outPath: " + outPath);
 
-            GenerateAssetList.CreateFiles(outPath);//生成资源清单
+            //GenerateAssetList.CreateFiles(outPath);//生成资源清单
         }
 
     }

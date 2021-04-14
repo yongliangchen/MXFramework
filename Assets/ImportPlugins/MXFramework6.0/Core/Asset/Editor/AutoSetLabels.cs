@@ -10,7 +10,7 @@ namespace Mx.Res
         //[MenuItem("MXFramework/AssetBundle/Set AssetBundle Label", false, 201)]
         public static void SetAbLabel()
         {
-            string abFolder = AssetDefine.GetABResourcePath();
+            string abFolder = AssetDefine.GetSourceDataPath();
             if (!Directory.Exists(abFolder)) { Directory.CreateDirectory(abFolder); }
 
             FileInfo[] files = DirectoryEx.GetFiles(abFolder, Filter);
@@ -81,7 +81,7 @@ namespace Mx.Res
         private static string GetABName(FileInfo fileInfoObj)
         {
             string strABName = string.Empty;
-            string strABPath = fileInfoObj.FullName.Replace(fileInfoObj.Extension, null).Replace(AssetDefine.GetABResourcePath(), null);
+            string strABPath = fileInfoObj.FullName.Replace(fileInfoObj.Extension, null).Replace(AssetDefine.GetSourceDataPath(), null);
             string tmpUnityPath = strABPath.Replace("\\", "/");
             string[] strAbPathArr = tmpUnityPath.Split('/');
 

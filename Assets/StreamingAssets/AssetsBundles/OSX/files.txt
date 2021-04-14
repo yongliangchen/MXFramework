@@ -1,7 +1,0 @@
-ui/atlas.data|91977e9d0dae05d42b05628efb0f6e|6327219
-ui/atlas.data.manifest|832e3ec047bcbc09393f2f6d24ca317|1418
-ui/uiprefabs.data|c7583cdbf23faf1628c6c611e583f61d|8197
-ui/uiprefabs.data.manifest|119978d78375b51f2f5b3e5d394eca19|1250
-.DS_Store|5fd4c4a32e52e3e01bee72a20d1ad4b|6148
-OSX|c84c63dc1f55657fb5692165fad125ec|1074
-OSX.manifest|1a3ab5709f3f99957dd6d2bd1a733dfb|237

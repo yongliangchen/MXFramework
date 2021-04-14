@@ -5,17 +5,18 @@
  *    Description: 
  *           功能：自动生成资源清单
  * 
- *    Date: 2019
- *    Version: v4.1版本
+ *    Date: 2021
+ *    Version: v6.0版本
  *    Modify Recoder: 
  *      
  */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
+using Mx.Utils;
 using UnityEditor;
 using UnityEngine;
-using Mx.Utils;
 
 namespace Mx.Res
 {
@@ -24,77 +25,119 @@ namespace Mx.Res
     /// </summary>
     public class GenerateAssetList
     {
-        /// <summary>
-        /// 生成资源清单
-        /// </summary>
-        /// <param name="outPath">Out path.</param>
-        public static void CreateFiles(string outPath)
+        [MenuItem("MXFramework/Generate Asset List", false, 501)]
+        public static void GenerateFiles()
         {
-            //校验文件的路径
-            string filePath = outPath + "/files.txt";
-            if (File.Exists(filePath))
-                File.Delete(filePath);
+            string resPath = PathTools.InitialResPath;
 
-            //遍历这个文件夹下面的所有文件 
-            List<string> fileList = new List<string>();
-            listFiles(new DirectoryInfo(outPath), ref fileList);
+            string iOSFilePath = PathTools.InitialResPath + "/iOSFiles.txt";
+            string iOSExcludePath = resPath+"/AssetsBundles/Android";
+            if (File.Exists(iOSFilePath)) File.Delete(iOSFilePath);
 
-            FileStream fs = new FileStream(filePath, FileMode.CreateNew);
-            StreamWriter sw = new StreamWriter(fs);
+            string androidFilePath = PathTools.InitialResPath + "/AndroidFiles.txt";
+            string androidExcludePath = resPath+ "/AssetsBundles/iOS";
+            if (File.Exists(androidFilePath)) File.Delete(androidFilePath);
 
-            for (int i = 0; i < fileList.Count; i++)
-            {
-                string file = fileList[i];
-                string ext = Path.GetExtension(file);
-                if (ext.EndsWith(".meta"))
-                    continue;
+            string[] files = System.IO.Directory.GetFiles(resPath, "*.*", SearchOption.AllDirectories);
+            if (files == null || files.Length == 0) return;
 
-                FileInfo fileInfo = new FileInfo(file);
+            createFiles(iOSFilePath, files, iOSExcludePath);
+            createFiles(androidFilePath, files, androidExcludePath);
 
-                //生成这个文件对应的md5值 
-                string md5 = StringEncrypt.GetFileMd5(file);
-
-                string value = file.Replace(outPath + "/", string.Empty);
-                //写入到文件
-                sw.WriteLine(value + "|" + md5 + "|" + fileInfo.Length);
-            }
-
-            sw.Close();
-            fs.Close();
-
-            Debug.Log("生成资源清单完成! OutPath:" + outPath);
+            Debug.Log("生成资源清单完成!");
             AssetDatabase.Refresh();//刷新
         }
 
-
         /// <summary>
-        /// 遍历文件夹下的所有文件
+        /// 创建资源清单
         /// </summary>
-        /// <param name="fileSystemInfo">文件夹的路径</param>
-        /// <param name="fileList"></param>
-        private static void listFiles(FileSystemInfo fileSystemInfo, ref List<string> fileList)
+        /// <param name="outPath">资源清单输出路径</param>
+        /// <param name="files">全部资源集合</param>
+        /// <param name="excludePath">需要排除的资源路径</param>
+        private static void createFiles(string outPath, string[] files, string excludePath)
         {
-            DirectoryInfo directoryInfo = fileSystemInfo as DirectoryInfo;
-            //获取所有的文件系统
-            FileSystemInfo[] infos = directoryInfo.GetFileSystemInfos();
+            if (File.Exists(outPath)) File.Delete(outPath);
 
-            foreach (var info in infos)
+            List<AssetInfo> listAsset = new List<AssetInfo>();
+            AssetInfo[] asetArr = null;
+            long totalLength = 0;
+
+            for (int i = 0; i < files.Length; ++i)
             {
-                FileInfo fileInfo = info as FileInfo;
-                //如果是文件 就成功了
-                if (fileInfo != null)
-                {
-                    fileList.Add(fileInfo.FullName.Replace("\\", "/"));
-                }
-                //如果是文件夹就不成功 null
-                else
-                {
-                    //递归
-                    listFiles(info, ref fileList);
-                }
+                FileInfo fileInfo = new FileInfo(files[i]);
+                if (!Filter(fileInfo)|| fileInfo.FullName.StartsWith(excludePath)) continue;
+
+                string localPath = fileInfo.FullName.Replace(PathTools.InitialResPath + "/", null);
+                string directory = localPath.Substring(0, localPath.Length - fileInfo.Name.Length);
+                AssetInfo assetInfo = new AssetInfo();
+                assetInfo.name = fileInfo.Name;
+                assetInfo.directory = directory;
+                assetInfo.md5 = StringEncrypt.GetFileMd5(fileInfo.FullName);
+                assetInfo.length = fileInfo.Length;
+
+                listAsset.Add(assetInfo);
+                totalLength += assetInfo.length;
+            }
+
+            if (listAsset.Count > 0) asetArr = listAsset.ToArray();
+            if (asetArr != null && asetArr.Length > 0)
+            {
+                AssetList assetList = new AssetList();
+                assetList.count = asetArr.Length;
+                assetList.length = totalLength;
+                assetList.filesList = asetArr;
+                string jsonData = JsonUtility.ToJson(assetList);
+                writer(outPath, jsonData);
             }
         }
 
+        /// <summary>写入文本</summary>
+        private static void writer(string filePath,string data)
+        {
+            FileStream fs = new FileStream(filePath, FileMode.CreateNew);
+            StreamWriter sw = new StreamWriter(fs);
+
+            sw.WriteLine(data);
+
+            sw.Close();
+            fs.Close();
+        }
+
+        /// <summary>筛选</summary>
+        private static bool Filter(FileInfo fileInfo)
+        {
+            if (fileInfo.Extension == ".meta" || fileInfo.Extension == ".DS_Store" || fileInfo.Extension == ".cs" ||
+                fileInfo.Extension == ".dll" || fileInfo.Extension == ".cpp" || fileInfo.Extension == ".a"
+                || fileInfo.Extension == ".so"
+
+               ) return false;
+
+            else return true;
+        }
+    }
+
+    [Serializable]
+    public class AssetInfo
+    {
+        /// <summary>资源名称</summary>
+        public string name;
+        /// <summary>资源目录</summary>
+        public string directory;
+        /// <summary>Md5值（版本号）</summary>
+        public string md5;
+        /// <summary>资源大小（字节）</summary>
+        public long length;
+    }
+
+    [Serializable]
+    public class AssetList
+    {
+        /// <summary>资源数量</summary>
+        public int count;
+        /// <summary>所有资源总的大小</summary>
+        public long length;
+        /// <summary>资源清单</summary>
+        public AssetInfo[] filesList;
     }
 
 }
