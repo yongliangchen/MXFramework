@@ -13,7 +13,7 @@ namespace Mx.Res
             string abFolder = AssetDefine.GetSourceDataPath();
             if (!Directory.Exists(abFolder)) { Directory.CreateDirectory(abFolder); }
 
-            FileInfo[] files = DirectoryEx.GetFiles(abFolder, Filter);
+            FileInfo[] files = DirectoryEx.GetFiles(abFolder, AssetDefine.FilterFormat);
             foreach (FileInfo fileInfo in files)
             {
                 SetFileABLabel(fileInfo);
@@ -38,7 +38,7 @@ namespace Mx.Res
 
                     FileInfo fileInfo = new FileInfo(fileName);
 
-                    if (Filter(fileInfo))
+                    if (AssetDefine.FilterFormat(fileInfo))
                     {
                         int index = fileName.IndexOf("Assets");
                         fileName = fileName.Substring(index);
@@ -97,17 +97,7 @@ namespace Mx.Res
             return strABName;
         }
 
-        /// <summary>筛选</summary>
-        private static bool Filter(FileInfo fileInfo)
-        {
-            if (fileInfo.Extension == ".meta" || fileInfo.Extension == ".DS_Store" || fileInfo.Extension == ".cs" ||
-                fileInfo.Extension == ".dll" || fileInfo.Extension == ".cpp" || fileInfo.Extension == ".a"
-                || fileInfo.Extension == ".so"
-
-               ) return false;
-
-            else return true;
-        }
+     
 
     }
 }

@@ -21,10 +21,13 @@ namespace Mx.Lua
 {
     public class CopyLuaScripts
     {
+        /// <summary>是否自动拷贝lua脚本</summary>
+        public static bool autoCopyLua = false;
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void BeforeRuntimeInitializeOnLoadMethod()
         {
-           if(Application.isEditor) copyScripts();
+            if (Application.isEditor && autoCopyLua) copyScripts();
         }
 
         /// <summary>Lua脚本的数量</summary>

@@ -11,7 +11,7 @@ namespace Mx.Res
     public class Upk
     {
         /// <summary>压缩资源调用接口</summary>
-		[MenuItem("MXFramework/AssetBundle/Compression", false, 211)]
+		//[MenuItem("MXFramework/AssetBundle/Compression", false, 211)]
 		public static void Compressions()
 		{
 			if (Directory.Exists(AssetDefine.UpkOutPant))

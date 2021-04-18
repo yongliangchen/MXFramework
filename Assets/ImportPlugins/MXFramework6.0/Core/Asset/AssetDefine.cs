@@ -13,6 +13,8 @@
  *
  */
 
+using System;
+using System.IO;
 using UnityEngine;
 
 
@@ -122,10 +124,51 @@ namespace Mx.Res
         //    return strReturnPlatformName;
         //}
 
+        ///拷贝资源输出路径
+        public static string CopyAssetOutPant = "/Users/chenyongliang/UnityProject/AssetsBundles/" + Application.productName;
+
         /// <summary>Upk压缩文件输出目录</summary>
         public static string UpkOutPant = "/Users/chenyongliang/UnityProject/AssetsBundles/" + Application.productName;
         /// <summary>Upk压缩缓存路径</summary>
         public static string UpkTempCompressionPath = Application.persistentDataPath + "/Cache/Upk/Compression";
+
+
+        /// <summary>过滤的格式</summary>
+        public static bool FilterFormat(FileInfo fileInfo)
+        {
+            if (fileInfo.Extension == ".meta" || fileInfo.Extension == ".DS_Store" || fileInfo.Extension == ".cs" ||
+                fileInfo.Extension == ".dll" || fileInfo.Extension == ".cpp" || fileInfo.Extension == ".a"
+                || fileInfo.Extension == ".so"
+
+               ) return false;
+
+            else return true;
+        }
+    }
+
+
+    [Serializable]
+    public class AssetInfo
+    {
+        /// <summary>资源名称</summary>
+        public string name;
+        /// <summary>资源目录</summary>
+        public string directory;
+        /// <summary>Md5值（版本号）</summary>
+        public string md5;
+        /// <summary>资源大小（字节）</summary>
+        public long length;
+    }
+
+    [Serializable]
+    public class AssetList
+    {
+        /// <summary>资源数量</summary>
+        public int count;
+        /// <summary>所有资源总的大小</summary>
+        public long length;
+        /// <summary>资源清单</summary>
+        public AssetInfo[] filesList;
     }
 
 }

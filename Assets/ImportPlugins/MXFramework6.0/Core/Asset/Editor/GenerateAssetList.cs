@@ -25,7 +25,7 @@ namespace Mx.Res
     /// </summary>
     public class GenerateAssetList
     {
-        [MenuItem("MXFramework/Generate Asset List", false, 501)]
+        [MenuItem("MXFramework/Output Data/Generate Asset List", false, 501)]
         public static void GenerateFiles()
         {
             string resPath = PathTools.InitialResPath;
@@ -65,9 +65,9 @@ namespace Mx.Res
             for (int i = 0; i < files.Length; ++i)
             {
                 FileInfo fileInfo = new FileInfo(files[i]);
-                if (!Filter(fileInfo)|| fileInfo.FullName.StartsWith(excludePath)) continue;
+                if (!AssetDefine.FilterFormat(fileInfo)|| fileInfo.FullName.StartsWith(excludePath)) continue;
 
-                string localPath = fileInfo.FullName.Replace(PathTools.InitialResPath + "/", null);
+                string localPath = fileInfo.FullName.Replace(PathTools.AssetDirectory+ "/", null);
                 string directory = localPath.Substring(0, localPath.Length - fileInfo.Name.Length);
                 AssetInfo assetInfo = new AssetInfo();
                 assetInfo.name = fileInfo.Name;
@@ -102,42 +102,6 @@ namespace Mx.Res
             sw.Close();
             fs.Close();
         }
-
-        /// <summary>筛选</summary>
-        private static bool Filter(FileInfo fileInfo)
-        {
-            if (fileInfo.Extension == ".meta" || fileInfo.Extension == ".DS_Store" || fileInfo.Extension == ".cs" ||
-                fileInfo.Extension == ".dll" || fileInfo.Extension == ".cpp" || fileInfo.Extension == ".a"
-                || fileInfo.Extension == ".so"
-
-               ) return false;
-
-            else return true;
-        }
-    }
-
-    [Serializable]
-    public class AssetInfo
-    {
-        /// <summary>资源名称</summary>
-        public string name;
-        /// <summary>资源目录</summary>
-        public string directory;
-        /// <summary>Md5值（版本号）</summary>
-        public string md5;
-        /// <summary>资源大小（字节）</summary>
-        public long length;
-    }
-
-    [Serializable]
-    public class AssetList
-    {
-        /// <summary>资源数量</summary>
-        public int count;
-        /// <summary>所有资源总的大小</summary>
-        public long length;
-        /// <summary>资源清单</summary>
-        public AssetInfo[] filesList;
     }
 
 }

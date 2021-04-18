@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using UnityEngine.Networking;
+using UnityEngine;
 
 namespace Mx.Net
 {
@@ -116,6 +117,7 @@ namespace Mx.Net
         /// <summary> 去掉‘.’后面的字符</summary>
         private string erasePostfix(string filePath)
         {
+            if (filePath.LastIndexOf('.') < 0) return filePath;
             return filePath.Substring(0, filePath.LastIndexOf('.'));
         }
     }
