@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using Mx.Config;
 using System.IO;
@@ -74,8 +74,9 @@ namespace Mx.UI
             template = template.Replace("$UINames", uiFormNames);
             template = template.Replace("$ViewNames", viewNames);
 
-            string dataName = LuaDefine.LUA_SCRIPTS_PATH + "/src/UIFormNames.lua";
-
+            string folderPath = LuaDefine.LUA_SCRIPTS_PATH + "/src";
+            if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+            string dataName = folderPath+"/UIFormNames.lua";
             generateScript(dataName, template);
         }
 

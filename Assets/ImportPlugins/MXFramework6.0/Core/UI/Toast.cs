@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Mx.UI
 {
@@ -30,8 +30,8 @@ namespace Mx.UI
 
         private static void sendMsgToToastUIForm(ToastMsgInfo info)
         {
-            if (!UIManager.Instance.IsOpen(UIFormNames.TOAST_UIFORM)) UIManager.Instance.OpenUIForms(UIFormNames.TOAST_UIFORM);
-            UIManager.Instance.SendMessageToUIForm(UIDefine.TOAST_INFO_MSG, info, UIFormNames.TOAST_UIFORM);
+           if (!UIManager.Instance.IsOpen("ToastUIForm")) UIManager.Instance.OpenUIForms("ToastUIForm");
+           UIManager.Instance.SendMessageToUIForm(UIDefine.TOAST_INFO_MSG, info, "ToastUIForm");
         }
     }
 
