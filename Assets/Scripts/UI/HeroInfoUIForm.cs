@@ -42,7 +42,6 @@ public class HeroInfoUIForm : BaseUIForm
     public override void OnGlobalUIFormMsgEvent(string key, object values)
     {
         base.OnGlobalUIFormMsgEvent(key, values);
-
         if(key.Equals("ChangeCoin")) m_CoinText.text = UserData.Coin.ToString();
     }
 

@@ -30,14 +30,14 @@ public class MarketUIForm : BaseUIForm
     /// <summary>关闭当前UI面板</summary>
     private void closeCurrentUIForm(GameObject btnObject)
     {
-        CloseUIForm();
+        CloseCurrentUIForm();
     }
 
     /// <summary>打开购买装备面板</summary>
     private void openBuyUIForm(int id)
     {
         OpenUIForms(UIFormNames.PTOP_DETAIL_UIFORM);
-        SendMessageToUIForm(UIFormNames.PTOP_DETAIL_UIFORM, "UpgradeEquipment", id);
+        SendMessageToUIForm("UpgradeEquipment", id, UIFormNames.PTOP_DETAIL_UIFORM);
     }
 
 }

@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Mx.Log;
 using UnityEngine;
-using Mx.Log;
 using UnityEngine.UI;
 
 namespace Mx.Example
@@ -25,12 +23,12 @@ namespace Mx.Example
 
             if(m_IsOpenDebug)
             {
-                DebugManager.Instance.OpenDebug();
+                DebugManager.Instance.OpenLog();
                 m_ButtonText.text = "关闭日记输出";
             }
             else
             {
-                DebugManager.Instance.CloseDebug();
+                DebugManager.Instance.CloseLog();
                 m_ButtonText.text = "打开日记输出";
             }
         }

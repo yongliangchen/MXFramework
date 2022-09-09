@@ -1,4 +1,5 @@
 ﻿string/Id,string/En,string/Cn,string[]/Scene
+主键,英文名称,中文名称,使用场景
 user_name,UserName,账号,LoginUIForm
 input_user_name,Please enter the user name,请输入账号,LoginUIForm
 input_password,Please input a password,请输入密码,LoginUIForm

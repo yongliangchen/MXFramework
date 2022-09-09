@@ -14,6 +14,7 @@ namespace Mx.Config
 		public int LandType;
 		public int UIFormsDepth;
 		public int UIFormShowMode;
+		public int ScriptType;
 		public string ResourcesPath;
 		public string AssetBundlePath;
 		public string AssetName;
@@ -90,10 +91,16 @@ namespace Mx.Config
 				m_tempData.UIFormShowMode = 0;
 			}
 
-		m_tempData.ResourcesPath = m_datas[cnt][4];
-		m_tempData.AssetBundlePath = m_datas[cnt][5];
-		m_tempData.AssetName = m_datas[cnt][6];
-		m_tempData.Des = m_datas[cnt][7];
+		
+			if(!int.TryParse(m_datas[cnt][4], out m_tempData.ScriptType))
+			{
+				m_tempData.ScriptType = 0;
+			}
+
+		m_tempData.ResourcesPath = m_datas[cnt][5];
+		m_tempData.AssetBundlePath = m_datas[cnt][6];
+		m_tempData.AssetName = m_datas[cnt][7];
+		m_tempData.Des = m_datas[cnt][8];
                 if(!dicData.ContainsKey(m_datas[cnt][0]))
                 {
                     dicData.Add(m_datas[cnt][0], m_tempData);

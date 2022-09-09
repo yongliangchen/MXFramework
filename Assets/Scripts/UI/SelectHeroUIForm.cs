@@ -31,7 +31,7 @@ public class SelectHeroUIForm : BaseUIForm
     /// <summary>打开登入UI面板</summary>
     private void openLoginUIForm(GameObject btnObject)
     {
-        OpenUIAndCloseCurrentUI(UIFormNames.LOGIN_UIFORM);
+        OpenUIAndCloseCurrentUI(UIFormNames.LOGIN_UIFORM,UIFormNames.LOGIN_BG_UIFORM);
     }
 
 }
