@@ -18,8 +18,8 @@ public class SelectHeroUIForm : BaseUIForm
     /// <summary>注册按钮事件</summary>
     private void rigisterButtonEvent()
     {
-        RigisterButtonObjectEvent("BtnConfirm", openMainUIForm);
-        RigisterButtonObjectEvent("BtnClose", openLoginUIForm);
+        RigisterButtonEvent("BtnConfirm", openMainUIForm);
+        RigisterButtonEvent("BtnClose", openLoginUIForm);
     }
 
     /// <summary>打开首页UI面板</summary>
@@ -31,7 +31,7 @@ public class SelectHeroUIForm : BaseUIForm
     /// <summary>打开登入UI面板</summary>
     private void openLoginUIForm(GameObject btnObject)
     {
-        OpenUIAndCloseCurrentUI(UIFormNames.LOGIN_UIFORM);
+        OpenUIAndCloseCurrentUI(UIFormNames.LOGIN_UIFORM,UIFormNames.LOGIN_BG_UIFORM);
     }
 
 }

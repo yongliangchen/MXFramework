@@ -1,0 +1,13 @@
+﻿string/Name,int/LandType,int/UIFormsDepth,int/UIFormShowMode,int/ScriptType,string/ResourcesPath,string/AssetBundlePath,string/AssetName,string/Des
+UI窗口名称,0表示通过Resources方式加载；      1表示通过AssetBundle方式加载,0=Normal；                     1=Fixed；                         2=PopUp；                      3=Notice,0=Normal；1=ReverseChange；2=HideOther；3=FreezeOther；                     4=Toast,0=C#;                               1=Lua,Resources加载方式资源存放路径；如果是通过AssetBundle方式加载资源则可以不用填写,AssetBundle加载方式资源存放路径；如果是通过Resources方式加载资源则可以不用填写,AssetBundle加载方式资源名称；如果是通过Resources方式加载资源则可以不用填写,描述
+ToastUIForm,0,3,4,0,UIPrefabs/ToastUIForm,,,吐司UI面板
+LoginBgUIForm,0,0,0,0,UIPrefabs/LoginBgUIForm,,,登入背景UI面板
+LoginUIForm,0,1,0,0,UIPrefabs/LoginUIForm,,,登入UI面板
+RegisterUIForm,0,1,0,0,UIPrefabs/RegisterUIForm,,,注册UI面板
+SelectHeroUIForm,0,0,0,0,UIPrefabs/SelectHeroUIForm,,,选择英雄UI面板
+MainUIForm,0,0,0,0,UIPrefabs/MainUIForm,,,首页UI面板
+HeroInfoUIForm,0,1,0,0,UIPrefabs/HeroInfoUIForm,,,角色信息UI面板
+MarketUIForm,0,2,0,0,UIPrefabs/MarketUIForm,,,背包UI面板
+PtopDetailUIForm,0,3,0,0,UIPrefabs/PtopDetailUIForm,,,弹出框UI面板
+SettingsUIForm,1,2,0,1,,ui/uiprefabs.data,SettingsUIForm.prefab,设置UI面板
+QuitAppUIForm,1,2,0,1,,ui/uiprefabs.data,QuitAppUIForm.prefab,退出应用UI面板

@@ -47,14 +47,14 @@ public class PtopDetailUIForm : BaseUIForm
     /// <summary>注册按钮事件</summary>
     private void rigisterButtonEvent()
     {
-        RigisterButtonObjectEvent("BtnClose", closeCurrentUIForm);
-        RigisterButtonObjectEvent("BtnUpgrade", upgrade);
+        RigisterButtonEvent("BtnClose", closeCurrentUIForm);
+        RigisterButtonEvent("BtnUpgrade", upgrade);
     }
 
     /// <summary>关闭当前UI面板</summary>
     private void closeCurrentUIForm(GameObject btnObject)
     {
-        CloseUIForm();
+        CloseCurrentUIForm();
     }
 
     public override void OnCloseUIEvent()
@@ -70,9 +70,9 @@ public class PtopDetailUIForm : BaseUIForm
         int cost = m_EquipmentInfo.Coin * m_EquipmentInfo.Level;
 
         //升级成功
-        if(UserData.Coin>= cost)
+        if(TestUserDatas.Coin>= cost)
         {
-            UserData.Coin -= cost;
+            TestUserDatas.Coin -= cost;
             m_EquipmentInfo.Level++;
             setPanelInfo();
         }
@@ -109,7 +109,6 @@ public class PtopDetailUIForm : BaseUIForm
     /// <summary>刷新战斗力</summary>
     private void refreshCapability()
     {
-
         int capability = 0;
 
         for(int i=0;i< m_EquipmentInfosList.Count;i++)
@@ -117,8 +116,8 @@ public class PtopDetailUIForm : BaseUIForm
             capability += (m_EquipmentInfosList[i].Level * m_EquipmentInfosList[i].Base);
         }
 
-        UserData.Capability = capability;
-        SendMessageToUIForm(UIFormNames.HERO_INFO_UIFORM, "Capability", "战斗力增加了");
+        TestUserDatas.Capability = capability;
+        SendMessageToUIForm("Capability", "战斗力增加了", UIFormNames.HERO_INFO_UIFORM, UIFormNames.SETTINGS_UIFORM);
     }
 
 }

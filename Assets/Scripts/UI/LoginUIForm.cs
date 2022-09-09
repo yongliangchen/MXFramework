@@ -27,14 +27,19 @@ public class LoginUIForm : BaseUIForm
     /// <summary>注册按钮事件</summary>
     private void rigisterButtonEvent()
     {
-        RigisterButtonObjectEvent("BtnLogin", login);
-        RigisterButtonObjectEvent("BtnRegister", register);
+        RigisterButtonEvent("BtnLogin", login);
+        RigisterButtonEvent("BtnRegister", register);
     }
 
     /// <summary>登录</summary>
     private void login(GameObject btnObject)
     {
-        if (verify()) OpenUIAndCloseCurrentUI(UIFormNames.SELECT_HERO_UIFORM);
+        if (verify())
+        {
+            CloseCurrentUIForm();
+            CloseUIForms(UIFormNames.LOGIN_BG_UIFORM);
+            OpenUIForms(UIFormNames.SELECT_HERO_UIFORM);
+        }
     }
 
     /// <summary>注册</summary>

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Mx.Utils;
 using System;
+using System.IO;
 
 namespace Mx.Config
 {
@@ -14,6 +15,7 @@ namespace Mx.Config
 		public int LandType;
 		public int UIFormsDepth;
 		public int UIFormShowMode;
+		public int ScriptType;
 		public string ResourcesPath;
 		public string AssetBundlePath;
 		public string AssetName;
@@ -28,8 +30,8 @@ namespace Mx.Config
 
 	public partial class UIConfigDatabase:IDatabase
 	{
-		public const uint TYPE_ID = 4;
-		public const string DATA_PATH = "UIConfig";
+		public const uint TYPE_ID = 2;
+		public const string DATA_PATH = "9dc3d76cecd2f13062a92801246fcf2d";
        
 		private string[][] m_datas;
         private Dictionary<string, UIConfigData> dicData = new Dictionary<string, UIConfigData>();
@@ -44,7 +46,7 @@ namespace Mx.Config
 
 		public string DataPath()
 		{
-			return ConfigDefine.GetResoucesConfigOutPath + DATA_PATH;
+			return ConfigDefine.GetExternalConfigOutPath+DATA_PATH;
 		}
 
         public void Load()
@@ -53,14 +55,18 @@ namespace Mx.Config
           dicData.Clear();
           listData.Clear();
 
-           TextAsset textAsset = Resources.Load<TextAsset>(DataPath());
-           string str = textAsset.text;
-           if (string.IsNullOrEmpty(str))
-           {
-               Debug.LogError(GetType() + "/Load()/ load config error! path:" + DataPath());
-           }
-         
-          string textData = StringEncrypt.DecryptDES(str);
+          StreamReader streamReader = null;
+          if (File.Exists(DataPath())) streamReader = File.OpenText(DataPath());
+          else {
+                 Debug.LogError(GetType() + "/Load() load config eroor!  path:" + DataPath());
+                 return;
+              }
+
+          string str = streamReader.ReadToEnd();
+          streamReader.Close();
+          streamReader.Dispose();
+
+          string textData = (ConfigDefine.Encrypt)?StringEncrypt.DecryptDES(str):str;
           m_datas = CSVConverter.SerializeCSVData(textData);
           Serialization();
 
@@ -90,10 +96,16 @@ namespace Mx.Config
 				m_tempData.UIFormShowMode = 0;
 			}
 
-		m_tempData.ResourcesPath = m_datas[cnt][4];
-		m_tempData.AssetBundlePath = m_datas[cnt][5];
-		m_tempData.AssetName = m_datas[cnt][6];
-		m_tempData.Des = m_datas[cnt][7];
+		
+			if(!int.TryParse(m_datas[cnt][4], out m_tempData.ScriptType))
+			{
+				m_tempData.ScriptType = 0;
+			}
+
+		m_tempData.ResourcesPath = m_datas[cnt][5];
+		m_tempData.AssetBundlePath = m_datas[cnt][6];
+		m_tempData.AssetName = m_datas[cnt][7];
+		m_tempData.Des = m_datas[cnt][8];
                 if(!dicData.ContainsKey(m_datas[cnt][0]))
                 {
                     dicData.Add(m_datas[cnt][0], m_tempData);

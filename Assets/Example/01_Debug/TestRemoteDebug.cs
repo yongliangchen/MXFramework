@@ -10,9 +10,8 @@ namespace Mx.Example
     {
         private void Awake()
         {
-            DebugManager.Instance.RemoteDebug();
+            //DebugManager.Instance.RemoteDebug();
            
-
             InvokeRepeating("PrintLog", 0.2f, 0.2f);
         }
 

@@ -1,0 +1,121 @@
+﻿/*代码自动生成的类，请勿手动修改*/
+
+using UnityEngine;
+using System.Collections.Generic;
+using Mx.Utils;
+using System;
+using System.IO;
+
+namespace Mx.Config
+{
+    [Serializable]
+	public class $DataClassName
+	{
+		$DataAttributes
+	}
+
+    [Serializable]
+    public class $DataClassNames
+    {
+        public $DataClassName[] content;
+    }
+
+	public partial class $DataTypeName:IDatabase
+	{
+		public const uint TYPE_ID = $DataID;
+		public const string DATA_PATH = $DataPath;
+       
+		private string[][] m_datas;
+        private Dictionary<string, $DataClassName> dicData = new Dictionary<string, $DataClassName>();
+        private List<$DataClassName> listData = new List<$DataClassName>();
+        private $DataClassNames configDatas;
+		public $DataTypeName(){}
+
+		public uint TypeID()
+		{
+			return TYPE_ID;
+		}
+
+		public string DataPath()
+		{
+			return ConfigDefine.GetExternalConfigOutPath+DATA_PATH;
+		}
+
+        public void Load()
+        {
+          configDatas = new $DataClassNames();
+          dicData.Clear();
+          listData.Clear();
+
+          StreamReader streamReader = null;
+          if (File.Exists(DataPath())) streamReader = File.OpenText(DataPath());
+          else {
+                 Debug.LogError(GetType() + "/Load() load config eroor!  path:" + DataPath());
+                 return;
+              }
+
+          string str = streamReader.ReadToEnd();
+          streamReader.Close();
+          streamReader.Dispose();
+
+          string textData = (ConfigDefine.Encrypt)?StringEncrypt.DecryptDES(str):str;
+          m_datas = CSVConverter.SerializeCSVData(textData);
+          Serialization();
+
+        }
+
+		private void Serialization()
+		{
+			for(int cnt = 0; cnt < m_datas.Length; cnt++)
+			{
+                $DataClassName m_tempData = new $DataClassName();
+			    $CsvSerialize
+                if(!dicData.ContainsKey(m_datas[cnt][0]))
+                {
+                    dicData.Add(m_datas[cnt][0], m_tempData);
+                    listData.Add(m_tempData);
+                }
+			}
+		}
+
+        public $DataClassName GetDataByKey(string key)
+        {
+            $DataClassName data;
+            dicData.TryGetValue(key, out data);
+            return data;
+        }
+
+        public string GetJsonStringBykey(string key)
+        {
+            string data = string.Empty;
+            $DataClassName jsonData = GetDataByKey(key);
+            if (data != null) data = JsonUtility.ToJson(jsonData);
+            return data;
+        }
+
+        public string GetAllJsonString()
+        {
+            configDatas.content = GetAllDataArray();
+
+            string datas = string.Empty;
+            if (listData!= null) datas = JsonUtility.ToJson(configDatas);
+            return datas;
+        }
+
+		public int GetCount()
+		{
+			return listData.Count;
+		}
+
+        public List <$DataClassName> GetAllDataList()
+        {
+            return listData;
+        }
+
+        public $DataClassName[] GetAllDataArray()
+        {
+            return listData.ToArray();
+        }
+
+	}
+}
